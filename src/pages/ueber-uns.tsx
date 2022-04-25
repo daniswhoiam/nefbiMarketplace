@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/Layout"
 
-const Index = () => {
+const UeberUns = () => {
   return (
     <Layout>
       <main>Main</main>
@@ -9,4 +9,4 @@ const Index = () => {
   )
 }
 
-export default Index
+export default UeberUns
