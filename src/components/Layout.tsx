@@ -11,11 +11,11 @@ const LayoutPropTypes = {
 type LayoutTypes = InferProps<typeof LayoutPropTypes>;
 const Layout = ({ children }: LayoutTypes) => {
   return (
-    <>
+    <div className="min-h-screen flex flex-col justify-between">
       <Navbar />
       {children}
       <Footer />
-    </>
+    </div>
   )
 }
 
