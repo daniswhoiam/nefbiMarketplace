@@ -1,25 +1,17 @@
 import React from "react"
-import PropTypes, { InferProps } from "prop-types"
+import PropTypes from "prop-types"
+import { Resource } from "../utils/interfaces"
+import Card from "./Card"
 
 const ResourcesListPropTypes = {
   resources: PropTypes.array,
 }
 
-type ResourcesListTypes = InferProps<typeof ResourcesListPropTypes>
-const ResourcesList = ({ resources = [] }: ResourcesListTypes) => {
+const ResourcesList = ({ resources = [] }: { resources?: Array<Resource> }) => {
   return (
-    <div>
+    <div className="space-y-4 w-full">
       {resources?.map(resource => {
-        const {
-          id,
-          thema,
-          titel,
-          url,
-          format,
-          beschreibung: { beschreibung },
-        } = resource
-
-        return <p>{titel}</p>
+        return <Card resource={resource} />
       })}
     </div>
   )

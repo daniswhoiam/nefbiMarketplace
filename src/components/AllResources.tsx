@@ -25,7 +25,7 @@ const AllResources = () => {
   const resources = data.allContentfulOnlineRessource.nodes;
 
   return (
-    <section>
+    <section className="flex">
       <TagList resources={resources} />
       <ResourcesList resources={resources} />
     </section>
