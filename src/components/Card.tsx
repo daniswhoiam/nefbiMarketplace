@@ -22,7 +22,7 @@ const Card = ({ resource }: { resource: Resource }) => {
       className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white"
     >
       <div className="w-full md:w-1/3 bg-white grid place-items-center">
-        <RiArticleFill />
+        <RiArticleFill size="4em" />
       </div>
       <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
         <h3 className="font-black text-gray-800 md:text-3xl text-xl">

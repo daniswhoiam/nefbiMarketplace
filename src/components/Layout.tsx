@@ -4,21 +4,21 @@ import Navbar from "./Navbar"
 import Footer from "./Footer"
 
 const LayoutPropTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 }
 
 // https://blog.logrocket.com/comparing-typescript-and-proptypes-in-react-applications/
-type LayoutTypes = InferProps<typeof LayoutPropTypes>;
+type LayoutTypes = InferProps<typeof LayoutPropTypes>
 const Layout = ({ children }: LayoutTypes) => {
   return (
-    <div className="min-h-screen flex flex-col justify-between">
+    <div className="min-h-screen flex flex-col justify-between bg-gray-50">
       <Navbar />
-      {children}
+      <div className="p-10">{children}</div>
       <Footer />
     </div>
   )
 }
 
-Layout.propTypes = LayoutPropTypes;
+Layout.propTypes = LayoutPropTypes
 
 export default Layout

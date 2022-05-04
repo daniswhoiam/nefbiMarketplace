@@ -19,7 +19,7 @@ const query = graphql`
     }
   }
 `
-
+// https://tailwindcomponents.com/component/sidebar-2
 const AllResources = () => {
   const data = useStaticQuery(query)
   const resources = data.allContentfulOnlineRessource.nodes;
