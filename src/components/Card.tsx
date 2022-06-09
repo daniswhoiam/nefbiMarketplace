@@ -19,21 +19,24 @@ const Card = ({ resource }: { resource: Resource }) => {
   return (
     <div
       key={id}
-      className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white"
+      className="relative flex flex-col max-w-xs p-3 mx-auto space-y-3 bg-white border border-white shadow-lg md:flex-row md:space-x-5 md:space-y-0 rounded-xl md:max-w-3xl"
     >
-      <div className="w-full md:w-1/3 bg-white grid place-items-center">
+      <div className="grid w-full bg-white md:w-1/3 place-items-center">
         <RiArticleFill size="4em" />
       </div>
-      <div className="w-full md:w-2/3 bg-white flex flex-col space-y-2 p-3">
-        <h3 className="font-black text-gray-800 md:text-3xl text-xl">
+      <div className="flex flex-col w-full p-3 space-y-2 bg-white md:w-2/3">
+        <h3 className="text-xl font-black text-gray-800 md:text-3xl">
           {titel}
         </h3>
-        <p className="md:text-lg text-gray-500 text-base">{beschreibung}</p>
+        <p className="text-base text-gray-500 md:text-lg">{beschreibung}</p>
         <div className="flex justify-between item-center">
-          <p className="text-gray-500 font-medium hidden md:block">{thema}</p>
-          {format.map(entry => {
+          <p className="hidden font-medium text-gray-500 md:block">{thema}</p>
+          {format.map((entry, index) => {
             return (
-              <div className="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block">
+              <div
+                key={index}
+                className="hidden px-3 py-1 text-xs font-medium text-gray-800 bg-gray-200 rounded-full md:block"
+              >
                 {entry}
               </div>
             )

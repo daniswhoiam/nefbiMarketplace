@@ -1,21 +1,18 @@
 import React from "react"
 import { Link } from "gatsby"
-import { TiSocialTwitterCircular } from "@react-icons/all-files/ti/TiSocialTwitterCircular"
-import { TiSocialFacebookCircular } from "@react-icons/all-files/ti/TiSocialFacebookCircular"
-import { TiSocialLinkedinCircular } from "@react-icons/all-files/ti/TiSocialLinkedinCircular"
 import Logo from "../assets/images/logo_white_without_bg.svg"
 import Hexagon from "../assets/images/hexagon.svg"
 
 const Footer = () => {
   return (
-    <footer className="relative w-full text-white bg-grey-black pt-16 pb-10 px-4 lg:px-24 font-open-sans text-sm font-medium overflow-hidden">
-      <div className="grid grid-cols-1 gap-y-14">
-        <div className="flex flex-col col-span-1 gap-y-2 justify-items-start ">
-          <Link to="/" className="h-24 w-48 mr-2">
+    <footer className="relative w-full px-4 pt-16 pb-10 overflow-hidden text-sm font-medium text-white bg-grey-black lg:px-24 font-open-sans">
+      <div className="grid max-w-screen-xl grid-cols-1 mx-auto gap-y-14 lg:grid-cols-3">
+        <div className="flex flex-col col-span-1 gap-y-2 justify-items-start">
+          <Link to="/" className="mr-2">
             <Logo
               name="Nefbi"
-              height="inherit"
-              width="inherit"
+              height="6rem"
+              width="12rem"
               viewBox="100 0 200 220"
             />
           </Link>
@@ -26,30 +23,30 @@ const Footer = () => {
           </p>
           <p>info@nefbi.de</p>
         </div>
-        <Hexagon
-          height="69.82"
-          width="79.54"
-          fill="#DADADA"
-          className="absolute top-[33.82%] left-[64.93%] rotate-[135deg] opacity-[0.15]"
-        />
-        <div className="col-span-1 grid grid-cols-2 gap-y-6 font-semibold text-base">
+        <div className="grid grid-cols-2 col-span-1 text-base font-semibold gap-y-6 lg:col-span-2 lg:justify-items-start lg:items-center">
           <Link to="/">Startseite</Link>
           <Link to="/ueber-uns">Über Uns</Link>
           <Link to="/kontakt">Kontakt</Link>
           <Link to="/datenschutz">Datenschutz</Link>
         </div>
-        <div className="col-span-1 flex flex-col gap-y-4 font-normal">
-          <p>nefbi 2022</p>
+        <div className="flex flex-col col-span-1 font-normal gap-y-4 lg:col-span-3 lg:flex-row lg:justify-center lg:gap-x-16">
+          <p>&copy; nefbi 2022</p>
           <p>Alle Rechte vorbehalten</p>
           <Link to="/impressum">Impressum</Link>
         </div>
+        <Hexagon
+          height="69.82"
+          width="79.54"
+          fill="#DADADA"
+          className="absolute top-40 right-24 lg:top-32 lg:right-44 rotate-[135deg] opacity-[0.15]"
+        />
+        <Hexagon
+          height="230.25"
+          width="262.32"
+          fill="#DADADA"
+          className="absolute -bottom-32 -right-12 rotate-[87.54deg] opacity-[0.15]"
+        />
       </div>
-      <Hexagon
-        height="230.25"
-        width="262.32"
-        fill="#DADADA"
-        className="absolute top-[75.67%] left-[53.61%] rotate-[87.54deg] opacity-[0.15]"
-      />
     </footer>
   )
 }

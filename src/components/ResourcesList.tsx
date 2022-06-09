@@ -9,9 +9,9 @@ const ResourcesListPropTypes = {
 
 const ResourcesList = ({ resources = [] }: { resources?: Array<Resource> }) => {
   return (
-    <div className="space-y-4 w-full">
-      {resources?.map(resource => {
-        return <Card resource={resource} />
+    <div className="w-full space-y-4">
+      {resources?.map((resource, index) => {
+        return <Card resource={resource} key={index} />
       })}
     </div>
   )
