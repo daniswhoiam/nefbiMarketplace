@@ -28,6 +28,23 @@ const config: GatsbyConfig = {
         accessToken: process.env.CONTENTFUL_API_KEY,
       },
     },
+    {
+      resolve: `gatsby-plugin-webfonts`,
+      options: {
+        fonts: {
+          google2: [
+            {
+              family: "Open Sans",
+              axes: "wght@300;400;500;700",
+            },
+            {
+              family: "Mitr",
+              axes: "wght@300;400;500;700",
+            },
+          ],
+        },
+      },
+    },
   ],
 }
 
