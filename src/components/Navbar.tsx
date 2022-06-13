@@ -9,10 +9,10 @@ import Logo from "../assets/images/logo_white_reduced.svg"
 const Navbar = () => {
   const [show, setShow] = useState(false)
   return (
-    <nav className="fixed z-10 w-full text-white bg-light-sea-green">
+    <nav className="fixed z-10 w-full text-white bg-light-sea-green lg:px-24">
       <div className="flex flex-col max-w-screen-xl px-4 py-1 mx-auto md:items-center md:justify-between md:flex-row">
         <div className="flex flex-row items-center justify-between">
-          <Link to="/" className="w-40 h-16">
+          <Link to="/" className="w-42 h-14">
             <Logo/>
           </Link>
           <button
