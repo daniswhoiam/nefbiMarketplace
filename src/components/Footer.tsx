@@ -5,7 +5,7 @@ import Hexagon from "../assets/images/hexagon.svg"
 
 const Footer = () => {
   return (
-    <footer className="relative w-full px-4 pt-16 pb-10 overflow-hidden text-sm font-medium text-white bg-grey-black lg:px-24 font-open-sans">
+    <footer className="relative w-full px-4 pt-16 pb-10 overflow-hidden text-sm font-medium text-white bg-grey-black lg:px-24">
       <div className="grid max-w-screen-xl grid-cols-1 mx-auto gap-y-14 lg:grid-cols-3">
         <div className="flex flex-col col-span-1 gap-y-2 justify-items-start">
           <Link to="/" className="mr-2">
@@ -32,7 +32,12 @@ const Footer = () => {
         <div className="flex flex-col col-span-1 font-normal gap-y-4 lg:col-span-3 lg:flex-row lg:justify-center lg:gap-x-16">
           <p>&copy; nefbi 2022</p>
           <p>Alle Rechte vorbehalten</p>
-          <Link to="/impressum">Impressum</Link>
+          <Link
+            to="/impressum"
+            className="leading-normal tracking-[.015em] text-lg mb-2"
+          >
+            Impressum
+          </Link>
         </div>
         <Hexagon
           height="69.82"

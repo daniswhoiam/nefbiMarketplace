@@ -13,7 +13,7 @@ const Layout = ({ children }: LayoutTypes) => {
   return (
     <div className="min-h-screen flex flex-col justify-between bg-gray-50">
       <Navbar />
-      <div className="container mx-auto p-10 mt-20">{children}</div>
+      <div className="relative mt-20">{children}</div>
       <Footer />
     </div>
   )
