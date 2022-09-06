@@ -22,13 +22,6 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: `gatsby-source-contentful`,
-      options: {
-        spaceId: process.env.CONTENTFUL_SPACE_ID,
-        accessToken: process.env.CONTENTFUL_API_KEY,
-      },
-    },
-    {
       resolve: `gatsby-plugin-webfonts`,
       options: {
         fonts: {
@@ -46,8 +39,34 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: `gatsby-plugin-react-helmet`
-    }
+      resolve: `gatsby-plugin-react-helmet`,
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `data`,
+        path: `./src/data`,
+        ignore: [`**/\.*`], // ignore files starting with a dot
+      }
+    },
+    `gatsby-transformer-json`,
+    /*
+    {
+      resolve: `gatsby-plugin-local-search`,
+      options: {
+        name: "data",
+        engine: "flexsearch",
+        query: `
+          {
+            localSearchData {
+              index
+              store
+            }
+          }
+        `,
+      },
+    },
+    */
   ],
 }
 

@@ -5,16 +5,16 @@ import { graphql, useStaticQuery } from "gatsby"
 
 const query = graphql`
   {
-    allContentfulOnlineRessource(sort: { order: DESC, fields: createdAt }) {
-      nodes {
-        beschreibung {
+    allDataJson {
+      edges {
+        node {
+          titel
           beschreibung
+          url
+          format
+          thema
+          author
         }
-        id
-        thema
-        titel
-        url
-        format
       }
     }
   }
@@ -22,7 +22,7 @@ const query = graphql`
 // https://tailwindcomponents.com/component/sidebar-2
 const AllResources = () => {
   const data = useStaticQuery(query)
-  const resources = data.allContentfulOnlineRessource.nodes;
+  const resources = data.allDataJson.edges
 
   return (
     <section className="flex">
