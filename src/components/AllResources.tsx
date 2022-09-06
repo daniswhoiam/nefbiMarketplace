@@ -27,7 +27,7 @@ const AllResources = () => {
   return (
     <section className="flex">
       <TagList resources={resources} />
-      <ResourcesList resources={resources} />
+      <ResourcesList resources={resources} itemsPerPage={5} />
     </section>
   )
 }

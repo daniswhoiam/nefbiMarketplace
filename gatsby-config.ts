@@ -47,26 +47,42 @@ const config: GatsbyConfig = {
         name: `data`,
         path: `./src/data`,
         ignore: [`**/\.*`], // ignore files starting with a dot
-      }
+      },
     },
     `gatsby-transformer-json`,
-    /*
     {
       resolve: `gatsby-plugin-local-search`,
       options: {
         name: "data",
         engine: "flexsearch",
         query: `
-          {
-            localSearchData {
-              index
-              store
+        {
+          allDataJson {
+            edges {
+              node {
+                titel
+                beschreibung
+                url
+                format
+                thema
+                author
+              }
             }
           }
+        }
         `,
+        normalizer: ({ data }) =>
+          data.allDataJson.edges.map(node => ({
+            id: node.id,
+            titel: node.titel,
+            beschreibung: node.beschreibung,
+            url: node.url,
+            format: node.format,
+            thema: node.thema,
+            author: node.author,
+          })),
       },
     },
-    */
   ],
 }
 
