@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+  *,*:focus,*:hover{
+    outline:none;
+  }
+
   h1 {
     @apply lg:text-6xl text-4xl mt-14 mb-8 leading-normal tracking-[.015em] font-mitr;
   }

@@ -67,6 +67,9 @@ const config: GatsbyConfig = {
               format
               thema
               author
+              altersgruppe
+              erscheinungsjahr
+              herausgeber
             }
           }
         }
@@ -80,6 +83,9 @@ const config: GatsbyConfig = {
             format: item.format,
             thema: item.thema,
             author: item.author,
+            altersgruppe: item.altersgruppe,
+            erscheinungsjahr: item.erscheinungsjahr,
+            herausgeber: item.herausgeber
           })),
       },
     },

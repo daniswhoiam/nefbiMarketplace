@@ -5,6 +5,10 @@ export interface Resource {
   titel: string
   url: string
   format: Array<string>
+  author: string
+  altersgruppe: string
+  erscheinungsjahr: number
+  herausgeber: string
 }
 
 export interface PaginationProps {

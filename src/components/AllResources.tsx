@@ -4,6 +4,7 @@ import TagList from "./TagList"
 import ResourcesList from "./ResourcesList"
 import Pagination from "./Pagination"
 import { graphql, useStaticQuery } from "gatsby"
+import { MdSearch } from "@react-icons/all-files/md/MdSearch"
 
 const query = graphql`
   {
@@ -15,6 +16,9 @@ const query = graphql`
         format
         thema
         author
+        altersgruppe
+        erscheinungsjahr
+        herausgeber
       }
       pageInfo {
         currentPage
@@ -58,28 +62,35 @@ const AllResources = () => {
   }, [searchQuery])
 
   return (
-    <section className="flex">
-      <TagList resources={resources} />
-      <div className="pa2">
-        <input
-          className="pa3 bb br3 grow b--none bg-lightest-blue ma3"
-          type="search"
-          placeholder="Search People"
-          onChange={event => {
-            setSearchQuery(event.target.value)
-            console.log(results)
-          }}
+    <section className="grid grid-cols-10 gap-4">
+      <div className="col-span-4 p-2">
+        <label className="relative block">
+          <span className="sr-only">Suche</span>
+          <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+            <MdSearch size="20px" color="#686868" />
+          </span>
+          <input
+            className="flex flex-row items-start pl-8 pr-2 py-4 w-full h-11 border border-solid border-[#DADADA] bg-white rounded-lg"
+            type="search"
+            placeholder="Suche"
+            onChange={event => {
+              setSearchQuery(event.target.value)
+              console.log(results)
+            }}
+          />
+        </label>
+      </div>
+      <div className="col-span-6">
+        <ResourcesList resources={currentData} itemsPerPage={5} />
+        <Pagination
+          className="pagination-bar"
+          currentPage={currentPage}
+          totalCount={resources.length}
+          pageSize={PageSize}
+          siblingCount={2}
+          onPageChange={(page: number) => setCurrentPage(page)}
         />
       </div>
-      <ResourcesList resources={currentData} itemsPerPage={5} />
-      <Pagination
-        className="pagination-bar"
-        currentPage={currentPage}
-        totalCount={resources.length}
-        pageSize={PageSize}
-        siblingCount={2}
-        onPageChange={(page: number) => setCurrentPage(page)}
-      />
     </section>
   )
 }
