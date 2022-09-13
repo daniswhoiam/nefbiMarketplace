@@ -55,35 +55,36 @@ const config: GatsbyConfig = {
       options: {
         name: "data",
         engine: "flexsearch",
+        index: ["titel", "beschreibung"],
         query: `
         {
           allDataJson {
-            edges {
-              node {
-                titel
-                beschreibung
-                url
-                format
-                thema
-                author
-              }
+            nodes { 
+              id
+              titel
+              beschreibung
+              url
+              format
+              thema
+              author
             }
           }
         }
         `,
         normalizer: ({ data }) =>
-          data.allDataJson.edges.map(node => ({
-            id: node.id,
-            titel: node.titel,
-            beschreibung: node.beschreibung,
-            url: node.url,
-            format: node.format,
-            thema: node.thema,
-            author: node.author,
+          data.allDataJson.nodes.map(item => ({
+            id: item.id,
+            titel: item.titel,
+            beschreibung: item.beschreibung,
+            url: item.url,
+            format: item.format,
+            thema: item.thema,
+            author: item.author,
           })),
       },
     },
-  ],
+    `gatsby-plugin-sass`
+  ]
 }
 
 export default config

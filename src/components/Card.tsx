@@ -8,7 +8,7 @@ import { Resource } from "../utils/interfaces"
 // Props: https://stackoverflow.com/questions/59301171/is-not-assignable-to-type-intrinsicattributes-react-js-and-typescript-js
 // Design: https://tailwindcomponents.com/component/tailwind-item-card, https://tailwindcomponents.com/component/article-news-card-1
 const Card = ({ resource }: { resource: Resource }) => {
-  const { id, thema, titel, url, format, beschreibung } = resource.node
+  const { id, thema, titel, url, format, beschreibung } = resource
   return (
     <div
       key={id}
