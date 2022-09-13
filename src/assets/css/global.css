@@ -22,14 +22,14 @@
   }
 
   p {
-    @apply leading-normal tracking-[.015em] text-lg mb-2;
+    @apply leading-normal tracking-[.015em] text-sm mb-2;
   }
 
 }
 
 @layer components {
   .inline-link {
-    @apply pt-0.5 pr-px text-light-sea-green underline visited:text-[#646536] font-normal text-lg tracking-[.015em] leading-normal;
+    @apply pt-0.5 pr-px text-light-sea-green underline visited:text-[#646536] font-normal text-sm tracking-[.015em] leading-normal;
   }
 
   .overline-text {

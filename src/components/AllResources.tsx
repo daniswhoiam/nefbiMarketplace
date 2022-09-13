@@ -63,7 +63,7 @@ const AllResources = () => {
 
   return (
     <section className="grid grid-cols-10 gap-4">
-      <div className="col-span-4 p-2">
+      <div className="col-span-3 p-2">
         <label className="relative block">
           <span className="sr-only">Suche</span>
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -80,12 +80,15 @@ const AllResources = () => {
           />
         </label>
       </div>
-      <div className="col-span-6">
-        <ResourcesList resources={currentData} itemsPerPage={5} />
+      <div className="col-span-7 p-2">
+        <h4 className="font-sans text-lg h-11 leading-10 font-medium">
+          {results.length > 0 ? results.length : resources.length} Ergebnisse
+        </h4>
+        <ResourcesList currentItems={currentData} />
         <Pagination
           className="pagination-bar"
           currentPage={currentPage}
-          totalCount={resources.length}
+          totalCount={results.length > 0 ? results.length : resources.length}
           pageSize={PageSize}
           siblingCount={2}
           onPageChange={(page: number) => setCurrentPage(page)}
