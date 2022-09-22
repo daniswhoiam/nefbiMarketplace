@@ -1,10 +1,12 @@
 import React, { useMemo, useState, useEffect } from "react"
 import { useFlexSearch } from "react-use-flexsearch"
 import TagList from "./TagList"
+import Filter from "./Filter"
 import ResourcesList from "./ResourcesList"
 import Pagination from "./Pagination"
 import { graphql, useStaticQuery } from "gatsby"
 import { MdSearch } from "@react-icons/all-files/md/MdSearch"
+import { Resource } from "../utils/interfaces"
 
 const query = graphql`
   {
@@ -42,24 +44,43 @@ const PageSize = 5
 const AllResources = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
+  const [filterData, setFilterData] = useState([])
   const data = useStaticQuery(query)
   const resources = data.allDataJson.nodes
-  const results = useFlexSearch(
+  let results = useFlexSearch(
     searchQuery,
     data.localSearchData.index,
     data.localSearchData.store
   )
+  const filterTabs = ["Filter", "Themen"]
 
   const currentData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
     let data = results.length > 0 ? results : resources
+    if (filterData.length > 0) {
+      data = filterData
+    }
     return data.slice(firstPageIndex, lastPageIndex)
-  }, [currentPage, searchQuery])
+  }, [currentPage, searchQuery, filterData])
 
   useEffect(() => {
     setCurrentPage(1)
   }, [searchQuery])
+
+  function setFilter (altersgruppe: string) {
+    let filterResults = [];
+    if (results && results.length > 0) {
+      filterResults = results.filter((resource: Resource) => {
+        return resource.altersgruppe == altersgruppe
+      })
+    } else {
+      filterResults = resources.filter((resource: Resource) => {
+        return resource.altersgruppe == altersgruppe
+      })
+    }
+    setFilterData(filterResults)
+  }
 
   return (
     <section className="grid grid-cols-10 gap-4">
@@ -79,6 +100,13 @@ const AllResources = () => {
             }}
           />
         </label>
+        {/* Tab Buttons */}
+        <div className="flex justify-between items-center mt-4">
+            {filterTabs.map(tab => {
+              return <button className="rounded-t-md bg-light-sea-green px-6 py-1 text-white">{tab}</button>
+            })}
+        </div>
+        <Filter setFilter={setFilter} />
       </div>
       <div className="col-span-7 p-2">
         <h4 className="font-sans text-lg h-11 leading-10 font-medium">
