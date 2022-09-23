@@ -38,7 +38,7 @@ const query = graphql`
   }
 `
 
-const PageSize = 5
+const PageSize = 6
 
 // https://tailwindcomponents.com/component/sidebar-2
 const AllResources = () => {
@@ -46,13 +46,14 @@ const AllResources = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [filterData, setFilterData] = useState([])
   const data = useStaticQuery(query)
-  const resources = data.allDataJson.nodes
+  const resources: Array<Resource> = Object.values(data.localSearchData.store) //data.allDataJson.nodes
   let results = useFlexSearch(
     searchQuery,
     data.localSearchData.index,
     data.localSearchData.store
   )
   const filterTabs = ["Filter", "Themen"]
+  const noResults = results && results.length == 0 && searchQuery != ""
 
   const currentData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
@@ -68,8 +69,8 @@ const AllResources = () => {
     setCurrentPage(1)
   }, [searchQuery])
 
-  function setFilter (altersgruppe: string) {
-    let filterResults = [];
+  function setFilter(altersgruppe: string) {
+    let filterResults = []
     if (results && results.length > 0) {
       filterResults = results.filter((resource: Resource) => {
         return resource.altersgruppe == altersgruppe
@@ -96,31 +97,42 @@ const AllResources = () => {
             placeholder="Suche"
             onChange={event => {
               setSearchQuery(event.target.value)
-              console.log(results)
             }}
           />
         </label>
         {/* Tab Buttons */}
-        <div className="flex justify-between items-center mt-4">
-            {filterTabs.map(tab => {
-              return <button className="rounded-t-md bg-light-sea-green px-6 py-1 text-white">{tab}</button>
-            })}
+        <div className="flex items-center justify-between mt-4">
+          {filterTabs.map(tab => {
+            return (
+              <button className="px-6 py-1 text-white rounded-t-md bg-light-sea-green">
+                {tab}
+              </button>
+            )
+          })}
         </div>
         <Filter setFilter={setFilter} />
       </div>
       <div className="col-span-7 p-2">
-        <h4 className="font-sans text-lg h-11 leading-10 font-medium">
+        <h4 className="font-sans text-lg font-medium leading-10 h-11">
           {results.length > 0 ? results.length : resources.length} Ergebnisse
         </h4>
-        <ResourcesList currentItems={currentData} />
-        <Pagination
-          className="pagination-bar"
-          currentPage={currentPage}
-          totalCount={results.length > 0 ? results.length : resources.length}
-          pageSize={PageSize}
-          siblingCount={2}
-          onPageChange={(page: number) => setCurrentPage(page)}
-        />
+        {noResults ? (
+          <div>Es gibt keine Ergebnisse für diese Suche.</div>
+        ) : (
+          <>
+            <ResourcesList currentItems={currentData} />
+            <Pagination
+              className="pagination-bar"
+              currentPage={currentPage}
+              totalCount={
+                results.length > 0 ? results.length : resources.length
+              }
+              pageSize={PageSize}
+              siblingCount={2}
+              onPageChange={(page: number) => setCurrentPage(page)}
+            />
+          </>
+        )}
       </div>
     </section>
   )

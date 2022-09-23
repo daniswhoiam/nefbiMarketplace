@@ -2,7 +2,7 @@ import React from "react"
 import classnames from "classnames"
 import { usePagination, DOTS } from "../hooks/usePagination"
 import { PaginationProps } from "../utils/interfaces"
-import '../assets/css/pagination.scss'
+import "../assets/css/pagination.scss"
 
 // TO DO PropTypes
 

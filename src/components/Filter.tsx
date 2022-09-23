@@ -9,7 +9,7 @@ const query = graphql`
   }
 `
 
-const Filter = ({setFilter}: {setFilter: any}) => {
+const Filter = ({ setFilter }: { setFilter: any }) => {
   const data = useStaticQuery(query)
   const altersgruppen = data.allDataJson.distinct
 
@@ -26,12 +26,20 @@ const Filter = ({setFilter}: {setFilter: any}) => {
         <select
           id="Altersgruppe"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          onChange={event => {setFilter(event.target.value)}}
+          onChange={event => {
+            setFilter(event.target.value)
+          }}
         >
           <option selected={true}>Wähle eine Altersgruppe</option>
-          {altersgruppen && altersgruppen.length > 0 && altersgruppen.map((entry: string) => {
-            return <option value={entry || "Kein Eintrag"}>{entry || "Kein Eintrag"}</option>
-          })}
+          {altersgruppen &&
+            altersgruppen.length > 0 &&
+            altersgruppen.map((entry: string) => {
+              return (
+                <option value={entry || "Kein Eintrag"}>
+                  {entry || "Kein Eintrag"}
+                </option>
+              )
+            })}
         </select>
       </div>
     </div>
