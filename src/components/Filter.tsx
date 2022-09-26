@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
+import { filterFields } from "./AllResources"
 
 const query = graphql`
   {
@@ -9,7 +10,11 @@ const query = graphql`
   }
 `
 
-const Filter = ({ setFilter }: { setFilter: any }) => {
+const Filter = ({
+  setFilter,
+}: {
+  setFilter: React.Dispatch<React.SetStateAction<Partial<filterFields>>>
+}) => {
   const data = useStaticQuery(query)
   const altersgruppen = data.allDataJson.distinct
 
@@ -30,7 +35,9 @@ const Filter = ({ setFilter }: { setFilter: any }) => {
             setFilter({ altersgruppe: event.target.value })
           }}
         >
-          <option value="Alle" selected={true}>Wähle eine Altersgruppe</option>
+          <option value="Alle" selected={true}>
+            Wähle eine Altersgruppe
+          </option>
           {altersgruppen &&
             altersgruppen.length > 0 &&
             altersgruppen.map((entry: string) => {

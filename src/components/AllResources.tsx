@@ -10,27 +10,6 @@ import { Resource } from "../utils/interfaces"
 
 const query = graphql`
   {
-    allDataJson {
-      nodes {
-        titel
-        beschreibung
-        url
-        format
-        thema
-        author
-        altersgruppe
-        erscheinungsjahr
-        herausgeber
-      }
-      pageInfo {
-        currentPage
-        itemCount
-        hasNextPage
-        hasPreviousPage
-        pageCount
-        perPage
-      }
-    }
     localSearchData {
       index
       store
@@ -40,7 +19,7 @@ const query = graphql`
 
 const PageSize = 6
 
-interface filterFields {
+export interface filterFields {
   altersgruppe: string
   erscheinungsjahr: string
 }
@@ -49,35 +28,32 @@ interface filterFields {
 const AllResources = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
-  const [filterData, setFilterData] = useState<Partial<filterFields>>({})
+  // https://stackoverflow.com/questions/39713349/make-all-properties-within-a-typescript-interface-optional
+  const [filterObject, setFilterObject] = useState<Partial<filterFields>>({})
+  // Get query data
   const data = useStaticQuery(query)
-  const resources: Array<Resource> = Object.values(data.localSearchData.store) //data.allDataJson.nodes
+  // Hook up search and filter functionality
   let results = useSearchAndFilter(
     searchQuery,
     data.localSearchData.index,
     data.localSearchData.store,
-    filterData
+    filterObject
   )
   const filterTabs = ["Filter", "Themen"]
-  const noResults = results && results.length == 0 && searchQuery != ""
+  const noResults = results.length === 0
 
+  // Data to be displayed on the current page
   const currentData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
-    let data = results
-    return data.slice(firstPageIndex, lastPageIndex)
+    return results.slice(firstPageIndex, lastPageIndex)
   }, [currentPage, results])
 
+  // If search or filter changes, always go back to page one
   useEffect(() => {
     setCurrentPage(1)
-  }, [searchQuery])
+  }, [searchQuery, filterObject])
 
-  // https://stackoverflow.com/questions/39713349/make-all-properties-within-a-typescript-interface-optional
-  function setFilter(filterObject: Partial<filterFields>) {
-    setFilterData(filterObject)
-  }
-
-  // TO DO: Correct counts and pagination
   return (
     <section className="grid grid-cols-10 gap-4">
       <div className="col-span-3 p-2">
@@ -105,14 +81,11 @@ const AllResources = () => {
             )
           })}
         </div>
-        <Filter setFilter={setFilter} />
+        <Filter setFilter={setFilterObject} />
       </div>
       <div className="col-span-7 p-2">
         <h4 className="font-sans text-lg font-medium leading-10 h-11">
-          {currentData?.length > 0 || results?.length > 0
-            ? Math.max(currentData?.length, results?.length)
-            : resources.length}{" "}
-          Ergebnisse
+          {Math.max(currentData?.length, results?.length)} Ergebnisse
         </h4>
         {noResults ? (
           <div>Es gibt keine Ergebnisse für diese Suche.</div>
@@ -122,9 +95,7 @@ const AllResources = () => {
             <Pagination
               className="pagination-bar"
               currentPage={currentPage}
-              totalCount={
-                results.length > 0 ? results.length : resources.length
-              }
+              totalCount={results.length}
               pageSize={PageSize}
               siblingCount={2}
               onPageChange={(page: number) => setCurrentPage(page)}
@@ -136,31 +107,43 @@ const AllResources = () => {
   )
 }
 
+// Search and filter custom hook
 function useSearchAndFilter(
   searchQuery: string,
   searchIndex: any,
   searchStore: any,
   filterObject: Partial<filterFields>
 ): Array<Resource> {
-  const [dataResults, setDataResults] = useState<Array<Resource>>(
-    Object.values(searchStore)
-  )
-  const searchResults = useFlexSearch(searchQuery, searchIndex, searchStore)
+  // All data (query data)
+  const dataResults: Array<Resource> = Object.values(searchStore)
+
+  // Search hook
+  const searchResults: Array<Resource> = useFlexSearch(searchQuery, searchIndex, searchStore)
+
   return useMemo(() => {
+    // If a search is carried out and the results are empty, filtering does not make sense
+    if (searchQuery !== "" && searchResults.length === 0) {
+      return []
+    }
+
+    // If successful search has been performed, use filters on search result
     const baseResults =
       searchResults && searchResults.length > 0 ? searchResults : dataResults
-    let filterResults = []
+
+    // Only filter if filter object is filled
     // https://stackoverflow.com/questions/69010671/filter-an-array-of-objects-by-another-object-of-filters
     if (Object.keys(filterObject).length > 0) {
-      filterResults = baseResults.filter((resource: Resource) => {
+      const filterResults = baseResults.filter((resource: Resource) => {
         let filterResult = false
         Object.keys(filterObject).every(key => {
           const filterValue = filterObject[key as keyof filterFields]
+          // When filter is being removed, return all entries
           if (filterValue === "Alle") {
             filterResult = true
             return
           }
           const resourceValue = resource[key as keyof Resource]
+          // Comparison and handling if user filters for "no value" => show those without value
           if (Array.isArray(resourceValue)) {
             // https://linguinecode.com/post/how-to-solve-typescript-possibly-undefined-value
             if (filterValue === "Kein Eintrag") {
@@ -180,6 +163,7 @@ function useSearchAndFilter(
       })
       return filterResults
     } else {
+      // If no filter is being set
       return baseResults
     }
   }, [searchQuery, filterObject])
