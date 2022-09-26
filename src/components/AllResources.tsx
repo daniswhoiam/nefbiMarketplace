@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react"
 import { useFlexSearch } from "react-use-flexsearch"
 import TagList from "./TagList"
-import Filter from "./Filter"
+import FilterList from "./FilterList"
 import ResourcesList from "./ResourcesList"
 import Pagination from "./Pagination"
 import { graphql, useStaticQuery } from "gatsby"
@@ -32,12 +32,14 @@ const AllResources = () => {
   const [filterObject, setFilterObject] = useState<Partial<filterFields>>({})
   // Get query data
   const data = useStaticQuery(query)
+  const dataStoreResults: Array<Resource> = Object.values(data.localSearchData.store)
   // Hook up search and filter functionality
   let results = useSearchAndFilter(
     searchQuery,
     data.localSearchData.index,
     data.localSearchData.store,
-    filterObject
+    filterObject,
+    dataStoreResults
   )
   const filterTabs = ["Filter", "Themen"]
   const noResults = results.length === 0
@@ -81,7 +83,7 @@ const AllResources = () => {
             )
           })}
         </div>
-        <Filter setFilter={setFilterObject} />
+        <FilterList filter={filterObject} setFilter={setFilterObject} dataStoreResults={dataStoreResults} />
       </div>
       <div className="col-span-7 p-2">
         <h4 className="font-sans text-lg font-medium leading-10 h-11">
@@ -112,13 +114,15 @@ function useSearchAndFilter(
   searchQuery: string,
   searchIndex: any,
   searchStore: any,
-  filterObject: Partial<filterFields>
+  filterObject: Partial<filterFields>,
+  dataResults: Array<Resource>
 ): Array<Resource> {
-  // All data (query data)
-  const dataResults: Array<Resource> = Object.values(searchStore)
-
   // Search hook
-  const searchResults: Array<Resource> = useFlexSearch(searchQuery, searchIndex, searchStore)
+  const searchResults: Array<Resource> = useFlexSearch(
+    searchQuery,
+    searchIndex,
+    searchStore
+  )
 
   return useMemo(() => {
     // If a search is carried out and the results are empty, filtering does not make sense

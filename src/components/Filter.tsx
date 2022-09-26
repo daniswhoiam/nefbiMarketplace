@@ -1,54 +1,36 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
-import { filterFields } from "./AllResources"
+import { filterFields } from "./AllResources";
+import { AddToFilter } from "./FilterList";
 
-const query = graphql`
-  {
-    allDataJson {
-      distinct(field: altersgruppe)
-    }
-  }
-`
-
-const Filter = ({
-  setFilter,
-}: {
-  setFilter: React.Dispatch<React.SetStateAction<Partial<filterFields>>>
-}) => {
-  const data = useStaticQuery(query)
-  const altersgruppen = data.allDataJson.distinct
-
+const Filter = ({ filterKey, values, addToFilter }: { filterKey: string; values: string[], addToFilter: AddToFilter }) => {
   return (
-    <div className="bg-[#F7F7F7] w-full flex flex-col py-4 px-6">
-      {/* Altersgruppe */}
-      <div>
-        <label
-          htmlFor="Altersgruppe"
-          className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-        >
-          Altersgruppe
-        </label>
-        <select
-          id="Altersgruppe"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-          onChange={event => {
-            setFilter({ altersgruppe: event.target.value })
-          }}
-        >
-          <option value="Alle" selected={true}>
-            Wähle eine Altersgruppe
-          </option>
-          {altersgruppen &&
-            altersgruppen.length > 0 &&
-            altersgruppen.map((entry: string) => {
-              return (
-                <option value={entry || "Kein Eintrag"}>
-                  {entry || "Kein Eintrag"}
-                </option>
-              )
-            })}
-        </select>
-      </div>
+    <div>
+      <label
+        htmlFor={filterKey}
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+      >
+        {filterKey}
+      </label>
+      <select
+        id={filterKey}
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        onChange={event => {
+          addToFilter({ [filterKey as keyof filterFields]: event.target.value })
+        }}
+      >
+        <option value="Alle" selected={true}>
+          {filterKey} wählen
+        </option>
+        {values &&
+          values.length > 0 &&
+          values.map((entry: string) => {
+            return (
+              <option value={entry || "Kein Eintrag"}>
+                {entry || "Kein Eintrag"}
+              </option>
+            )
+          })}
+      </select>
     </div>
   )
 }
