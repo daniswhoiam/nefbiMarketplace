@@ -49,13 +49,14 @@ interface filterFields {
 const AllResources = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
-  const [filterData, setFilterData] = useState([])
+  const [filterData, setFilterData] = useState<Partial<filterFields>>({})
   const data = useStaticQuery(query)
   const resources: Array<Resource> = Object.values(data.localSearchData.store) //data.allDataJson.nodes
-  let results = useFlexSearch(
+  let results = useSearchAndFilter(
     searchQuery,
     data.localSearchData.index,
-    data.localSearchData.store
+    data.localSearchData.store,
+    filterData
   )
   const filterTabs = ["Filter", "Themen"]
   const noResults = results && results.length == 0 && searchQuery != ""
@@ -63,12 +64,9 @@ const AllResources = () => {
   const currentData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize
     const lastPageIndex = firstPageIndex + PageSize
-    let data = results.length > 0 ? results : resources
-    if (filterData.length > 0) {
-      data = filterData
-    }
+    let data = results
     return data.slice(firstPageIndex, lastPageIndex)
-  }, [currentPage, searchQuery, filterData])
+  }, [currentPage, results])
 
   useEffect(() => {
     setCurrentPage(1)
@@ -76,38 +74,7 @@ const AllResources = () => {
 
   // https://stackoverflow.com/questions/39713349/make-all-properties-within-a-typescript-interface-optional
   function setFilter(filterObject: Partial<filterFields>) {
-    let filterResults = []
-    const baseResults = results && results.length > 0 ? results : resources
-    // https://stackoverflow.com/questions/69010671/filter-an-array-of-objects-by-another-object-of-filters
-    if (baseResults && baseResults.length > 0) {
-      filterResults = baseResults.filter((resource: Resource) => {
-        let filterResult = false
-        Object.keys(filterObject).every(key => {
-          const filterValue = filterObject[key as keyof filterFields]
-          if (filterValue === "Alle") {
-            filterResult = true
-            return
-          }
-          const resourceValue = resource[key as keyof Resource]
-          if (Array.isArray(resourceValue)) {
-            // https://linguinecode.com/post/how-to-solve-typescript-possibly-undefined-value
-            if (filterValue === "Kein Eintrag") {
-              filterResult = resourceValue.length == 0
-            } else {
-              filterResult = resourceValue.includes(filterValue!)
-            }
-          } else {
-            if (filterValue === "Kein Eintrag") {
-              filterResult = resourceValue === ""
-            } else {
-              filterResult = resourceValue === filterValue
-            }
-          }
-        })
-        return filterResult
-      })
-    }
-    setFilterData(filterResults)
+    setFilterData(filterObject)
   }
 
   // TO DO: Correct counts and pagination
@@ -167,6 +134,55 @@ const AllResources = () => {
       </div>
     </section>
   )
+}
+
+function useSearchAndFilter(
+  searchQuery: string,
+  searchIndex: any,
+  searchStore: any,
+  filterObject: Partial<filterFields>
+): Array<Resource> {
+  const [dataResults, setDataResults] = useState<Array<Resource>>(
+    Object.values(searchStore)
+  )
+  const searchResults = useFlexSearch(searchQuery, searchIndex, searchStore)
+  return useMemo(() => {
+    const baseResults =
+      searchResults && searchResults.length > 0 ? searchResults : dataResults
+    let filterResults = []
+    // https://stackoverflow.com/questions/69010671/filter-an-array-of-objects-by-another-object-of-filters
+    if (Object.keys(filterObject).length > 0) {
+      filterResults = baseResults.filter((resource: Resource) => {
+        let filterResult = false
+        Object.keys(filterObject).every(key => {
+          const filterValue = filterObject[key as keyof filterFields]
+          if (filterValue === "Alle") {
+            filterResult = true
+            return
+          }
+          const resourceValue = resource[key as keyof Resource]
+          if (Array.isArray(resourceValue)) {
+            // https://linguinecode.com/post/how-to-solve-typescript-possibly-undefined-value
+            if (filterValue === "Kein Eintrag") {
+              filterResult = resourceValue.length == 0
+            } else {
+              filterResult = resourceValue.includes(filterValue!)
+            }
+          } else {
+            if (filterValue === "Kein Eintrag") {
+              filterResult = resourceValue === ""
+            } else {
+              filterResult = resourceValue === filterValue
+            }
+          }
+        })
+        return filterResult
+      })
+      return filterResults
+    } else {
+      return baseResults
+    }
+  }, [searchQuery, filterObject])
 }
 
 export default AllResources
