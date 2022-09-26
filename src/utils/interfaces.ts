@@ -7,7 +7,7 @@ export interface Resource {
   format: Array<string>
   author: string
   altersgruppe: string
-  erscheinungsjahr: number
+  erscheinungsjahr: string
   herausgeber: string
 }
 

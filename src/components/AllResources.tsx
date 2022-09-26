@@ -40,6 +40,11 @@ const query = graphql`
 
 const PageSize = 6
 
+interface filterFields {
+  altersgruppe: string
+  erscheinungsjahr: string
+}
+
 // https://tailwindcomponents.com/component/sidebar-2
 const AllResources = () => {
   const [searchQuery, setSearchQuery] = useState("")
@@ -69,20 +74,43 @@ const AllResources = () => {
     setCurrentPage(1)
   }, [searchQuery])
 
-  function setFilter(altersgruppe: string) {
+  // https://stackoverflow.com/questions/39713349/make-all-properties-within-a-typescript-interface-optional
+  function setFilter(filterObject: Partial<filterFields>) {
     let filterResults = []
-    if (results && results.length > 0) {
-      filterResults = results.filter((resource: Resource) => {
-        return resource.altersgruppe == altersgruppe
-      })
-    } else {
-      filterResults = resources.filter((resource: Resource) => {
-        return resource.altersgruppe == altersgruppe
+    const baseResults = results && results.length > 0 ? results : resources
+    // https://stackoverflow.com/questions/69010671/filter-an-array-of-objects-by-another-object-of-filters
+    if (baseResults && baseResults.length > 0) {
+      filterResults = baseResults.filter((resource: Resource) => {
+        let filterResult = false
+        Object.keys(filterObject).every(key => {
+          const filterValue = filterObject[key as keyof filterFields]
+          if (filterValue === "Alle") {
+            filterResult = true
+            return
+          }
+          const resourceValue = resource[key as keyof Resource]
+          if (Array.isArray(resourceValue)) {
+            // https://linguinecode.com/post/how-to-solve-typescript-possibly-undefined-value
+            if (filterValue === "Kein Eintrag") {
+              filterResult = resourceValue.length == 0
+            } else {
+              filterResult = resourceValue.includes(filterValue!)
+            }
+          } else {
+            if (filterValue === "Kein Eintrag") {
+              filterResult = resourceValue === ""
+            } else {
+              filterResult = resourceValue === filterValue
+            }
+          }
+        })
+        return filterResult
       })
     }
     setFilterData(filterResults)
   }
 
+  // TO DO: Correct counts and pagination
   return (
     <section className="grid grid-cols-10 gap-4">
       <div className="col-span-3 p-2">
@@ -114,7 +142,10 @@ const AllResources = () => {
       </div>
       <div className="col-span-7 p-2">
         <h4 className="font-sans text-lg font-medium leading-10 h-11">
-          {results.length > 0 ? results.length : resources.length} Ergebnisse
+          {currentData?.length > 0 || results?.length > 0
+            ? Math.max(currentData?.length, results?.length)
+            : resources.length}{" "}
+          Ergebnisse
         </h4>
         {noResults ? (
           <div>Es gibt keine Ergebnisse für diese Suche.</div>
