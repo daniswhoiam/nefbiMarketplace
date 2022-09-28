@@ -35,4 +35,16 @@
   .overline-text {
     @apply leading-normal tracking-[.015em] text-base mb-3 font-bold;
   }
+
+  .btn {
+    @apply border-none text-jet-dark-grey px-1 py-2 rounded-lg text-center font-medium text-sm hover:scale-105 transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:scale-100
+  }
+
+  .btn-primary {
+    @apply bg-light-sea-green-light
+  }
+
+  .btn-secondary {
+    @apply bg-atomic-tangerine-light
+  }
 }

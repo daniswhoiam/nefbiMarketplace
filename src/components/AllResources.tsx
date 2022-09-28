@@ -34,7 +34,7 @@ const AllResources = () => {
   const data = useStaticQuery(query)
   const dataStoreResults: Array<Resource> = Object.values(data.localSearchData.store)
   // Hook up search and filter functionality
-  let results = useSearchAndFilter(
+  const results = useSearchAndFilter(
     searchQuery,
     data.localSearchData.index,
     data.localSearchData.store,
@@ -83,7 +83,7 @@ const AllResources = () => {
             )
           })}
         </div>
-        <FilterList filter={filterObject} setFilter={setFilterObject} dataStoreResults={dataStoreResults} />
+        <FilterList filter={filterObject} setFilter={setFilterObject} results={results} />
       </div>
       <div className="col-span-7 p-2">
         <h4 className="font-sans text-lg font-medium leading-10 h-11">
