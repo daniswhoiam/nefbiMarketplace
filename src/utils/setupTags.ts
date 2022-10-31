@@ -1,7 +1,7 @@
 import { Resource } from "./interfaces"
 
 const setupTags = (
-  resources?: Array<Resource>
+  resources: Array<Resource>
 ): Array<Array<string | number>> => {
   if (resources == undefined || resources.length == 0) return []
 
