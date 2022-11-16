@@ -1,12 +1,12 @@
 import React, { useMemo, useState, useEffect } from "react"
-import { useFlexSearch } from "react-use-flexsearch"
 import TagList from "./TagList"
 import FilterList from "./FilterList"
 import ResourcesList from "./ResourcesList"
 import Pagination from "./Pagination"
 import { graphql, useStaticQuery } from "gatsby"
 import { MdSearch } from "@react-icons/all-files/md/MdSearch"
-import { Resource } from "../utils/interfaces"
+import { Resource, filterFields } from "../utils/interfaces"
+import useSearchAndFilter from "../hooks/useSearchAndFilter"
 
 const query = graphql`
   {
@@ -19,17 +19,14 @@ const query = graphql`
 
 const PageSize = 6
 
-export interface filterFields {
-  altersgruppe: string
-  erscheinungsjahr: string
-}
-
 // https://tailwindcomponents.com/component/sidebar-2
 const AllResources = () => {
+  const [activeFilterTab, setActiveFilterTab] = useState("Filter")
   const [searchQuery, setSearchQuery] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
-  // https://stackoverflow.com/questions/39713349/make-all-properties-within-a-typescript-interface-optional
-  const [filterObject, setFilterObject] = useState<Partial<filterFields>>({})
+  // https://stackoverflow.com/questions/39713349/make-all-properties-within-a-typescript-interface-optional ; Partial
+  // https://stackoverflow.com/questions/37427508/react-changing-an-uncontrolled-input ; thema Initialisierung
+  const [filterObject, setFilterObject] = useState<Partial<filterFields>>({thema: []})
   // Get query data
   const data = useStaticQuery(query)
   const dataStoreResults: Array<Resource> = Object.values(data.localSearchData.store)
@@ -77,13 +74,14 @@ const AllResources = () => {
         <div className="flex items-center justify-between mt-4">
           {filterTabs.map(tab => {
             return (
-              <button className="px-6 py-1 text-white rounded-t-md bg-light-sea-green">
+              <button onClick={() => setActiveFilterTab(tab)} className="px-6 py-1 text-white rounded-t-md bg-light-sea-green">
                 {tab}
               </button>
             )
           })}
         </div>
-        <FilterList filter={filterObject} setFilter={setFilterObject} results={results} />
+        <FilterList activeFilterTab={activeFilterTab} filter={filterObject} setFilter={setFilterObject} results={results} />
+        <TagList activeFilterTab={activeFilterTab} filter={filterObject} setFilter={setFilterObject} resources={results}  />
       </div>
       <div className="col-span-7 p-2">
         <h4 className="font-sans text-lg font-medium leading-10 h-11">
@@ -107,70 +105,6 @@ const AllResources = () => {
       </div>
     </section>
   )
-}
-
-// Search and filter custom hook
-function useSearchAndFilter(
-  searchQuery: string,
-  searchIndex: any,
-  searchStore: any,
-  filterObject: Partial<filterFields>,
-  dataResults: Array<Resource>
-): Array<Resource> {
-  // Search hook
-  const searchResults: Array<Resource> = useFlexSearch(
-    searchQuery,
-    searchIndex,
-    searchStore
-  )
-
-  return useMemo(() => {
-    // If a search is carried out and the results are empty, filtering does not make sense
-    if (searchQuery !== "" && searchResults.length === 0) {
-      return []
-    }
-
-    // If successful search has been performed, use filters on search result
-    const baseResults =
-      searchResults && searchResults.length > 0 ? searchResults : dataResults
-
-    // Only filter if filter object is filled
-    // https://stackoverflow.com/questions/69010671/filter-an-array-of-objects-by-another-object-of-filters
-    if (Object.keys(filterObject).length > 0) {
-      const filterResults = baseResults.filter((resource: Resource) => {
-        let filterResult = false
-        Object.keys(filterObject).every(key => {
-          const filterValue = filterObject[key as keyof filterFields]
-          // When filter is being removed, return all entries
-          if (filterValue === "Alle") {
-            filterResult = true
-            return
-          }
-          const resourceValue = resource[key as keyof Resource]
-          // Comparison and handling if user filters for "no value" => show those without value
-          if (Array.isArray(resourceValue)) {
-            // https://linguinecode.com/post/how-to-solve-typescript-possibly-undefined-value
-            if (filterValue === "Kein Eintrag") {
-              filterResult = resourceValue.length == 0
-            } else {
-              filterResult = resourceValue.includes(filterValue!)
-            }
-          } else {
-            if (filterValue === "Kein Eintrag") {
-              filterResult = resourceValue === ""
-            } else {
-              filterResult = resourceValue === filterValue
-            }
-          }
-        })
-        return filterResult
-      })
-      return filterResults
-    } else {
-      // If no filter is being set
-      return baseResults
-    }
-  }, [searchQuery, filterObject])
 }
 
 export default AllResources

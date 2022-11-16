@@ -19,3 +19,9 @@ export interface PaginationProps {
   pageSize: number,
   className: string
 }
+
+export interface filterFields {
+  altersgruppe: string
+  erscheinungsjahr: string
+  thema: Array<string>
+}
