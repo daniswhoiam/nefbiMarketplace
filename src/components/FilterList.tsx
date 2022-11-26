@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useRef } from "react"
 import Select, { ActionMeta, SingleValue } from "react-select"
 import { Resource, filterFields } from "../utils/interfaces"
 import { array } from "prop-types"
@@ -13,11 +13,11 @@ const FilterList = ({
   filter,
   setFilter,
   results,
-  activeFilterTab
+  activeFilterTab,
 }: {
   filter: Partial<filterFields>
   setFilter: React.Dispatch<React.SetStateAction<Partial<filterFields>>>
-  results: Array<Resource>,
+  results: Array<Resource>
   activeFilterTab: string
 }) => {
   let distinctValues = calcDistinctValues(results, [
@@ -30,11 +30,11 @@ const FilterList = ({
   const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre)
   // Why does deconstruct not work?
   const filterResetDisabled = Object.keys(filter).length === 0
+  const selectInputRef = useRef<any>()
 
   distinctValues = useMemo(() => {
     return calcDistinctValues(results, ["altersgruppe", "erscheinungsjahr"])
   }, [filter])
-
 
   function handleFilterChange(
     newValue: SingleValue<{ value: string }>,
@@ -51,13 +51,21 @@ const FilterList = ({
     if (triggerAction.action === "clear") {
       setFilter(removeFromFilter(filter, filterField))
     } else {
-      setFilter(addToFilter(filter, { [filterField as keyof filterFields]: value }))
+      setFilter(
+        addToFilter(filter, { [filterField as keyof filterFields]: value })
+      )
     }
   }
 
   return (
-    <div className={classNames("bg-[#F7F7F7] w-full flex flex-col py-4 px-6 gap-6", {["hidden"]: activeFilterTab !== "Filter"})}>
+    <div
+      className={classNames(
+        "bg-[#F7F7F7] w-full flex flex-col py-4 px-6 gap-6",
+        { ["hidden"]: activeFilterTab !== "Filter" }
+      )}
+    >
       <Select
+        ref={selectInputRef}
         options={altersgruppenOptions}
         placeholder="Altersgruppen"
         onChange={(newValue: SingleValue<{ value: string }>, triggerAction) => {
@@ -77,7 +85,10 @@ const FilterList = ({
       <button
         className="btn btn-secondary"
         disabled={filterResetDisabled}
-        onClick={() => setFilter({})}
+        onClick={() => {
+          selectInputRef.current.clearValue();
+          setFilter({ thema: [] })
+        }}
       >
         Filter zurücksetzen
       </button>
