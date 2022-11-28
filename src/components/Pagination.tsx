@@ -2,7 +2,7 @@ import React from "react"
 import classnames from "classnames"
 import { usePagination, DOTS } from "../hooks/usePagination"
 import { PaginationProps } from "../utils/interfaces"
-import "../assets/css/pagination.scss"
+import styles from "../assets/css/Pagination.module.scss"
 
 // TO DO PropTypes
 
@@ -37,29 +37,32 @@ const Pagination = ({
 
   let lastPage = paginationRange[paginationRange.length - 1]
 
+  // https://stackoverflow.com/questions/38382153/multiple-classnames-with-css-modules-and-react
   return (
     <ul
-      className={classnames("pagination-container", { [className]: className })}
+      className={classnames(styles["pagination-container"], {
+        [className]: className,
+      })}
     >
       {/* Left navigation arrow */}
       <li
-        className={classnames("pagination-item", {
+        className={classnames(styles["pagination-item"], {
           disabled: currentPage === 1,
         })}
         onClick={onPrevious}
       >
-        <div className="arrow left" />
+        <div className={styles.arrow.left} />
       </li>
       {paginationRange.map(pageNumber => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>
+          return <li className={styles["pagination-items"].dots}>&#8230;</li>
         }
 
         // Render our Page Pills
         return (
           <li
-            className={classnames("pagination-item", {
+            className={classnames(styles["pagination-item"], {
               selected: pageNumber === currentPage,
             })}
             onClick={() => onPageChange(pageNumber)}
@@ -70,12 +73,12 @@ const Pagination = ({
       })}
       {/*  Right Navigation arrow */}
       <li
-        className={classnames("pagination-item", {
+        className={classnames(styles["pagination-item"], {
           disabled: currentPage === lastPage,
         })}
         onClick={onNext}
       >
-        <div className="arrow right" />
+        <div className={styles.arrow.right} />
       </li>
     </ul>
   )

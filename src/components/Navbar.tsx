@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { Link } from "gatsby"
+import Link from "next/link"
 import { FiAlignJustify } from "@react-icons/all-files/fi/FiAlignJustify"
 import { FiX } from "@react-icons/all-files/fi/FiX"
 import Logo from "../assets/images/logo_white_reduced.svg"
@@ -12,8 +12,8 @@ const Navbar = () => {
     <nav className="fixed z-10 w-full text-white bg-light-sea-green lg:px-24">
       <div className="flex flex-col max-w-screen-xl px-4 py-1 mx-auto md:items-center md:justify-between md:flex-row">
         <div className="flex flex-row items-center justify-between">
-          <Link to="/" className="w-42 h-14">
-            <Logo/>
+          <Link href="/" className="w-42 h-14">
+            <Logo />
           </Link>
           <button
             className={`rounded-lg mr-2 p-4 bg-light-sea-green-dark md:hidden focus:outline-none focus:shadow-outline`}
@@ -56,7 +56,7 @@ function NavLink({
 }) {
   return (
     <Link
-      to={slug}
+      href={slug}
       className="px-4 py-2 mt-2 text-sm bg-transparent rounded-lg lg:text-base font-open-sans md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
       onClick={() => setShow(false)}
     >

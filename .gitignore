@@ -54,10 +54,6 @@ typings/
 # dotenv environment variable files
 .env*
 
-# gatsby files
-.cache/
-public
-
 # Mac files
 .DS_Store
 
@@ -70,3 +66,6 @@ yarn-error.log
 
 # Local Content
 src/data/
+
+# Next files
+.next

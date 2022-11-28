@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "gatsby"
+import Link from "next/link"
 import Logo from "../assets/images/logo_white_without_bg.svg"
 import Hexagon from "../assets/images/hexagon.svg"
 
@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="relative w-full px-4 pt-16 pb-10 overflow-hidden text-sm font-medium text-white bg-grey-black lg:px-24">
       <div className="grid max-w-screen-xl grid-cols-1 mx-auto gap-y-14 lg:grid-cols-3">
         <div className="flex flex-col col-span-1 gap-y-2 justify-items-start">
-          <Link to="/" className="mr-2">
+          <Link href="/" className="mr-2">
             <Logo
               name="Nefbi"
               height="6rem"
@@ -24,16 +24,16 @@ const Footer = () => {
           <p>info@nefbi.de</p>
         </div>
         <div className="grid grid-cols-2 col-span-1 text-base font-semibold gap-y-6 lg:col-span-2 lg:justify-items-start lg:items-center">
-          <Link to="/">Startseite</Link>
-          <Link to="/ueber-uns">Über Uns</Link>
-          <Link to="/kontakt">Kontakt</Link>
-          <Link to="/datenschutz">Datenschutz</Link>
+          <Link href="/">Startseite</Link>
+          <Link href="/ueber-uns">Über Uns</Link>
+          <Link href="/kontakt">Kontakt</Link>
+          <Link href="/datenschutz">Datenschutz</Link>
         </div>
         <div className="flex flex-col col-span-1 font-normal gap-y-4 lg:col-span-3 lg:flex-row lg:justify-center lg:gap-x-16">
           <p>&copy; nefbi 2022</p>
           <p>Alle Rechte vorbehalten</p>
           <Link
-            to="/impressum"
+            href="/impressum"
             className="leading-normal tracking-[.015em] text-lg mb-2"
           >
             Impressum

@@ -3,19 +3,9 @@ import TagList from "./TagList"
 import FilterList from "./FilterList"
 import ResourcesList from "./ResourcesList"
 import Pagination from "./Pagination"
-import { graphql, useStaticQuery } from "gatsby"
 import { MdSearch } from "@react-icons/all-files/md/MdSearch"
 import { Resource, filterFields } from "../utils/interfaces"
 import useSearchAndFilter from "../hooks/useSearchAndFilter"
-
-const query = graphql`
-  {
-    localSearchData {
-      index
-      store
-    }
-  }
-`
 
 const PageSize = 6
 
@@ -28,7 +18,7 @@ const AllResources = () => {
   // https://stackoverflow.com/questions/37427508/react-changing-an-uncontrolled-input ; thema Initialisierung
   const [filterObject, setFilterObject] = useState<Partial<filterFields>>({thema: []})
   // Get query data
-  const data = useStaticQuery(query)
+  const data = []
   const dataStoreResults: Array<Resource> = Object.values(data.localSearchData.store)
   // Hook up search and filter functionality
   const results = useSearchAndFilter(
