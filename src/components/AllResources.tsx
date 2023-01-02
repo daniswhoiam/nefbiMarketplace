@@ -24,7 +24,7 @@ const exampleResource = {
 }
 
 // https://tailwindcomponents.com/component/sidebar-2
-const AllResources = () => {
+const AllResources = (props: any) => {
   const [activeFilterTab, setActiveFilterTab] = useState("Filter")
   const [searchQuery, setSearchQuery] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
@@ -34,13 +34,16 @@ const AllResources = () => {
     thema: [],
   })
   const [results, setResults] = useState<Array<Resource>>([])
+  const [searchResults, setSearchResults] = useState<Array<Resource>>([])
+  const [filteringResults, setFilteringResults] = useState<Array<Resource>>([])
   // Get query data
-  const data: Array<Resource> = [exampleResource]
+  const data: Array<Resource> = props.props.resources
   /*   const dataStoreResults: Array<Resource> = Object.values(
     data.localSearchData.store
   ) */
 
   const index = new Document({
+    tokenize: "forward",
     document: {
       index: [
         "beschreibung",
@@ -70,34 +73,35 @@ const AllResources = () => {
         })
         return acc
       }, [])
-      const results = data.filter(resource => resultIDs.includes(resource.id))
+      let results = data.filter(resource => resultIDs.includes(resource.id))
+      setSearchResults(results)
+      if (filteringResults.length !== 0) {
+        const filteredIDs: string[] = filteringResults.map(el => el.id)
+        results = results.filter(resource => filteredIDs.includes(resource.id))
+      }
       setResults(results)
     }
 
-    getResults()
+    if (searchQuery !== "") {
+      getResults()
+    }
   }, [searchQuery])
 
-  useMemo(() => {
-    // If a search is carried out and the results are empty, filtering does not make sense
-    if (searchQuery !== "" && data.length === 0) {
-      return []
-    }
-
-    // If successful search has been performed, use filters on search result
-    const baseResults = data //searchResults && searchResults.length > 0 ? searchResults
-
+  // Filter
+  useEffect(() => {
     // Only filter if filter object is filled
     // https://stackoverflow.com/questions/69010671/filter-an-array-of-objects-by-another-object-of-filters
+    const filterBase = searchResults.length > 0 ? searchResults : data
     if (
       Object.keys(filterObject).length > 1 ||
       filterObject["thema"]!.length > 0
     ) {
-      return filterResults(baseResults, filterObject)
+      setResults(filterResults(filterBase, filterObject))
     } else {
       // If no filter is being set
-      return baseResults
+      setResults(filterBase)
     }
-  }, [searchQuery, filterObject])
+  }, [filterObject])
 
   const filterTabs = ["Filter", "Themen"]
   const noResults = results.length === 0

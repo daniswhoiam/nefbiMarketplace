@@ -74,6 +74,7 @@ const FilterList = ({
         isClearable={true}
       />
       <Select
+        ref={selectInputRef}
         options={erscheinungsjahreOptions}
         placeholder="Erscheinungsjahr"
         onChange={(newValue: SingleValue<{ value: string }>, triggerAction) => {
