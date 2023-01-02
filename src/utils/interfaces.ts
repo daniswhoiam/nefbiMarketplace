@@ -25,3 +25,8 @@ export interface filterFields {
   erscheinungsjahr: string
   thema: Array<string>
 }
+
+export interface searchResult {
+  field: string
+  result: Array<string>
+}
