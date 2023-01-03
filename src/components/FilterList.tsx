@@ -30,7 +30,8 @@ const FilterList = ({
   const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre)
   // Why does deconstruct not work?
   const filterResetDisabled = Object.keys(filter).length === 0
-  const selectInputRef = useRef<any>()
+  const altersgruppeRef = useRef<any>()
+  const erscheinungsjahrRef = useRef<any>()
 
   distinctValues = useMemo(() => {
     return calcDistinctValues(results, ["altersgruppe", "erscheinungsjahr"])
@@ -65,7 +66,7 @@ const FilterList = ({
       )}
     >
       <Select
-        ref={selectInputRef}
+        ref={altersgruppeRef}
         options={altersgruppenOptions}
         placeholder="Altersgruppen"
         onChange={(newValue: SingleValue<{ value: string }>, triggerAction) => {
@@ -74,7 +75,7 @@ const FilterList = ({
         isClearable={true}
       />
       <Select
-        ref={selectInputRef}
+        ref={erscheinungsjahrRef}
         options={erscheinungsjahreOptions}
         placeholder="Erscheinungsjahr"
         onChange={(newValue: SingleValue<{ value: string }>, triggerAction) => {
@@ -87,7 +88,8 @@ const FilterList = ({
         className="btn btn-secondary"
         disabled={filterResetDisabled}
         onClick={() => {
-          selectInputRef.current.clearValue();
+          altersgruppeRef.current.clearValue()
+          erscheinungsjahrRef.current.clearValue()
           setFilter({ thema: [] })
         }}
       >
