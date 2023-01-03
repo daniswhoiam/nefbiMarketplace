@@ -1,5 +1,4 @@
 import React from "react"
-import Layout from "../components/Layout"
 import HexagonBottomCloud from "../assets/images/hexagon_bottom_cloud.svg"
 
 const Datenschutz = () => {
