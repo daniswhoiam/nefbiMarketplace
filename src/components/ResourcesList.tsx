@@ -4,15 +4,17 @@ import { Resource } from "../utils/interfaces"
 import Card from "./Card"
 
 const ResourcesListPropTypes = {
-  resources: PropTypes.array,
+  currentItems: PropTypes.array,
 }
 
-const ResourcesList = ({ resources = [] }: { resources?: Array<Resource> }) => {
+const ResourcesList = ({ currentItems = [] }: { currentItems?: Array<Resource> }) => {
   return (
-    <div className="w-full space-y-4">
-      {resources?.map((resource, index) => {
-        return <Card resource={resource} key={index} />
-      })}
+    <div className="grid grid-cols-2 gap-2">
+      {currentItems &&
+        currentItems.length > 0 &&
+        currentItems?.map((resource, index) => {
+          return <Card resource={resource} key={index} />
+        })}
     </div>
   )
 }

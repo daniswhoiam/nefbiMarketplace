@@ -1,12 +1,7 @@
 import React from "react"
-import Layout from "../components/Layout"
 
 const Marktplatz = () => {
-  return (
-    <Layout>
-      <main>Marktplatz</main>
-    </Layout>
-  )
+  return <>Marktplatz</>
 }
 
 export default Marktplatz

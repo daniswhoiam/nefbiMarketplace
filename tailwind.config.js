@@ -29,9 +29,9 @@ module.exports = {
     },
     fontFamily: {
       ...fontFamily,
-      "open-sans": ["Open Sans", "ui-sans-serif"],
-      sans: ["Mitr", "ui-sans-serif"],
+      sans: ["Open Sans", "ui-sans-serif"],
+      mitr: ["Mitr", "ui-sans-serif"],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 }

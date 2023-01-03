@@ -1,9 +1,9 @@
 import { Resource } from "./interfaces"
 
 const setupTags = (
-  resources?: Array<Resource>
+  resources: Array<Resource>
 ): Array<Array<string | number>> => {
-  if (resources == [] || resources == undefined) return []
+  if (resources == undefined || resources.length == 0) return []
 
   // https://stackoverflow.com/questions/42723922/can-you-declare-a-object-literal-type-that-allows-unknown-properties-in-typescri
   const allTags: { [key: string]: number } = {}
