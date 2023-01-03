@@ -1,11 +1,18 @@
 import React from "react"
 import AllResources from "../components/AllResources"
+import SideHexagons from "../assets/images/side_hexagons.svg"
 
 const Index = (props: any) => {
   return (
-    <main className="container mx-auto max-w-screen-xl lg:px-48 md:px-32 px-8">
-      <AllResources props={props} /> 
-    </main>
+    <>
+      <AllResources props={props} />
+      <SideHexagons
+        height="700"
+        width="480"
+        fill="#39B5AC"
+        className="absolute left-0 -top-4 opacity-20"
+      />
+    </>
   )
 }
 
@@ -33,8 +40,7 @@ export async function getStaticProps() {
   }
   return {
     props: {
-      resources
-    }
+      resources,
+    },
   }
 }
-
