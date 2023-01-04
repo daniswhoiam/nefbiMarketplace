@@ -141,7 +141,7 @@ const AllResources = (props: any) => {
             return (
               <button
                 onClick={() => setActiveFilterTab(tab)}
-                className="px-6 py-1 text-white rounded-t-md bg-light-sea-green"
+                className="px-8 py-3 min-w-[10rem] text-white font-bold tracking-wider rounded-t-md bg-light-sea-green"
               >
                 {tab}
               </button>

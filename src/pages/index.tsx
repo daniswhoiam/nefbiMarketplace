@@ -4,15 +4,15 @@ import SideHexagons from "../assets/images/side_hexagons.svg"
 
 const Index = (props: any) => {
   return (
-    <>
+    <div className="mt-8">
       <AllResources props={props} />
       <SideHexagons
         height="700"
         width="480"
         fill="#39B5AC"
-        className="absolute left-0 -top-4 opacity-20"
+        className="absolute left-0 -top-4 opacity-20 -z-10"
       />
-    </>
+    </div>
   )
 }
 

@@ -6,10 +6,9 @@ import "../assets/css/global.css"
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Layout>
-          <main className="container mx-auto max-w-screen-xl lg:px-48 md:px-32 px-8">
-      <Component {...pageProps} />
-    </main>
-
+      <main className="container mx-auto max-w-screen-xl mb-4 lg:px-0 md:px-32 px-8">
+        <Component {...pageProps} />
+      </main>
     </Layout>
   )
 }

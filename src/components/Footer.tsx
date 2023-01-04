@@ -33,7 +33,7 @@ const Footer = () => {
           <p>Alle Rechte vorbehalten</p>
           <Link
             href="/impressum"
-            className="leading-normal tracking-[.015em] text-lg mb-2"
+            className="tracking-[.015em] text-lg mb-2"
           >
             <p>Impressum</p>
           </Link>
