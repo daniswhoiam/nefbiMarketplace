@@ -5,6 +5,7 @@ import { MdKeyboardArrowRight } from "@react-icons/all-files/md/MdKeyboardArrowR
 import { MdKeyboardArrowDown } from "@react-icons/all-files/md/MdKeyboardArrowDown"
 import classNames from "classnames"
 import { Resource } from "../utils/interfaces"
+import Modal from "./Modal"
 
 // TO DO PropTypes
 
@@ -23,6 +24,8 @@ const Card = ({ resource }: { resource: Resource }) => {
     erscheinungsjahr,
     herausgeber,
   } = resource
+
+  const [modalShown, setModalShown] = useState(false)
 
   return (
     <article
@@ -50,11 +53,21 @@ const Card = ({ resource }: { resource: Resource }) => {
       <p className="line-clamp-4">{beschreibung}</p>
       {/* Footer */}
       <div className="mt-2 flex items-center justify-between">
-        <button className="flex items-center underline underline-offset-2">
+        <button
+          className="flex items-center underline underline-offset-2"
+          onClick={() => setModalShown(true)}
+        >
           <MdKeyboardArrowRight className="inline-block" /> Mehr anzeigen
         </button>
-        <p className={classNames("mb-0", {"bg-light-sea-green py-2 px-4 rounded-lg text-white": altersgruppe})}>{altersgruppe}</p>
+        <p
+          className={classNames("mb-0", {
+            "rounded-lg bg-light-sea-green py-2 px-4 text-white": altersgruppe,
+          })}
+        >
+          {altersgruppe}
+        </p>
       </div>
+      <Modal title={titel} show={modalShown} setModalShown={setModalShown} />
     </article>
   )
 }
