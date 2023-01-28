@@ -67,7 +67,7 @@ const Card = ({ resource }: { resource: Resource }) => {
           {altersgruppe}
         </p>
       </div>
-      <Modal title={titel} show={modalShown} setModalShown={setModalShown} />
+      <Modal resource={resource} show={modalShown} setModalShown={setModalShown} />
     </article>
   )
 }
