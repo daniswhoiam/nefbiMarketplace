@@ -119,7 +119,7 @@ const AllResources = (props: any) => {
   }, [searchQuery, filterObject])
 
   return (
-    <section className="grid grid-cols-10 gap-4">
+    <section className="grid min-h-[120vh] grid-cols-10 gap-4">
       <div className="col-span-3 p-2">
         <label className="relative block">
           <span className="sr-only">Suche</span>
@@ -127,7 +127,7 @@ const AllResources = (props: any) => {
             <MdSearch size="20px" color="#686868" />
           </span>
           <input
-            className="flex flex-row items-start pl-8 pr-2 py-4 w-full h-11 border border-solid border-[#DADADA] bg-white rounded-lg"
+            className="flex h-11 w-full flex-row items-start rounded-lg border border-solid border-[#DADADA] bg-white py-4 pl-8 pr-2"
             type="search"
             placeholder="Suche"
             onChange={event => {
@@ -136,12 +136,12 @@ const AllResources = (props: any) => {
           />
         </label>
         {/* Tab Buttons */}
-        <div className="flex items-center justify-between mt-4">
+        <div className="mt-4 flex items-center justify-between">
           {filterTabs.map(tab => {
             return (
               <button
                 onClick={() => setActiveFilterTab(tab)}
-                className="px-8 py-3 min-w-[10rem] text-white font-bold tracking-wider rounded-t-md bg-light-sea-green"
+                className="min-w-[10rem] rounded-t-md bg-light-sea-green px-8 py-3 font-bold tracking-wider text-white"
               >
                 {tab}
               </button>
@@ -161,24 +161,27 @@ const AllResources = (props: any) => {
           resources={results}
         />
       </div>
-      <div className="col-span-7 p-2">
-        <h4 className="font-sans text-lg font-medium leading-10 h-11">
+      <div className="col-span-7 flex flex-col justify-between p-2">
+        <h4 className="h-11 font-sans text-lg font-medium leading-10">
           {Math.max(currentData?.length, results?.length)} Ergebnisse
         </h4>
         {noResults ? (
-          <div>Es gibt keine Ergebnisse für diese Suche.</div>
+          <div className="grow">Es gibt keine Ergebnisse für diese Suche.</div>
         ) : (
-          <>
+          <div className="flex grow flex-col">
             <ResourcesList currentItems={currentData} />
             <Pagination
-              className="pagination-bar"
+              className="pagination-bar mt-8"
               currentPage={currentPage}
               totalCount={results.length}
               pageSize={PageSize}
               siblingCount={2}
-              onPageChange={(page: number) => setCurrentPage(page)}
+              onPageChange={(page: number) => {
+                setCurrentPage(page)
+                window.scrollTo(0, 0)
+              }}
             />
-          </>
+          </div>
         )}
       </div>
     </section>

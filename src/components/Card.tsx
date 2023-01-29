@@ -30,7 +30,7 @@ const Card = ({ resource }: { resource: Resource }) => {
   return (
     <article
       key={id}
-      className="flex flex-col justify-between rounded-lg border border-solid border-light-sea-green border-opacity-30 bg-[#F7F7F7] bg-opacity-25 p-4"
+      className="flex flex-col justify-between rounded-lg border border-solid border-light-sea-green border-opacity-30 bg-[#F7F7F7] bg-opacity-25 p-4 max-h-[22rem]"
     >
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -52,7 +52,7 @@ const Card = ({ resource }: { resource: Resource }) => {
       {/* Beschreibung */}
       <p className="line-clamp-4">{beschreibung}</p>
       {/* Footer */}
-      <div className="mt-2 flex items-center justify-between">
+      <div className="mt-2 flex items-center justify-between min-h-[37px]">
         <button
           className="flex items-center underline underline-offset-2"
           onClick={() => setModalShown(true)}

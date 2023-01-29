@@ -7,9 +7,13 @@ const ResourcesListPropTypes = {
   currentItems: PropTypes.array,
 }
 
-const ResourcesList = ({ currentItems = [] }: { currentItems?: Array<Resource> }) => {
+const ResourcesList = ({
+  currentItems = [],
+}: {
+  currentItems?: Array<Resource>
+}) => {
   return (
-    <div className="grid grid-cols-2 gap-2">
+    <div className="grid grid-cols-2 gap-2 grow">
       {currentItems &&
         currentItems.length > 0 &&
         currentItems?.map((resource, index) => {

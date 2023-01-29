@@ -65,9 +65,12 @@ const Modal: React.FC<ModalProps> = ({ resource, show, setModalShown }) => {
           <p className="mb-0 text-2xl font-bold">{titel}</p>
           <p className=" text-jet-dark-grey opacity-80 ">
             {author ? "Quelle: " : ""}
-            {author} ({erscheinungsjahr}
+            {author}
+            {erscheinungsjahr || herausgeber ? "(" : ""}
+            {erscheinungsjahr}
             {erscheinungsjahr ? ", " : ""}
-            {herausgeber})
+            {herausgeber}
+            {erscheinungsjahr || herausgeber ? ")" : ""}
           </p>
           <div className="modal-meta flex gap-4">
             {format ? (

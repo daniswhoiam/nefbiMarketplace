@@ -46,20 +46,28 @@ const TagList = ({
 
   return (
     <div
-      className={classNames("bg-[#F7F7F7] w-full flex flex-col py-4 px-6", {
-        ["hidden"]: activeFilterTab !== "Themen",
-      })}
+      className={classNames(
+        "flex h-[85%] w-full flex-col gap-6 bg-[#F7F7F7] py-4 px-6",
+        {
+          ["hidden"]: activeFilterTab !== "Themen",
+        }
+      )}
     >
       {newTags.map((tag, index) => {
         const [text, value] = tag
 
         return (
-          <div>
+          <div className="flex items-center">
             {/*https://bobbyhadz.com/blog/react-check-if-checkbox-is-checked*/}
-            <input value={text} type="checkbox" onChange={handleChange} checked={filter["thema"]?.includes(text as string)} />
+            <input
+              value={text}
+              type="checkbox"
+              onChange={handleChange}
+              checked={filter["thema"]?.includes(text as string)}
+            />
             <p
               key={index}
-              className="hidden font-medium text-gray-500 md:block"
+              className="text-gray-500 mb-0 ml-2 hidden font-medium leading-6 md:flex"
             >
               {text} ({value})
             </p>
