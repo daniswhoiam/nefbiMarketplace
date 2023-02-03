@@ -4,24 +4,14 @@ import FilterList from "./FilterList"
 import ResourcesList from "./ResourcesList"
 import Pagination from "./Pagination"
 import { MdSearch } from "@react-icons/all-files/md/MdSearch"
+import { FaWindowClose } from "@react-icons/all-files/fa/FaWindowClose"
 import { Resource, filterFields, searchResult } from "../utils/interfaces"
 import { Index } from "flexsearch"
+import { GoSettings } from "@react-icons/all-files/go/GoSettings"
+import classNames from "classnames"
 const { Document } = require("flexsearch")
 
 const PageSize = 6
-
-const exampleResource = {
-  beschreibung: "abcdef",
-  id: "0",
-  thema: ["abcdef"],
-  titel: "abcdef",
-  url: "abcdef",
-  format: ["abcdef"],
-  author: "abcdef",
-  altersgruppe: "abcdef",
-  erscheinungsjahr: "abcdef",
-  herausgeber: "abcdef",
-}
 
 // https://tailwindcomponents.com/component/sidebar-2
 const AllResources = (props: any) => {
@@ -36,11 +26,9 @@ const AllResources = (props: any) => {
   const [results, setResults] = useState<Array<Resource>>([])
   const [searchResults, setSearchResults] = useState<Array<Resource>>([])
   const [filteringResults, setFilteringResults] = useState<Array<Resource>>([])
+  const [mobileSettingsOpen, setMobileSettingsOpen] = useState(false)
   // Get query data
   const data: Array<Resource> = props.props.resources
-  /*   const dataStoreResults: Array<Resource> = Object.values(
-    data.localSearchData.store
-  ) */
 
   const index = new Document({
     tokenize: "forward",
@@ -120,7 +108,7 @@ const AllResources = (props: any) => {
 
   return (
     <section className="grid min-h-[120vh] grid-cols-10 gap-4">
-      <div className="col-span-3 p-2">
+      <div className="col-span-10 p-2 lg:col-span-3">
         <label className="relative block">
           <span className="sr-only">Suche</span>
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -135,36 +123,72 @@ const AllResources = (props: any) => {
             }}
           />
         </label>
-        {/* Tab Buttons */}
-        <div className="mt-4 flex items-center justify-between">
-          {filterTabs.map(tab => {
-            return (
-              <button
-                onClick={() => setActiveFilterTab(tab)}
-                className="min-w-[10rem] rounded-t-md bg-light-sea-green px-8 py-3 font-bold tracking-wider text-white"
-              >
-                {tab}
-              </button>
-            )
-          })}
+        <div
+          className={classNames(
+            {
+              "fixed bottom-0 left-0 z-50 flex w-full flex-col items-end justify-end bg-grey-black bg-opacity-50 px-10 backdrop-blur-sm":
+                mobileSettingsOpen,
+            },
+            { hidden: !mobileSettingsOpen },
+            "h-full lg:block lg:pb-[50%]"
+          )}
+        >
+          <button
+            className={classNames(
+              { "relative bg-white p-6": mobileSettingsOpen },
+              { hidden: !mobileSettingsOpen }
+            )}
+            onClick={() => setMobileSettingsOpen(!mobileSettingsOpen)}
+          >
+            <FaWindowClose
+              className="absolute -left-2.5 -top-1.5"
+              size="60px"
+              color="rgb(40,40,40)"
+            />
+          </button>
+          {/* Tab Buttons */}
+          <div className="mt-4 flex w-full items-center justify-between">
+            {filterTabs.map(tab => {
+              return (
+                <button
+                  onClick={() => setActiveFilterTab(tab)}
+                  className="min-w-[10rem] rounded-t-md bg-light-sea-green px-8 py-3 font-bold tracking-wider text-white"
+                >
+                  {tab}
+                </button>
+              )
+            })}
+          </div>
+          <FilterList
+            activeFilterTab={activeFilterTab}
+            filter={filterObject}
+            setFilter={setFilterObject}
+            results={results}
+          />
+          <TagList
+            activeFilterTab={activeFilterTab}
+            filter={filterObject}
+            setFilter={setFilterObject}
+            resources={results}
+          />
         </div>
-        <FilterList
-          activeFilterTab={activeFilterTab}
-          filter={filterObject}
-          setFilter={setFilterObject}
-          results={results}
-        />
-        <TagList
-          activeFilterTab={activeFilterTab}
-          filter={filterObject}
-          setFilter={setFilterObject}
-          resources={results}
-        />
       </div>
-      <div className="col-span-7 flex flex-col justify-between p-2">
-        <h4 className="h-11 font-sans text-lg font-medium leading-10">
-          {Math.max(currentData?.length, results?.length)} Ergebnisse
-        </h4>
+      <div className="col-span-10 flex flex-col justify-between p-2 lg:col-span-7">
+        <div className="mb-4 flex lg:mb-0">
+          <button
+            className={classNames(
+              { "  text-light-sea-green ": !mobileSettingsOpen },
+              { "  bg-light-sea-green text-white ": mobileSettingsOpen },
+              "mr-4 rounded-lg border-2 border-light-sea-green font-bold lg:hidden"
+            )}
+            onClick={() => setMobileSettingsOpen(!mobileSettingsOpen)}
+          >
+            <GoSettings className="h-[24px]" size="3rem" />
+          </button>
+          <h4 className="h-11 font-sans text-lg font-medium leading-10">
+            {Math.max(currentData?.length, results?.length)} Ergebnisse
+          </h4>
+        </div>
         {noResults ? (
           <div className="grow">Es gibt keine Ergebnisse für diese Suche.</div>
         ) : (

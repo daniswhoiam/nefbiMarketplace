@@ -61,7 +61,7 @@ const FilterList = ({
   return (
     <div
       className={classNames(
-        "flex h-[85%] w-full flex-col gap-6 bg-[#F7F7F7] py-4 px-6",
+        "flex w-full flex-col gap-6 bg-[#F7F7F7] py-4 px-6 lg:h-full",
         { ["hidden"]: activeFilterTab !== "Filter" }
       )}
     >
