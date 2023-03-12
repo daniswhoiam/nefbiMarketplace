@@ -41,16 +41,16 @@ const Card = ({ resource }: { resource: Resource }) => {
           className="mb-0 flex gap-2 rounded-lg bg-atomic-tangerine-light py-2 px-4"
           href={url}
         >
-          <p className="m-0 font-bold">Zur Webseite</p>
+          <p className="m-0 font-bold md:block hidden">Zur Webseite</p>
           <MdLaunch className="h-[21px]" size="1rem" />
         </a>
       </div>
       {/* Titel */}
-      <h3 className="mt-6 mb-8 font-sans text-lg font-bold normal-case line-clamp-3">
+      <h3 className="mt-6 mb-8 font-sans md:text-lg text-base font-bold normal-case line-clamp-3">
         {titel}
       </h3>
       {/* Beschreibung */}
-      <p className="line-clamp-4">{beschreibung}</p>
+      <p className="line-clamp-4 md:text-sm text-xs">{beschreibung}</p>
       {/* Footer */}
       <div className="mt-2 flex items-center justify-between min-h-[37px]">
         <button

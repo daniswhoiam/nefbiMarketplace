@@ -5,9 +5,9 @@ import Hexagon from "../assets/images/hexagon.svg"
 
 const Footer = () => {
   return (
-    <footer className="relative w-full px-4 pt-16 pb-2 overflow-hidden text-sm font-medium text-white bg-grey-black lg:px-24">
-      <div className="grid max-w-screen-xl grid-cols-1 mx-auto gap-y-14 lg:grid-cols-3">
-        <div className="flex flex-col col-span-1 gap-y-2 justify-items-start">
+    <footer className="z-99 relative w-full overflow-hidden bg-grey-black px-4 pt-16 pb-2 text-sm font-medium text-white lg:px-24 z-50">
+      <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-y-14 lg:grid-cols-3">
+        <div className="col-span-1 flex flex-col justify-items-start gap-y-2">
           <Link href="/" className="mr-2">
             <Logo
               name="Nefbi"
@@ -22,19 +22,16 @@ const Footer = () => {
             <p>info@nefbi.de</p>
           </div>
         </div>
-        <div className="grid grid-cols-2 col-span-1 text-base font-semibold gap-y-6 mr-[18rem] my-[4rem] lg:col-span-2 lg:justify-items-center lg:items-center">
+        <div className="col-span-1 my-[4rem] mr-[18rem] grid grid-cols-2 gap-y-6 text-base font-semibold lg:col-span-2 lg:items-center lg:justify-items-center">
           <Link href="/">Startseite</Link>
           <Link href="/ueber-uns">Über Uns</Link>
           <Link href="/kontakt">Kontakt</Link>
           <Link href="/datenschutz">Datenschutz</Link>
         </div>
-        <div className="flex flex-col col-span-1 font-normal gap-y-4 lg:col-span-3 lg:flex-row lg:justify-center lg:gap-x-16">
+        <div className="col-span-1 flex flex-col gap-y-4 font-normal lg:col-span-3 lg:flex-row lg:justify-center lg:gap-x-16">
           <p>&copy; nefbi 2022</p>
           <p>Alle Rechte vorbehalten</p>
-          <Link
-            href="/impressum"
-            className="tracking-[.015em] text-lg mb-2"
-          >
+          <Link href="/impressum" className="mb-2 text-lg tracking-[.015em]">
             <p>Impressum</p>
           </Link>
         </div>
@@ -42,7 +39,7 @@ const Footer = () => {
           height="90.82"
           width="120.54"
           fill="#DADADA"
-          className="absolute top-40 right-24 lg:top-36 lg:right-[20rem] rotate-[135deg] opacity-[0.15]"
+          className="absolute top-40 right-24 rotate-[135deg] opacity-[0.15] lg:top-36 lg:right-[20rem]"
         />
         <Hexagon
           height="400.25"
