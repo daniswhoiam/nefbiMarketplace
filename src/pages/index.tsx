@@ -72,7 +72,7 @@ const Index = (props: any) => {
       <div className="action-banner relative w-screen">
         <div className="container mx-auto flex flex-col max-w-screen-xl">
           <h2>Jetzt loslegen!</h2>
-          <button className="btn-primary">nefbi Suche</button>
+          <button className="btn-primary btn">nefbi Suche</button>
         </div>
       </div>
     </div>
