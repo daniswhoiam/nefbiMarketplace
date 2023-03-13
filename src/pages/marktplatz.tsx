@@ -4,7 +4,7 @@ import SideHexagons from "../assets/images/side_hexagons.svg"
 
 const Marktplatz = (props: any) => {
   return (
-    <div className="mt-8">
+    <div className="main-container mt-8">
       <AllResources props={props} />
       <SideHexagons
         height="700"
