@@ -9,24 +9,24 @@ import Logo from "../assets/images/logo_white_reduced.svg"
 const Navbar = () => {
   const [show, setShow] = useState(false)
   return (
-    <nav className="fixed z-10 w-full text-white bg-light-sea-green lg:px-24">
-      <div className="flex flex-col max-w-screen-xl px-4 py-1 mx-auto md:items-center md:justify-between md:flex-row">
+    <nav className="fixed z-50 w-full bg-light-sea-green text-white lg:px-24">
+      <div className="mx-auto flex max-w-screen-xl flex-col px-4 py-1 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-row items-center justify-between">
           <Link href="/" className="w-42 h-14">
             <Logo />
           </Link>
           <button
-            className={`rounded-lg mr-2 p-4 bg-light-sea-green-dark md:hidden focus:outline-none focus:shadow-outline`}
+            className={`focus:shadow-outline mr-2 rounded-lg bg-light-sea-green-dark p-4 focus:outline-none md:hidden`}
             onClick={() => setShow(!show)}
           >
-            <FiAlignJustify className={`${show ? "hidden" : ""} w-6 h-6`} />
-            <FiX className={`${show ? "" : "hidden"} w-6 h-6`} />
+            <FiAlignJustify className={`${show ? "hidden" : ""} h-6 w-6`} />
+            <FiX className={`${show ? "" : "hidden"} h-6 w-6`} />
           </button>
         </div>
         <div
           className={`${
             show ? "flex" : "hidden"
-          } flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row`}
+          } flex-grow flex-col pb-4 md:flex md:flex-row md:justify-end md:pb-0`}
         >
           <NavLink slug="/" linkText="Startseite" setShow={setShow} />
           <NavLink slug="/marktplatz" linkText="Marktplatz" setShow={setShow} />
@@ -57,7 +57,7 @@ function NavLink({
   return (
     <Link
       href={slug}
-      className="px-4 py-2 mt-2 text-sm bg-transparent rounded-lg lg:text-base font-open-sans md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+      className="font-open-sans hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline mt-2 rounded-lg bg-transparent px-4 py-2 text-sm focus:outline-none md:mt-0 md:ml-4 lg:text-base"
       onClick={() => setShow(false)}
     >
       {linkText}

@@ -5,6 +5,7 @@ import { PaginationProps } from "../utils/interfaces"
 import styles from "../assets/css/Pagination.module.scss"
 
 // TO DO PropTypes
+// https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
 
 const Pagination = ({
   onPageChange,
@@ -46,12 +47,13 @@ const Pagination = ({
     >
       {/* Left navigation arrow */}
       <li
-        className={classnames(styles["pagination-item"], {
-          disabled: currentPage === 1,
-        })}
+        className={classnames(
+          styles["pagination-item"],
+          currentPage === 1 ? styles["disabled"] : ""
+        )}
         onClick={onPrevious}
       >
-        <div className={styles.arrow.left} />
+        <div className={classnames(styles["arrow"], styles["left"])} />
       </li>
       {paginationRange.map(pageNumber => {
         // If the pageItem is a DOT, render the DOTS unicode character
@@ -59,11 +61,14 @@ const Pagination = ({
           return <li className={styles["pagination-items"].dots}>&#8230;</li>
         }
 
+        const isCurrent = pageNumber === currentPage
+
         // Render our Page Pills
         return (
           <li
             className={classnames(styles["pagination-item"], {
-              selected: pageNumber === currentPage,
+              "!bg-light-sea-green-light": isCurrent,
+              "!text-white": isCurrent,
             })}
             onClick={() => onPageChange(pageNumber)}
           >
@@ -73,12 +78,13 @@ const Pagination = ({
       })}
       {/*  Right Navigation arrow */}
       <li
-        className={classnames(styles["pagination-item"], {
-          disabled: currentPage === lastPage,
-        })}
+        className={classnames(
+          styles["pagination-item"],
+          currentPage === lastPage ? styles["disabled"] : ""
+        )}
         onClick={onNext}
       >
-        <div className={styles.arrow.right} />
+        <div className={classnames(styles["arrow"], styles["right"])} />
       </li>
     </ul>
   )
