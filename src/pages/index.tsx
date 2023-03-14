@@ -1,9 +1,11 @@
 import React from "react"
+
 import WavingMascot from "../assets/images/waving_mascot.svg"
 import HexagonCloud from "../assets/images/hexagon_bottom_cloud.svg"
 import StepOne from "../assets/images/step1.svg"
 import StepTwo from "../assets/images/step2.svg"
 import StepThree from "../assets/images/step3.svg"
+import HexagonBanner from "../assets/images/hexagon_banner.svg"
 
 const Index = (props: any) => {
   return (
@@ -73,11 +75,14 @@ const Index = (props: any) => {
           </div>
         </div>
       </div>
-      <div className="action-banner relative w-screen">
-        <div className="container mx-auto flex max-w-screen-xl flex-col">
-          <h2>Jetzt loslegen!</h2>
-          <button className="btn-primary btn">nefbi Suche</button>
+      <div className="action-banner relative flex w-screen flex-col justify-center lg:h-[36rem] mt-36">
+        <div className="flex flex-col items-center gap-12">
+          <h2 className=" w-96 px-20 text-center">Jetzt loslegen!</h2>
+          <button className="btn-primary btn w-72 max-w-sm font-semibold text-white">
+            nefbi Suche
+          </button>
         </div>
+        <HexagonBanner height="1200" width="2075" className="absolute left-0 -top-40"/>
       </div>
     </div>
   )
