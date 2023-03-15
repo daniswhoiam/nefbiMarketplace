@@ -13,8 +13,8 @@ const Index = (props: any) => {
       <div className="hero relative w-screen overflow-hidden bg-[#E1F4F3] pt-28 pb-4">
         <div className="hero-text container mx-auto max-w-screen-xl px-8 lg:px-0">
           <h1 className="text-light-sea-green-light">Willkommen!</h1>
-          <h2>Was ist Nefbi?</h2>
-          <p className="pr-[70%]">
+          <h2 className="text-4xl">Was ist Nefbi?</h2>
+          <p className="pr-[60%] text-lg font-semibold">
             nefbi steht für Netzwerk Frühe Bildung. Hier findest du vielfältige
             Materialien zu relevanten pädagogischen Themen. Egal ob du duch auf
             eine Facharbeit vorbereitest, den nächsten Praxisimpuls planst oder
@@ -27,7 +27,7 @@ const Index = (props: any) => {
           height="500"
           width="600"
           viewBox="0 0 700 500"
-          className="absolute right-[16rem] bottom-0 z-10 opacity-100"
+          className="absolute lg:h-[500px] md:h-[400px] -right-[5%] lg:right-[5%] xl:right-[16%] bottom-0 z-10 opacity-100"
         />
         <HexagonCloud
           height="800"
