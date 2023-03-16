@@ -20,7 +20,7 @@
   }
 
   h3 {
-    @apply mt-6 mb-2 font-mitr text-xl uppercase leading-normal tracking-[.015em] lg:text-3xl;
+    @apply mt-6 mb-2 font-mitr text-xl leading-normal tracking-[.015em] lg:text-3xl;
   }
 
   p {
