@@ -52,4 +52,17 @@
   .main-container {
     @apply container mx-auto mb-4 max-w-screen-xl px-8 lg:px-0;
   }
+
+  .hexagon {
+    width: 190px;
+    -webkit-clip-path: polygon(
+      50% 0,
+      100% 25%,
+      100% 75%,
+      50% 100%,
+      0 75%,
+      0 25%
+    );
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+  }
 }
