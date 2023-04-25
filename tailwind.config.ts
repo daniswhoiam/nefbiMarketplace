@@ -29,7 +29,7 @@ export default {
         DEFAULT: "#F5CD6D",
         dark: "#F1C151",
       },
-      coolGray: {
+      ccoolGray: {
         50: "#F9FAFB",
         100: "#F3F4F6",
         200: "#E5E7EB",

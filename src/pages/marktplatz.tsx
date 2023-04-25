@@ -10,7 +10,7 @@ const Marktplatz = (props: any) => {
         height="700"
         width="480"
         fill="#39B5AC"
-        className="absolute left-0 -top-4 -z-10 opacity-20"
+        className="absolute left-0 -top-4 z-1 opacity-20"
       />
     </div>
   )

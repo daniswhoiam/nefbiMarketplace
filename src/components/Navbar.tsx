@@ -1,8 +1,7 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
 import Link from "next/link"
-import { FiAlignJustify } from "@react-icons/all-files/fi/FiAlignJustify"
-import { FiX } from "@react-icons/all-files/fi/FiX"
+import { FiAlignJustify, FiX } from "react-icons/fi"
 import Logo from "../assets/images/logo_white_reduced.svg"
 
 // https://tailwindcomponents.com/component/responsive-navbar-with-grid-dropdown
@@ -57,7 +56,7 @@ function NavLink({
   return (
     <Link
       href={slug}
-      className="font-open-sans hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline mt-2 rounded-lg bg-transparent px-4 py-2 text-sm focus:outline-none md:mt-0 md:ml-4 lg:text-base"
+      className="font-open-sans focus:shadow-outline mt-2 rounded-lg bg-transparent px-4 py-2 text-sm hover:bg-gray-200 hover:text-gray-900 focus:bg-gray-200 focus:text-gray-900 focus:outline-none md:ml-4 md:mt-0 lg:text-base"
       onClick={() => setShow(false)}
     >
       {linkText}

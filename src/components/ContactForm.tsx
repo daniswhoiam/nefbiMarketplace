@@ -48,7 +48,7 @@ const ContactForm = () => {
           <div className="flex flex-col gap-2 lg:w-full">
             <label
               htmlFor="firstName"
-              className="text-coolGray-900 after:ml-0.5 after:text-red-500 after:content-['*']"
+              className="text-ccoolGray-900 after:ml-0.5 after:text-red-500 after:content-['*']"
             >
               Vorname
             </label>
@@ -56,7 +56,7 @@ const ContactForm = () => {
               type="text"
               id="firstName"
               name="firstName"
-              className="z-20 w-full p-2 border border-solid rounded-md border-coolGray-300 bg-coolGray-50 lg:p-4"
+              className="border-ccoolGray-300 bg-ccoolGray-50 z-20 w-full rounded-md border border-solid p-2 lg:p-4"
             />
             <ErrorMessage
               name="firstName"
@@ -68,7 +68,7 @@ const ContactForm = () => {
           <div className="flex flex-col gap-2 lg:w-full">
             <label
               htmlFor="surName"
-              className="text-coolGray-900 after:ml-0.5 after:text-red-500 after:content-['*']"
+              className="text-ccoolGray-900 after:ml-0.5 after:text-red-500 after:content-['*']"
             >
               Nachname
             </label>
@@ -76,7 +76,7 @@ const ContactForm = () => {
               type="text"
               id="surName"
               name="surName"
-              className="z-20 w-full p-2 border border-solid rounded-md border-coolGray-300 bg-coolGray-50 lg:p-4"
+              className="border-ccoolGray-300 bg-ccoolGray-50 z-20 w-full rounded-md border border-solid p-2 lg:p-4"
             />
             <ErrorMessage
               name="surName"
@@ -89,7 +89,7 @@ const ContactForm = () => {
         <div className="flex flex-col gap-2">
           <label
             htmlFor="email"
-            className="text-coolGray-900 after:ml-0.5 after:text-red-500 after:content-['*']"
+            className="text-ccoolGray-900 after:ml-0.5 after:text-red-500 after:content-['*']"
           >
             Email
           </label>
@@ -97,7 +97,7 @@ const ContactForm = () => {
             type="email"
             id="email"
             name="email"
-            className="z-20 w-full p-2 border border-solid rounded-md border-coolGray-300 bg-coolGray-50 lg:p-4"
+            className="border-ccoolGray-300 bg-ccoolGray-50 z-20 w-full rounded-md border border-solid p-2 lg:p-4"
           />
           <ErrorMessage name="email" className="text-red-500" component="div" />
         </div>
@@ -105,7 +105,7 @@ const ContactForm = () => {
         <div className="flex flex-col gap-2">
           <label
             htmlFor="message"
-            className="text-coolGray-900 after:ml-0.5 after:text-red-500 after:content-['*']"
+            className="text-ccoolGray-900 after:ml-0.5 after:text-red-500 after:content-['*']"
           >
             Nachricht
           </label>
@@ -115,7 +115,7 @@ const ContactForm = () => {
             as="textarea"
             name="message"
             rows={6}
-            className="z-20 w-full p-2 border border-solid rounded-md border-coolGray-300 bg-coolGray-50 lg:p-4"
+            className="border-ccoolGray-300 bg-ccoolGray-50 z-20 w-full rounded-md border border-solid p-2 lg:p-4"
           />
           <ErrorMessage
             name="message"
@@ -128,10 +128,10 @@ const ContactForm = () => {
           <Field type="checkbox" name="privacy" id="privacy" className="z-20" />
           <label
             htmlFor="privacy"
-            className="text-coolGray-900 z-20 after:ml-0.5 after:text-red-500 after:content-['*']"
+            className="text-ccoolGray-900 z-20 after:ml-0.5 after:text-red-500 after:content-['*']"
           >
             Hiermit akzeptierst du unsere{" "}
-            <a href="/datenschutz" className="text-base inline-link">
+            <a href="/datenschutz" className="inline-link text-base">
               Datenschutzerklärung
             </a>
             .
@@ -141,7 +141,7 @@ const ContactForm = () => {
 
         <button
           type="submit"
-          className="z-20 py-4 mt-4 text-white btn btn-primary"
+          className="btn btn-primary z-20 mt-4 py-4 text-white"
         >
           Abschicken
         </button>

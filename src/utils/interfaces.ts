@@ -6,7 +6,7 @@ export interface Resource {
   url: string
   format: Array<string>
   author: string
-  altersgruppe: string
+  altersgruppe: Array<string>
   erscheinungsjahr: string
   herausgeber: string
 }
@@ -21,7 +21,7 @@ export interface PaginationProps {
 }
 
 export interface filterFields {
-  altersgruppe: string
+  altersgruppe: Array<string>
   erscheinungsjahr: string
   thema: Array<string>
 }

@@ -3,13 +3,13 @@ import TagList from "./TagList"
 import FilterList from "./FilterList"
 import ResourcesList from "./ResourcesList"
 import Pagination from "./Pagination"
-import { MdSearch } from "@react-icons/all-files/md/MdSearch"
-import { FaWindowClose } from "@react-icons/all-files/fa/FaWindowClose"
-import { Resource, filterFields, searchResult } from "../utils/interfaces"
+import { MdSearch } from "react-icons/md"
+import { FaWindowClose } from "react-icons/fa"
+import { GoSettings } from "react-icons/go"
 import { Index } from "flexsearch"
-import { GoSettings } from "@react-icons/all-files/go/GoSettings"
 import classNames from "classnames"
 const { Document } = require("flexsearch")
+import { Resource, filterFields, searchResult } from "../utils/interfaces"
 
 const PageSize = 6
 
