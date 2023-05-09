@@ -58,7 +58,7 @@ const Pagination = ({
       {paginationRange.map(pageNumber => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <li className={styles["pagination-items"].dots}>&#8230;</li>
+          return <li className={styles["pagination-item"].dots}>&#8230;</li>
         }
 
         const isCurrent = pageNumber === currentPage

@@ -9,6 +9,7 @@ const setupTags = (
   const allTags: { [key: string]: number } = {}
 
   resources.forEach(resource => {
+    if (!resource.thema) return
     resource.thema.forEach(thema => {
       if (allTags[thema]) {
         allTags[thema] = allTags[thema] + 1
