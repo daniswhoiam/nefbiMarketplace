@@ -1,12 +1,17 @@
-import React, { useMemo, useRef } from "react"
+import React, { useMemo, useRef, useState } from "react"
 import Select, { ActionMeta, SingleValue } from "react-select"
 import { Resource, filterFields } from "../utils/interfaces"
 import { array } from "prop-types"
 import classNames from "classnames"
 import { removeFromFilter, addToFilter } from "../utils/handleFilter"
+import { FORMATS } from "../utils/constants"
 
 export interface AddToFilter {
   (partialFilter: Partial<filterFields>): void
+}
+interface Option {
+  value: string
+  label: string
 }
 
 const FilterList = ({
@@ -23,11 +28,14 @@ const FilterList = ({
   let distinctValues = calcDistinctValues(results, [
     "altersgruppe",
     "erscheinungsjahr",
+    "format",
   ])
   const altersgruppen = distinctValues.altersgruppe
   const altersgruppenOptions = resultsToOptions(altersgruppen)
   const erscheinungsjahre = distinctValues.erscheinungsjahr
   const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre)
+  const formate = distinctValues.format
+  const formateOptions = resultsToOptions(formate)
   // Why does deconstruct not work?
   const filterResetDisabled = Object.keys(filter).length === 0
   const altersgruppeRef = useRef<any>()
@@ -61,28 +69,46 @@ const FilterList = ({
   return (
     <div
       className={classNames(
-        "flex w-full flex-col gap-6 bg-[#F7F7F7] py-4 px-6 lg:h-full",
+        "flex w-full flex-col gap-6 bg-[#F7F7F7] px-6 py-4 lg:h-full",
         { ["hidden"]: activeFilterTab !== "Filter" }
       )}
     >
+      <label htmlFor="altersgruppe">Altersgruppen</label>
       <Select
+        id="altersgruppe"
+        name="altersgruppe"
         ref={altersgruppeRef}
         options={altersgruppenOptions}
-        placeholder="Altersgruppen"
+        placeholder="Alle Altersgruppen"
         onChange={(newValue: SingleValue<{ value: string }>, triggerAction) => {
           handleFilterChange(newValue, triggerAction, "altersgruppe")
         }}
         isClearable={true}
       />
+      <Divider />
+      <label htmlFor="erscheinungjahr">Erscheinungsjahr</label>
       <Select
+        id="erscheinungsjahr"
+        name="erscheinungsjahr"
         ref={erscheinungsjahrRef}
         options={erscheinungsjahreOptions}
-        placeholder="Erscheinungsjahr"
+        placeholder="Alle Erscheinungsjahre"
         onChange={(newValue: SingleValue<{ value: string }>, triggerAction) => {
           handleFilterChange(newValue, triggerAction, "erscheinungsjahr")
         }}
         isClearable={true}
       />
+      <Divider />
+      <label htmlFor="formate">Formate</label>
+      <div className="flex flex-row flex-wrap gap-2">
+        {FORMATS.map((option: Option) => (
+          <Format format={option} filter={filter} setFilter={setFilter} />
+        ))}
+      </div>
+      <Divider />
+      <label htmlFor="sortierung">Sortieren nach</label>
+      <Select id="sortierung" name="sortierung" placeholder="Auswählen" />
+      <Divider />
       {/* https://stackoverflow.com/questions/31163693/how-do-i-conditionally-add-attributes-to-react-components */}
       <button
         className="btn btn-secondary"
@@ -120,8 +146,50 @@ function resultsToOptions(arr: Array<any>) {
     return {
       value: val == "" ? "Kein Eintrag" : val,
       label: val == "" ? "Kein Eintrag" : val,
-    }
+    } satisfies Option
   })
+}
+
+const Divider = () => {
+  //https://larainfo.com/blogs/tailwind-css-divider-line-example
+  return <span className="h-[1px] w-full bg-[#DADADA]"></span>
+}
+
+const Format = ({
+  format,
+  filter,
+  setFilter,
+}: {
+  format: Option
+  filter: Partial<filterFields>
+  setFilter: React.Dispatch<React.SetStateAction<Partial<filterFields>>>
+}) => {
+  const [active, setActive] = useState(false)
+
+  return (
+    <button
+      className={classNames(
+        "rounded-md border-2 border-solid border-light-sea-green-light p-2 font-bold text-light-sea-green-light",
+        { ["bg-white"]: !active },
+        { ["bg-light-sea-green-light"]: active },
+        { ["bg-opacity-10"]: active }
+      )}
+      onClick={() => {
+        if (active) {
+          setFilter(removeFromFilter(filter, "format" as keyof filterFields))
+        } else {
+          setFilter(
+            addToFilter(filter, {
+              ["format" as keyof filterFields]: format.value,
+            })
+          )
+        }
+        setActive(!active)
+      }}
+    >
+      {format.label}
+    </button>
+  )
 }
 
 export default FilterList

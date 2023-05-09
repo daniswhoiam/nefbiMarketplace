@@ -108,7 +108,7 @@ const AllResources = (props: any) => {
 
   return (
     <section className="grid min-h-[120vh] grid-cols-10 gap-4">
-      <div className="col-span-10 p-2 lg:col-span-3">
+      <div className="col-span-10 p-2 lg:col-span-3 z-10">
         <label className="relative block">
           <span className="sr-only">Suche</span>
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
