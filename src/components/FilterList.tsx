@@ -17,11 +17,13 @@ interface Option {
 const FilterList = ({
   filter,
   setFilter,
+  setSorting,
   results,
   activeFilterTab,
 }: {
   filter: Partial<filterFields>
   setFilter: React.Dispatch<React.SetStateAction<Partial<filterFields>>>
+  setSorting: React.Dispatch<React.SetStateAction<string>>
   results: Array<Resource>
   activeFilterTab: string
 }) => {
@@ -40,6 +42,13 @@ const FilterList = ({
   const filterResetDisabled = Object.keys(filter).length === 0
   const altersgruppeRef = useRef<any>()
   const erscheinungsjahrRef = useRef<any>()
+  const sortOptions = [
+    { value: "rel", label: "Relevanz" },
+    { value: "titelAsc", label: "Alphabetisch - aufsteigend" },
+    { value: "titelDesc", label: "Alphabetisch - absteigend" },
+    { value: "yearAsc", label: "Erscheinungsjahr - aufsteigend" },
+    { value: "yearDesc", label: "Erscheinungsjahr - absteigend" },
+  ]
 
   distinctValues = useMemo(() => {
     return calcDistinctValues(results, ["altersgruppe", "erscheinungsjahr"])
@@ -107,7 +116,17 @@ const FilterList = ({
       </div>
       <Divider />
       <label htmlFor="sortierung">Sortieren nach</label>
-      <Select id="sortierung" name="sortierung" placeholder="Auswählen" />
+      <Select
+        id="sortierung"
+        name="sortierung"
+        placeholder="Auswählen"
+        options={sortOptions}
+        getOptionLabel={option => option.label}
+        getOptionValue={option => option.value}
+        onChange={option => {
+          setSorting(option!.value)
+        }}
+      />
       <Divider />
       {/* https://stackoverflow.com/questions/31163693/how-do-i-conditionally-add-attributes-to-react-components */}
       <button

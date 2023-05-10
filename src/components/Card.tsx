@@ -40,7 +40,7 @@ const Card = ({ resource }: { resource: Resource }) => {
   return (
     <article
       key={id}
-      className="flex max-h-[22rem] flex-col justify-between rounded-lg border border-solid border-light-sea-green border-opacity-30 bg-[#F7F7F7] bg-opacity-25 p-4"
+      className="flex max-h-[22rem] flex-col justify-between rounded-lg border border-solid border-light-sea-green border-opacity-30 bg-[#F7F7F7] p-4"
     >
       {/* Header */}
       <div className="flex items-center justify-between">

@@ -10,6 +10,7 @@ import { Index } from "flexsearch"
 import classNames from "classnames"
 const { Document } = require("flexsearch")
 import { Resource, filterFields, searchResult } from "../utils/interfaces"
+import { sortResources } from "../utils/handleFilter"
 
 const PageSize = 6
 
@@ -27,6 +28,7 @@ const AllResources = (props: any) => {
   const [searchResults, setSearchResults] = useState<Array<Resource>>([])
   const [filteringResults, setFilteringResults] = useState<Array<Resource>>([])
   const [mobileSettingsOpen, setMobileSettingsOpen] = useState(false)
+  const [sorting, setSorting] = useState("rel")
   // Get query data
   const data: Array<Resource> = props.props.resources
 
@@ -91,6 +93,13 @@ const AllResources = (props: any) => {
     }
   }, [filterObject])
 
+  // Sorting
+  useEffect(() => {
+    const sortBase = searchResults.length > 0 ? searchResults : data
+    const sortedResources = sortResources(sortBase, sorting)
+    setResults([...sortedResources])
+  }, [sorting])
+
   const filterTabs = ["Filter", "Themen"]
   const noResults = results.length === 0
 
@@ -108,7 +117,7 @@ const AllResources = (props: any) => {
 
   return (
     <section className="grid min-h-[120vh] grid-cols-10 gap-4">
-      <div className="col-span-10 p-2 lg:col-span-3 z-10">
+      <div className="z-10 col-span-10 p-2 lg:col-span-3">
         <label className="relative block">
           <span className="sr-only">Suche</span>
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -163,6 +172,7 @@ const AllResources = (props: any) => {
             activeFilterTab={activeFilterTab}
             filter={filterObject}
             setFilter={setFilterObject}
+            setSorting={setSorting}
             results={results}
           />
           <TagList
@@ -173,7 +183,7 @@ const AllResources = (props: any) => {
           />
         </div>
       </div>
-      <div className="col-span-10 flex flex-col justify-between p-2 lg:col-span-7">
+      <div className="z-10 col-span-10 flex flex-col justify-between p-2 lg:col-span-7">
         <div className="mb-4 flex lg:mb-0">
           <button
             className={classNames(
