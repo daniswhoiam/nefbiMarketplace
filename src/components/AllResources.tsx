@@ -83,6 +83,7 @@ const AllResources = (props: any) => {
     setCurrentPage(1);
   }, [query]);
 
+  // Disable background scrolling while mobile settings are open
   useEffect(() => {
     if (mobileSettingsOpen) {
       document.body.style.overflow = 'hidden';
@@ -92,7 +93,7 @@ const AllResources = (props: any) => {
   }, [mobileSettingsOpen]);
 
   return (
-    <section className="grid min-h-[120vh] grid-cols-10 gap-4 z-10 relative">
+    <section className="relative z-10 grid min-h-[120vh] grid-cols-10 gap-4">
       <div className="z-15 col-span-10 p-2 lg:col-span-3">
         <label className="relative block">
           <span className="sr-only">Suche</span>
@@ -141,7 +142,11 @@ const AllResources = (props: any) => {
                 <button
                   key={i}
                   onClick={() => setActiveFilterTab(tab)}
-                  className="min-w-[10rem] rounded-t-md bg-light-sea-green px-8 py-3 font-bold tracking-wider text-white"
+                  className={classNames(
+                    'min-w-[8rem] rounded-t-md px-8 py-3 font-bold tracking-wider text-white xl:min-w-[10rem]',
+                    {'bg-light-sea-green': activeFilterTab == tab},
+                    {'bg-[#B1B1B1]': activeFilterTab != tab},
+                  )}
                 >
                   {tab}
                 </button>

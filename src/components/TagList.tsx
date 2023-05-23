@@ -50,7 +50,7 @@ const TagList = ({
   return (
     <div
       className={classNames(
-        'flex w-full flex-col gap-6 bg-[#F7F7F7] px-6 py-4 lg:h-full overflow-scroll',
+        'flex w-full flex-col gap-6 bg-[#F7F7F7] px-6 py-4 lg:h-full overflow-scroll lg:overflow-auto',
         {
           ['hidden']: activeFilterTab !== 'Themen',
         },
