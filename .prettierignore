@@ -2,3 +2,8 @@
 package.json
 package-lock.json
 public
+node_modules
+
+*.d.ts
+*.config.js
+*.config.ts

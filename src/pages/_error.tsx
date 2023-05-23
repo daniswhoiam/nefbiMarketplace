@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react';
 
-import ConfusedMascot from "../assets/images/confused_mascot.svg"
-import HexagonBanner from "../assets/images/hexagon_banner.svg"
+import ConfusedMascot from '../assets/images/confused_mascot.svg';
+import HexagonBanner from '../assets/images/hexagon_banner.svg';
 
 const Error = () => {
   return (
@@ -25,7 +25,7 @@ const Error = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Error
+export default Error;

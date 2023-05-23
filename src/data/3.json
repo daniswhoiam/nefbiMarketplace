@@ -1,1 +1,12 @@
-{"id":"3","titel":"Flüchtlingskinder in Kindertagesbetreuung","beschreibung":"Bei einer bundesweiten Befragung unter mehr als 3.600 Kindertageseinrichtungen im Jahr 2016 gibt die Studie Antworten auf die Frage, ob und in welchem Umfang geflüchtet Kinder bereits in den Kitas angekommen waren und welche Erfahrungen im Zuge ihrer Aufnahme und Betreuung gemacht wurden. ","url":"https://www.dji.de/fileadmin/user_upload/bibs2017/Fluechtlingskinder_in_Kindertagesbetreuung.pdf","format":["Fachtext"],"thema":["Inklusion und Diversität"],"author":"Benjamin Baisch, Kilian Lüders, Christiane Meiner-Teubner,\nBirgit Riedel, Antonia Scholz","altersgruppe":["3-6 Jahre"],"erscheinungsjahr":"2017","herausgeber":"Deutsche Jugendinstitut e.V. (DJI)"}
+{
+  "id": "3",
+  "titel": "Flüchtlingskinder in Kindertagesbetreuung",
+  "beschreibung": "Bei einer bundesweiten Befragung unter mehr als 3.600 Kindertageseinrichtungen im Jahr 2016 gibt die Studie Antworten auf die Frage, ob und in welchem Umfang geflüchtet Kinder bereits in den Kitas angekommen waren und welche Erfahrungen im Zuge ihrer Aufnahme und Betreuung gemacht wurden. ",
+  "url": "https://www.dji.de/fileadmin/user_upload/bibs2017/Fluechtlingskinder_in_Kindertagesbetreuung.pdf",
+  "format": ["Fachtext"],
+  "thema": ["Inklusion und Diversität"],
+  "author": "Benjamin Baisch, Kilian Lüders, Christiane Meiner-Teubner,\nBirgit Riedel, Antonia Scholz",
+  "altersgruppe": ["3-6 Jahre"],
+  "erscheinungsjahr": "2017",
+  "herausgeber": "Deutsche Jugendinstitut e.V. (DJI)"
+}

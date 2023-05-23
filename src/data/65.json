@@ -1,1 +1,12 @@
-{"id":"65","titel":"Kinderreport Deutschland 2022","beschreibung":"Der Bericht beinhaltet eine umfassende Analyse der aktuellen Situation von Kindern in Deutschland und zeigt Herausforderungen auf, mit denen sie konfrontiert sind, wie z.B. Bildungsungleichheit, Armut, Diskriminierung und Gewalt. Es werden auch Empfehlungen und Lösungsansätze vorgestellt, um die Lebenssituation von Kindern zu verbessern und ihre Rechte zu schützen.","url":"https://shop.dkhw.de/de/fachpublikationen/227-kinderreport-deutschland-2022.html","format":["Sonstiges"],"thema":["Kinderrechte"],"author":"Kai Hanke, Holger Hofmann, Uwe Kamp, Thomas Krüger, Nina Ohlmeier","altersgruppe":["0-3 Jahre","3-6 Jahre","6-10 Jahre"],"erscheinungsjahr":"2022","herausgeber":"Deutsches Kinderhilfswerk e.V."}
+{
+  "id": "65",
+  "titel": "Kinderreport Deutschland 2022",
+  "beschreibung": "Der Bericht beinhaltet eine umfassende Analyse der aktuellen Situation von Kindern in Deutschland und zeigt Herausforderungen auf, mit denen sie konfrontiert sind, wie z.B. Bildungsungleichheit, Armut, Diskriminierung und Gewalt. Es werden auch Empfehlungen und Lösungsansätze vorgestellt, um die Lebenssituation von Kindern zu verbessern und ihre Rechte zu schützen.",
+  "url": "https://shop.dkhw.de/de/fachpublikationen/227-kinderreport-deutschland-2022.html",
+  "format": ["Sonstiges"],
+  "thema": ["Kinderrechte"],
+  "author": "Kai Hanke, Holger Hofmann, Uwe Kamp, Thomas Krüger, Nina Ohlmeier",
+  "altersgruppe": ["0-3 Jahre", "3-6 Jahre", "6-10 Jahre"],
+  "erscheinungsjahr": "2022",
+  "herausgeber": "Deutsches Kinderhilfswerk e.V."
+}

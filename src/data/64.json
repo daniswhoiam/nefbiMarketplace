@@ -1,1 +1,12 @@
-{"id":"64","titel":"Informationsmaterial Deutsches Kinderhilfswerk","beschreibung":"Im Infoshop des Deutschen Kinderhilfswerkes findes sich zahlreiche kostenlose Materialen zum Thema Kinderrecht zum Download oder bestellen.","url":"https://shop.dkhw.de/de/","format":["Sonstiges"],"thema":["Kinderrechte"],"author":"Deutsches Kinderhilfswerk","altersgruppe":["0-3 Jahre","3-6 Jahre","6-10 Jahre"],"erscheinungsjahr":"","herausgeber":"Deutsches Kinderhilfswerk e.V."}
+{
+  "id": "64",
+  "titel": "Informationsmaterial Deutsches Kinderhilfswerk",
+  "beschreibung": "Im Infoshop des Deutschen Kinderhilfswerkes findes sich zahlreiche kostenlose Materialen zum Thema Kinderrecht zum Download oder bestellen.",
+  "url": "https://shop.dkhw.de/de/",
+  "format": ["Sonstiges"],
+  "thema": ["Kinderrechte"],
+  "author": "Deutsches Kinderhilfswerk",
+  "altersgruppe": ["0-3 Jahre", "3-6 Jahre", "6-10 Jahre"],
+  "erscheinungsjahr": "",
+  "herausgeber": "Deutsches Kinderhilfswerk e.V."
+}

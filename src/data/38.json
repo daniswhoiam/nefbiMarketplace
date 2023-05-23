@@ -1,1 +1,12 @@
-{"id":"38","titel":"Publikationen des Netzwerks Kinderrechte","beschreibung":"Die Webseite des Netzwerks Kinderrechte bietet eine Übersicht über verschiedene Publikationen, die sich mit dem Thema Kinderrechte auseinandersetzen. Dazu gehören unter anderem Studien, Berichte, Handreichungen und Broschüren zu verschiedenen Aspekten der Kinderrechte, wie zum Beispiel Bildung, Partizipation oder Schutz vor Gewalt. Die Publikationen richten sich an Fachkräfte in der Kinder- und Jugendhilfe, aber auch an interessierte Eltern und Kinder und sind größtenteils kostenfrei zugänglich.","url":"https://netzwerk-kinderrechte.de/publikationen/","format":["Sonstiges"],"thema":["Kinderrechte"],"author":"National Coalition Deutschland – Netzwerk zur Umsetzung der UN-Kinderrechtskonvention e. V.,","altersgruppe":["0-3 Jahre","3-6 Jahre","6-10 Jahre"],"erscheinungsjahr":"","herausgeber":"National Coalition Deutschland – Netzwerk zur Umsetzung der UN-Kinderrechtskonvention e. V.,"}
+{
+  "id": "38",
+  "titel": "Publikationen des Netzwerks Kinderrechte",
+  "beschreibung": "Die Webseite des Netzwerks Kinderrechte bietet eine Übersicht über verschiedene Publikationen, die sich mit dem Thema Kinderrechte auseinandersetzen. Dazu gehören unter anderem Studien, Berichte, Handreichungen und Broschüren zu verschiedenen Aspekten der Kinderrechte, wie zum Beispiel Bildung, Partizipation oder Schutz vor Gewalt. Die Publikationen richten sich an Fachkräfte in der Kinder- und Jugendhilfe, aber auch an interessierte Eltern und Kinder und sind größtenteils kostenfrei zugänglich.",
+  "url": "https://netzwerk-kinderrechte.de/publikationen/",
+  "format": ["Sonstiges"],
+  "thema": ["Kinderrechte"],
+  "author": "National Coalition Deutschland – Netzwerk zur Umsetzung der UN-Kinderrechtskonvention e. V.,",
+  "altersgruppe": ["0-3 Jahre", "3-6 Jahre", "6-10 Jahre"],
+  "erscheinungsjahr": "",
+  "herausgeber": "National Coalition Deutschland – Netzwerk zur Umsetzung der UN-Kinderrechtskonvention e. V.,"
+}

@@ -1,1 +1,12 @@
-{"id":"71","titel":"PIXI \"Stopp, PRIVAT!\"","beschreibung":"Das fünfte PIXI-Buch des Deutschen Kinderhilfswerks sensibilisiert Kinder im Kita-Alter und ihre Eltern für die in der UN-Kinderrechtskonvention verankerten Kinderrechte. Das Buch behandelt das Thema \"Privatsphäre\".","url":"https://shop.dkhw.de/de/kinderrechte-artikel/150-pixi-stopp-privat.html","format":["Praxisimpuls"],"thema":["Kinderrechte"],"author":"Deutsches Kinderhilfswerk","altersgruppe":["0-3 Jahre","3-6 Jahre"],"erscheinungsjahr":"2019","herausgeber":"Deutsches Kinderhilfswerk e.V."}
+{
+  "id": "71",
+  "titel": "PIXI \"Stopp, PRIVAT!\"",
+  "beschreibung": "Das fünfte PIXI-Buch des Deutschen Kinderhilfswerks sensibilisiert Kinder im Kita-Alter und ihre Eltern für die in der UN-Kinderrechtskonvention verankerten Kinderrechte. Das Buch behandelt das Thema \"Privatsphäre\".",
+  "url": "https://shop.dkhw.de/de/kinderrechte-artikel/150-pixi-stopp-privat.html",
+  "format": ["Praxisimpuls"],
+  "thema": ["Kinderrechte"],
+  "author": "Deutsches Kinderhilfswerk",
+  "altersgruppe": ["0-3 Jahre", "3-6 Jahre"],
+  "erscheinungsjahr": "2019",
+  "herausgeber": "Deutsches Kinderhilfswerk e.V."
+}

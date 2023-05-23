@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react"
-import { Resource } from "../utils/interfaces"
-import { MdLaunch } from "react-icons/md"
-import { FaChild } from "react-icons/fa"
-import { FaHashtag } from "react-icons/fa"
-import { BiCategory } from "react-icons/bi"
-import { calculateAge } from "../utils/helperFunctions"
+import React, {useState, useEffect} from 'react';
+import {Resource} from '../utils/interfaces';
+import {MdLaunch} from 'react-icons/md';
+import {FaChild} from 'react-icons/fa';
+import {FaHashtag} from 'react-icons/fa';
+import {BiCategory} from 'react-icons/bi';
+import {calculateAge} from '../utils/helperFunctions';
 
 interface ModalProps {
-  resource: Resource
-  show: boolean
-  setModalShown: Function
+  resource: Resource;
+  show: boolean;
+  setModalShown: Function;
 }
 
-const Modal: React.FC<ModalProps> = ({ resource, show, setModalShown }) => {
-  const [isOpen, setIsOpen] = useState(false)
+const Modal: React.FC<ModalProps> = ({resource, show, setModalShown}) => {
+  const [isOpen, setIsOpen] = useState(false);
   const {
     titel,
     thema,
@@ -24,35 +24,35 @@ const Modal: React.FC<ModalProps> = ({ resource, show, setModalShown }) => {
     altersgruppe,
     erscheinungsjahr,
     herausgeber,
-  } = resource
+  } = resource;
 
   useEffect(() => {
-    setIsOpen(show)
-  }, [show])
+    setIsOpen(show);
+  }, [show]);
 
   useEffect(() => {
     const closeModal = (event: MouseEvent) => {
       if (
         event.target instanceof HTMLElement &&
-        event.target.className === "modal"
+        event.target.className === 'modal'
       ) {
-        setModalShown(false)
+        setModalShown(false);
       }
-    }
-    window.addEventListener("click", closeModal)
+    };
+    window.addEventListener('click', closeModal);
     return () => {
-      window.removeEventListener("click", closeModal)
-    }
-  }, [])
+      window.removeEventListener('click', closeModal);
+    };
+  }, []);
 
   function closeModal() {
-    setModalShown(false)
+    setModalShown(false);
   }
 
   return (
     <div
       className={`modal left-0 top-0 z-[999] flex h-screen w-screen items-center justify-center ${
-        isOpen ? "fixed" : "hidden"
+        isOpen ? 'fixed' : 'hidden'
       }`}
     >
       <div
@@ -68,21 +68,21 @@ const Modal: React.FC<ModalProps> = ({ resource, show, setModalShown }) => {
         </button>
         <div className="modal-header flex flex-col justify-between gap-4 pb-3 pt-6">
           {thema ? (
-            <p className="mb-0 pr-2 font-bold"> {thema.join(" / ")}</p>
+            <p className="mb-0 pr-2 font-bold"> {thema.join(' / ')}</p>
           ) : (
-            ""
+            ''
           )}
           <p className="mb-0 text-3xl font-bold text-light-sea-green-light">
             {titel}
           </p>
           <p className=" text-jet-dark-grey opacity-80 ">
-            {author ? "Quelle: " : ""}
+            {author ? 'Quelle: ' : ''}
             {author}
-            {erscheinungsjahr || herausgeber ? " (" : ""}
+            {erscheinungsjahr || herausgeber ? ' (' : ''}
             {erscheinungsjahr}
-            {erscheinungsjahr ? ", " : ""}
+            {erscheinungsjahr ? ', ' : ''}
             {herausgeber}
-            {erscheinungsjahr || herausgeber ? ")" : ""}
+            {erscheinungsjahr || herausgeber ? ')' : ''}
           </p>
           <div className="modal-meta flex gap-6">
             {format ? (
@@ -91,7 +91,7 @@ const Modal: React.FC<ModalProps> = ({ resource, show, setModalShown }) => {
                 <p className="mb-0 py-2 pl-2 font-bold">{format[0]}</p>
               </div>
             ) : (
-              ""
+              ''
             )}
             {altersgruppe ? (
               <div className="flex flex-row items-center justify-center">
@@ -101,7 +101,7 @@ const Modal: React.FC<ModalProps> = ({ resource, show, setModalShown }) => {
                 </p>
               </div>
             ) : (
-              ""
+              ''
             )}
           </div>
         </div>
@@ -126,7 +126,7 @@ const Modal: React.FC<ModalProps> = ({ resource, show, setModalShown }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Modal
+export default Modal;

@@ -1,85 +1,116 @@
-import React, { useMemo, useRef, useState } from "react"
-import Select, { ActionMeta, SingleValue } from "react-select"
-import { Resource, filterFields } from "../utils/interfaces"
-import { array } from "prop-types"
-import classNames from "classnames"
-import { removeFromFilter, addToFilter } from "../utils/handleFilter"
-import { FORMATS } from "../utils/constants"
+import React, {useMemo, useRef, useState} from 'react';
+import Select, {ActionMeta, SingleValue} from 'react-select';
+import {Query, Resource, filterFields, Filter, Sort} from '../utils/interfaces';
+import {array} from 'prop-types';
+import classNames from 'classnames';
+import {removeFromFilter, addToFilter} from '../utils/handleFilter';
+import {FORMATS} from '../utils/constants';
+import {useEffect} from 'react';
 
 export interface AddToFilter {
-  (partialFilter: Partial<filterFields>): void
+  (partialFilter: Partial<filterFields>): void;
+}
+interface SortOption {
+  value: Sort;
+  label: string;
 }
 interface Option {
-  value: string
-  label: string
+  value: string;
+  label: string;
 }
 
 const FilterList = ({
-  filter,
-  setFilter,
-  setSorting,
+  query,
+  setQuery,
   results,
   activeFilterTab,
 }: {
-  filter: Partial<filterFields>
-  setFilter: React.Dispatch<React.SetStateAction<Partial<filterFields>>>
-  setSorting: React.Dispatch<React.SetStateAction<string>>
-  results: Array<Resource>
-  activeFilterTab: string
+  query: Query<Resource>;
+  setQuery: React.Dispatch<React.SetStateAction<Query<Resource>>>;
+  results: Array<Resource>;
+  activeFilterTab: string;
 }) => {
   let distinctValues = calcDistinctValues(results, [
-    "altersgruppe",
-    "erscheinungsjahr",
-    "format",
-  ])
-  const altersgruppen = distinctValues.altersgruppe
-  const altersgruppenOptions = resultsToOptions(altersgruppen)
-  const erscheinungsjahre = distinctValues.erscheinungsjahr
-  const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre)
-  const formate = distinctValues.format
-  const formateOptions = resultsToOptions(formate)
+    'altersgruppe',
+    'erscheinungsjahr',
+    'format',
+  ]);
+  const altersgruppen = distinctValues.altersgruppe;
+  const altersgruppenOptions = resultsToOptions(altersgruppen);
+  const erscheinungsjahre = distinctValues.erscheinungsjahr;
+  const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre);
+  const formate = distinctValues.format;
+  const formateOptions = resultsToOptions(formate);
   // Why does deconstruct not work?
-  const filterResetDisabled = Object.keys(filter).length === 0
-  const altersgruppeRef = useRef<any>()
-  const erscheinungsjahrRef = useRef<any>()
-  const sortOptions = [
-    { value: "rel", label: "Relevanz" },
-    { value: "titelAsc", label: "Alphabetisch - aufsteigend" },
-    { value: "titelDesc", label: "Alphabetisch - absteigend" },
-    { value: "yearAsc", label: "Erscheinungsjahr - aufsteigend" },
-    { value: "yearDesc", label: "Erscheinungsjahr - absteigend" },
-  ]
+  const filterResetDisabled = Object.keys(query.filter).length === 0;
+
+  const altersgruppeRef = useRef<any>();
+  const erscheinungsjahrRef = useRef<any>();
+  const sortRef = useRef<any>();
+  const [activeFormats, setActiveFormats] = useState<Array<string>>([]);
+
+  const sortOptions: Array<SortOption> = [
+    {value: {field: 'id', order: 'asc'}, label: 'Relevanz'},
+    {
+      value: {field: 'titel', order: 'asc'},
+      label: 'Alphabetisch - aufsteigend',
+    },
+    {
+      value: {field: 'titel', order: 'desc'},
+      label: 'Alphabetisch - absteigend',
+    },
+    {
+      value: {field: 'erscheinungsjahr', order: 'asc'},
+      label: 'Erscheinungsjahr - aufsteigend',
+    },
+    {
+      value: {field: 'erscheinungsjahr', order: 'desc'},
+      label: 'Erscheinungsjahr - absteigend',
+    },
+  ];
 
   distinctValues = useMemo(() => {
-    return calcDistinctValues(results, ["altersgruppe", "erscheinungsjahr"])
-  }, [filter])
+    return calcDistinctValues(results, ['altersgruppe', 'erscheinungsjahr']);
+  }, [query]);
 
   function handleFilterChange(
-    newValue: SingleValue<{ value: string }>,
-    triggerAction: ActionMeta<{ value: string }>,
-    filterField: keyof filterFields
+    newValue: SingleValue<{value: string}>,
+    triggerAction: ActionMeta<{value: string}>,
+    filterField: keyof filterFields,
   ) {
-    let value: string | undefined
+    let value: string | undefined;
     if (newValue === null || newValue === undefined) {
-      value = undefined
+      value = undefined;
     } else {
-      value = newValue.value
+      value = newValue.value;
     }
     // https://github.com/JedWatson/react-select/issues/1309
-    if (triggerAction.action === "clear") {
-      setFilter(removeFromFilter(filter, filterField))
+    if (triggerAction.action === 'clear') {
+      setQuery({
+        ...query,
+        filter: removeFromFilter(query.filter, filterField),
+      });
     } else {
-      setFilter(
-        addToFilter(filter, { [filterField as keyof filterFields]: value })
-      )
+      setQuery({
+        ...query,
+        filter: addToFilter(query.filter, {
+          [filterField as keyof filterFields]: value,
+        }),
+      });
     }
+  }
+
+  function toggleActiveFormat(format: string) {
+    activeFormats.includes(format)
+      ? setActiveFormats(activeFormats.filter(element => element !== format))
+      : setActiveFormats([...activeFormats, format]);
   }
 
   return (
     <div
       className={classNames(
-        "flex w-full flex-col gap-6 bg-[#F7F7F7] px-6 py-4 lg:h-full",
-        { ["hidden"]: activeFilterTab !== "Filter" }
+        'flex w-full flex-col gap-6 bg-[#F7F7F7] px-6 py-4 lg:h-full',
+        {['hidden']: activeFilterTab !== 'Filter'},
       )}
     >
       <label htmlFor="altersgruppe">Altersgruppen</label>
@@ -89,8 +120,8 @@ const FilterList = ({
         ref={altersgruppeRef}
         options={altersgruppenOptions}
         placeholder="Alle Altersgruppen"
-        onChange={(newValue: SingleValue<{ value: string }>, triggerAction) => {
-          handleFilterChange(newValue, triggerAction, "altersgruppe")
+        onChange={(newValue: SingleValue<{value: string}>, triggerAction) => {
+          handleFilterChange(newValue, triggerAction, 'altersgruppe');
         }}
         isClearable={true}
       />
@@ -102,16 +133,23 @@ const FilterList = ({
         ref={erscheinungsjahrRef}
         options={erscheinungsjahreOptions}
         placeholder="Alle Erscheinungsjahre"
-        onChange={(newValue: SingleValue<{ value: string }>, triggerAction) => {
-          handleFilterChange(newValue, triggerAction, "erscheinungsjahr")
+        onChange={(newValue: SingleValue<{value: string}>, triggerAction) => {
+          handleFilterChange(newValue, triggerAction, 'erscheinungsjahr');
         }}
         isClearable={true}
       />
       <Divider />
       <label htmlFor="formate">Formate</label>
       <div className="flex flex-row flex-wrap gap-2">
-        {FORMATS.map((option: Option) => (
-          <Format format={option} filter={filter} setFilter={setFilter} />
+        {FORMATS.map((option: Option, i) => (
+          <Format
+            key={i}
+            format={option}
+            query={query}
+            setQuery={setQuery}
+            active={activeFormats.includes(option.value)}
+            toggleActiveFormat={toggleActiveFormat}
+          />
         ))}
       </div>
       <Divider />
@@ -119,12 +157,15 @@ const FilterList = ({
       <Select
         id="sortierung"
         name="sortierung"
-        placeholder="Auswählen"
+        ref={sortRef}
+        defaultValue={sortOptions[0]}
         options={sortOptions}
         getOptionLabel={option => option.label}
-        getOptionValue={option => option.value}
         onChange={option => {
-          setSorting(option!.value)
+          setQuery({
+            ...query,
+            sort: option!.value,
+          });
         }}
       />
       <Divider />
@@ -133,82 +174,110 @@ const FilterList = ({
         className="btn btn-secondary"
         disabled={filterResetDisabled}
         onClick={() => {
-          altersgruppeRef.current.clearValue()
-          erscheinungsjahrRef.current.clearValue()
-          setFilter({ thema: [] })
+          altersgruppeRef.current.clearValue();
+          erscheinungsjahrRef.current.clearValue();
+          sortRef.current.setValue(sortOptions[0]);
+          activeFormats.length = 0;
+          setQuery({
+            search: '',
+            filter: {thema: []},
+            sort: {
+              field: 'id',
+              order: 'asc',
+            },
+          });
         }}
       >
         Filter zurücksetzen
       </button>
     </div>
-  )
-}
+  );
+};
 
 function calcDistinctValues(resourceArray: Array<Resource>, keys: string[]) {
-  const distinctResults: { [k: string]: any } = {}
+  const distinctResults: {[k: string]: any} = {};
   keys.forEach(key => {
     const allKeyValues = resourceArray.reduce<string[]>((prev, cur) => {
-      const currentKeyValue: string | string[] = cur[key as keyof Resource]
-      if (typeof currentKeyValue == "string") {
-        return [...prev, currentKeyValue]
+      const currentKeyValue: string | string[] = cur[key as keyof Resource];
+      if (typeof currentKeyValue == 'string') {
+        return [...prev, currentKeyValue];
       } else {
-        return [...prev, ...currentKeyValue]
+        return [...prev, ...currentKeyValue];
       }
-    }, [])
-    distinctResults[key as keyof Object] = [...new Set(allKeyValues)].sort()
-  })
-  return distinctResults
+    }, []);
+    distinctResults[key as keyof object] = [...new Set(allKeyValues)].sort();
+  });
+  return distinctResults;
 }
 
 function resultsToOptions(arr: Array<any>) {
   return arr.map((val: any) => {
     return {
-      value: val == "" ? "Kein Eintrag" : val,
-      label: val == "" ? "Kein Eintrag" : val,
-    } satisfies Option
-  })
+      value: val == '' ? 'Kein Eintrag' : val,
+      label: val == '' ? 'Kein Eintrag' : val,
+    } satisfies Option;
+  });
 }
 
 const Divider = () => {
   //https://larainfo.com/blogs/tailwind-css-divider-line-example
-  return <span className="h-[1px] w-full bg-[#DADADA]"></span>
-}
+  return <span className="h-[1px] w-full bg-[#DADADA]"></span>;
+};
 
 const Format = ({
   format,
-  filter,
-  setFilter,
+  query,
+  setQuery,
+  active,
+  toggleActiveFormat,
 }: {
-  format: Option
-  filter: Partial<filterFields>
-  setFilter: React.Dispatch<React.SetStateAction<Partial<filterFields>>>
+  format: Option;
+  query: Query<Resource>;
+  setQuery: React.Dispatch<React.SetStateAction<Query<Resource>>>;
+  active: boolean;
+  toggleActiveFormat: (format: string) => void;
 }) => {
-  const [active, setActive] = useState(false)
-
   return (
     <button
       className={classNames(
-        "rounded-md border-2 border-solid border-light-sea-green-light p-2 font-bold text-light-sea-green-light",
-        { ["bg-white"]: !active },
-        { ["bg-light-sea-green-light"]: active },
-        { ["bg-opacity-10"]: active }
+        'rounded-md border-2 border-solid border-light-sea-green-light p-2 font-bold text-light-sea-green-light',
+        {['bg-white']: !active},
+        {['bg-light-sea-green-light']: active},
+        {['bg-opacity-10']: active},
       )}
       onClick={() => {
         if (active) {
-          setFilter(removeFromFilter(filter, "format" as keyof filterFields))
+          {
+            /* To fix multiple Format filters problem */
+          }
+          let formatFilters = query.filter.format || [];
+          formatFilters = formatFilters.filter(
+            element => element !== format.value,
+          );
+
+          setQuery({
+            ...query,
+            filter: addToFilter(query.filter, {
+              ['format' as keyof filterFields]: formatFilters,
+            }),
+          });
         } else {
-          setFilter(
-            addToFilter(filter, {
-              ["format" as keyof filterFields]: format.value,
-            })
-          )
+          let formatFilters = query.filter.format || [];
+          formatFilters = [...formatFilters, format.value];
+
+          setQuery({
+            ...query,
+            filter: addToFilter(query.filter, {
+              ['format' as keyof filterFields]: formatFilters,
+            }),
+          });
         }
-        setActive(!active)
+        toggleActiveFormat(format.value);
       }}
     >
       {format.label}
     </button>
-  )
-}
+  );
+};
 
-export default FilterList
+export default FilterList;

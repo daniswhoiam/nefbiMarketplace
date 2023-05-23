@@ -1,34 +1,34 @@
-import { Resource } from "./interfaces"
-import _ from "lodash"
+import {Resource} from './interfaces';
+import _ from 'lodash';
 
 //https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
 function removeItem<T>(arr: Array<T>, value: T): Array<T> {
-  const index = arr.indexOf(value)
+  const index = arr.indexOf(value);
   if (index > -1) {
-    arr.splice(index, 1)
+    arr.splice(index, 1);
   }
-  return arr
+  return arr;
 }
 
-function calculateAge(ageArray: Resource["altersgruppe"]) {
-  const regex = /([0-9]+)/g
+function calculateAge(ageArray: Resource['altersgruppe']) {
+  const regex = /([0-9]+)/g;
   const ageArrayNumbers = ageArray.map((el: string) => {
-    const match = el.match(regex)
+    const match = el.match(regex);
     if (match != null) {
-      return match
+      return match;
     } else {
-      return
+      return;
     }
-  })
-  const flattenedArray = ageArrayNumbers.flat()
+  });
+  const flattenedArray = ageArrayNumbers.flat();
   const ageNumbers = _.map(flattenedArray, function (val) {
-    return _.toNumber(val)
-  })
+    return _.toNumber(val);
+  });
 
-  const minAge = _.min(ageNumbers)
-  const maxAge = _.max(ageNumbers)
+  const minAge = _.min(ageNumbers);
+  const maxAge = _.max(ageNumbers);
 
-  return `${minAge}-${maxAge} Jahre`
+  return `${minAge}-${maxAge} Jahre`;
 }
 
-export { removeItem, calculateAge }
+export {removeItem, calculateAge};

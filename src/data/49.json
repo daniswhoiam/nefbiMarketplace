@@ -1,1 +1,12 @@
-{"id":"49","titel":"Vorurteilsbewusste Kinderbücher","beschreibung":"Die Fachstelle Kinderwelten ist eine Initiative zur Förderung einer inklusiven und vorurteilsbewussten Bildung von Kindern. Auf ihrer Website stellt sie eine umfangreiche Liste von Kinderbüchern bereit, die diesen Ansatz unterstützen. Die Bücherliste ist nach Altersgruppen und Themenschwerpunkten sortiert und enthält eine Vielzahl von Empfehlungen für Pädagog:innen und Eltern.","url":"https://situationsansatz.de/fachstelle-kinderwelten/kinderbuecher/","format":["Praxisimpuls"],"thema":["Bücher, Vorlesen, Literacy","Inklusion und Diversität"],"author":"Institut für Situationsansatz","altersgruppe":["0-3 Jahre","3-6 Jahre","6-10 Jahre"],"erscheinungsjahr":"","herausgeber":"Fachstelle KINDERWELTEN für Vorurteilsbewusste Bildung und Erziehung im Institut für den Situationsansatz (ISTA) in der Internationalen Akademie Berlin gGmbH (INA)"}
+{
+  "id": "49",
+  "titel": "Vorurteilsbewusste Kinderbücher",
+  "beschreibung": "Die Fachstelle Kinderwelten ist eine Initiative zur Förderung einer inklusiven und vorurteilsbewussten Bildung von Kindern. Auf ihrer Website stellt sie eine umfangreiche Liste von Kinderbüchern bereit, die diesen Ansatz unterstützen. Die Bücherliste ist nach Altersgruppen und Themenschwerpunkten sortiert und enthält eine Vielzahl von Empfehlungen für Pädagog:innen und Eltern.",
+  "url": "https://situationsansatz.de/fachstelle-kinderwelten/kinderbuecher/",
+  "format": ["Praxisimpuls"],
+  "thema": ["Bücher, Vorlesen, Literacy", "Inklusion und Diversität"],
+  "author": "Institut für Situationsansatz",
+  "altersgruppe": ["0-3 Jahre", "3-6 Jahre", "6-10 Jahre"],
+  "erscheinungsjahr": "",
+  "herausgeber": "Fachstelle KINDERWELTEN für Vorurteilsbewusste Bildung und Erziehung im Institut für den Situationsansatz (ISTA) in der Internationalen Akademie Berlin gGmbH (INA)"
+}

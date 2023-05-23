@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react"
-import PropTypes, { InferProps } from "prop-types"
-import { MdLaunch } from "react-icons/md"
-import { MdKeyboardArrowRight } from "react-icons/md"
-import { MdKeyboardArrowDown } from "react-icons/md"
-import { BiCategory } from "react-icons/bi"
-import classNames from "classnames"
-import { Resource } from "../utils/interfaces"
-import { calculateAge } from "../utils/helperFunctions"
-import Modal from "./Modal"
+import React, {useEffect, useState} from 'react';
+import PropTypes, {InferProps} from 'prop-types';
+import {MdLaunch} from 'react-icons/md';
+import {MdKeyboardArrowRight} from 'react-icons/md';
+import {MdKeyboardArrowDown} from 'react-icons/md';
+import {BiCategory} from 'react-icons/bi';
+import classNames from 'classnames';
+import {Resource} from '../utils/interfaces';
+import {calculateAge} from '../utils/helperFunctions';
+import Modal from './Modal';
 
 // TO DO PropTypes
 
 // Props: https://stackoverflow.com/questions/59301171/is-not-assignable-to-type-intrinsicattributes-react-js-and-typescript-js
 // Design: https://tailwindcomponents.com/component/tailwind-item-card, https://tailwindcomponents.com/component/article-news-card-1
-const Card = ({ resource }: { resource: Resource }) => {
+const Card = ({resource}: {resource: Resource}) => {
   const {
     id,
     thema,
@@ -25,17 +25,17 @@ const Card = ({ resource }: { resource: Resource }) => {
     altersgruppe,
     erscheinungsjahr,
     herausgeber,
-  } = resource
+  } = resource;
 
-  const [modalShown, setModalShown] = useState(false)
+  const [modalShown, setModalShown] = useState(false);
 
   useEffect(() => {
     if (modalShown) {
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "unset"
+      document.body.style.overflow = 'unset';
     }
-  }, [modalShown])
+  }, [modalShown]);
 
   return (
     <article
@@ -71,8 +71,8 @@ const Card = ({ resource }: { resource: Resource }) => {
           <MdKeyboardArrowRight className="inline-block" /> Mehr anzeigen
         </button>
         <p
-          className={classNames("mb-0", {
-            "rounded-lg bg-light-sea-green px-4 py-2 text-white": altersgruppe,
+          className={classNames('mb-0', {
+            'rounded-lg bg-light-sea-green px-4 py-2 text-white': altersgruppe,
           })}
         >
           {calculateAge(altersgruppe)}
@@ -84,7 +84,7 @@ const Card = ({ resource }: { resource: Resource }) => {
         setModalShown={setModalShown}
       />
     </article>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

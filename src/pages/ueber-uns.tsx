@@ -1,13 +1,13 @@
-import React from "react"
+import React from 'react';
 
-import ContactForm from "../components/ContactForm"
+import ContactForm from '../components/ContactForm';
 
-import SideHexagons from "../assets/images/side_hexagons.svg"
-import HexagonBottomCloud from "../assets/images/hexagon_bottom_cloud.svg"
-import Qualitaet from "../assets/images/qualitaet.svg"
-import Zugang from "../assets/images/zugang.svg"
-import Bildung from "../assets/images/bildung.svg"
-import Innovation from "../assets/images/innovation.svg"
+import SideHexagons from '../assets/images/side_hexagons.svg';
+import HexagonBottomCloud from '../assets/images/hexagon_bottom_cloud.svg';
+import Qualitaet from '../assets/images/qualitaet.svg';
+import Zugang from '../assets/images/zugang.svg';
+import Bildung from '../assets/images/bildung.svg';
+import Innovation from '../assets/images/innovation.svg';
 
 const UeberUns = () => {
   return (
@@ -27,7 +27,7 @@ const UeberUns = () => {
           Kindertagespflegepersonen, für Mitarbeitende in
           Kindertageseinrichtungen, Ganztagsgrundschulen und im Hort. nefbi ist
           ein Raum zum Suchen und Finden, zum Informieren und Weiterbilden. Hier
-          findest du vielfältige Materialien zu relevanten pädagogischen Themen.{" "}
+          findest du vielfältige Materialien zu relevanten pädagogischen Themen.{' '}
           <br />
           Zukünftig bietet nefbi neben der Suchfunktion auch die Möglichkeit für
           Austausch und Vernetzung.
@@ -41,7 +41,7 @@ const UeberUns = () => {
           <div className="flex flex-col items-center text-center md:justify-between">
             <Qualitaet
               viewBox="0 0 150 130"
-              className="w-56 mb-4 md:max-h-48"
+              className="mb-4 w-56 md:max-h-48"
             />
             <p className="font-semibold">Qualität</p>
             <p className="px-12">
@@ -49,14 +49,14 @@ const UeberUns = () => {
             </p>
           </div>
           <div className="flex flex-col items-center text-center md:justify-between">
-            <Zugang viewBox="0 0 150 150" className="w-56 mb-4 md:max-h-48" />
+            <Zugang viewBox="0 0 150 150" className="mb-4 w-56 md:max-h-48" />
             <p className="font-semibold">Zugang</p>
             <p className="px-12">
               Die Materialien sind leicht zu finden und direkt nutzbar
             </p>
           </div>
           <div className="flex flex-col items-center text-center md:justify-between">
-            <Bildung viewBox="0 0 160 150" className="w-56 mb-4 md:max-h-48" />
+            <Bildung viewBox="0 0 160 150" className="mb-4 w-56 md:max-h-48" />
             <p className="font-semibold">Bildung</p>
             <p className="px-12 md:px-2">
               Unsere Materialen regen zur Weiterentwicklung der beruflichen
@@ -66,7 +66,7 @@ const UeberUns = () => {
           <div className="flex flex-col items-center text-center md:justify-between">
             <Innovation
               viewBox="0 0 150 170"
-              className="w-56 mb-4 md:max-h-48"
+              className="mb-4 w-56 md:max-h-48"
             />
             <p className="font-semibold">Innovation</p>
             <p className="px-12">
@@ -82,7 +82,7 @@ const UeberUns = () => {
             <img
               src="/daniil_ro.png"
               alt="Bild von Daniil Belazovschi"
-              className="w-48 mb-4 xl:w-64"
+              className="mb-4 w-48 xl:w-64"
             />
             <p>Daniil Belazovschi</p>
             <p className="text-jet-dark-grey">Gründer</p>
@@ -91,7 +91,7 @@ const UeberUns = () => {
             <img
               src="/natascha_ro.png"
               alt="Bild von Natascha Berger"
-              className="w-48 mb-4 xl:w-64"
+              className="mb-4 w-48 xl:w-64"
             />
             <p>Natascha Berger</p>
             <p className="text-jet-dark-grey">Gründerin</p>
@@ -100,7 +100,7 @@ const UeberUns = () => {
             <img
               src="/luecy_ro.png"
               alt="Bild von Katarina Lücy Fuchs"
-              className="w-48 mb-4 xl:w-64"
+              className="mb-4 w-48 xl:w-64"
             />
             <p>Katarina Lücy Fuchs</p>
             <p className="text-jet-dark-grey">Gründerin</p>
@@ -111,10 +111,10 @@ const UeberUns = () => {
       <ContactForm />
       <HexagonBottomCloud
         viewBox="-150 -20 1700 800"
-        className="absolute -left-[20vw] bottom-0 w-[140vw] lg:-bottom-12 xl:-left-[10vw] xl:w-[120vw] z-10"
+        className="absolute -left-[20vw] bottom-0 z-10 w-[140vw] lg:-bottom-12 xl:-left-[10vw] xl:w-[120vw]"
       />
     </div>
-  )
-}
+  );
+};
 
-export default UeberUns
+export default UeberUns;
