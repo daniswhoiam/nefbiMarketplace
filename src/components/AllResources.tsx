@@ -83,9 +83,17 @@ const AllResources = (props: any) => {
     setCurrentPage(1);
   }, [query]);
 
+  useEffect(() => {
+    if (mobileSettingsOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [mobileSettingsOpen]);
+
   return (
-    <section className="grid min-h-[120vh] grid-cols-10 gap-4">
-      <div className="z-10 col-span-10 p-2 lg:col-span-3">
+    <section className="grid min-h-[120vh] grid-cols-10 gap-4 z-10 relative">
+      <div className="z-15 col-span-10 p-2 lg:col-span-3">
         <label className="relative block">
           <span className="sr-only">Suche</span>
           <span className="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -106,11 +114,11 @@ const AllResources = (props: any) => {
         <div
           className={classNames(
             {
-              'fixed bottom-0 left-0 z-50 flex w-full flex-col items-end justify-end bg-grey-black bg-opacity-50 px-10 backdrop-blur-sm':
+              'fixed bottom-0 left-0 flex w-full flex-col items-end justify-end bg-grey-black bg-opacity-50 px-10 backdrop-blur-sm':
                 mobileSettingsOpen,
             },
             {hidden: !mobileSettingsOpen},
-            'h-full lg:block lg:pb-[50%]',
+            'z-50 h-full lg:block lg:pb-[50%]',
           )}
         >
           <button

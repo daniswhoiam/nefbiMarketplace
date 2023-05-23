@@ -13,7 +13,7 @@ const ResourcesList = ({
   currentItems?: Array<Resource>;
 }) => {
   return (
-    <div className="grid grow grid-cols-2 gap-2">
+    <div className="grid grow grid-cols-1 gap-2 sm:grid-cols-2">
       {currentItems &&
         currentItems.length > 0 &&
         currentItems?.map((resource, index) => {
