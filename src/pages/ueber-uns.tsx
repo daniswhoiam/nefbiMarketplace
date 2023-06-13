@@ -15,6 +15,7 @@ const UeberUns = () => {
       <SideHexagons
         viewBox="-240 -10 700 700"
         className="absolute -right-24 -top-4 w-72 md:-top-36 md:w-96 lg:-top-64 lg:w-[36rem]"
+        fill="#DADADA"
       />
       <h1 className="mt-24 lg:text-center">Über uns</h1>
       <div className="mt-36">
