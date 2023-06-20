@@ -30,6 +30,7 @@ const Navbar = () => {
           <NavLink slug="/" linkText="Startseite" setShow={setShow} />
           <NavLink slug="/marktplatz" linkText="Marktplatz" setShow={setShow} />
           <NavLink slug="/ueber-uns" linkText="Über Uns" setShow={setShow} />
+          <NavLink slug="/qualitaetskriterien" linkText="Qualität" setShow={setShow} />
         </div>
       </div>
     </nav>
