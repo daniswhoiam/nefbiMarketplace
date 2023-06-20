@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react';
 
-import SadMascot from "../assets/images/sad_mascot.svg"
-import HexagonBanner from "../assets/images/hexagon_banner.svg"
+import SadMascot from '../assets/images/sad_mascot.svg';
+import HexagonBanner from '../assets/images/hexagon_banner.svg';
 
 const NoPageFound = () => {
   return (
@@ -23,7 +23,7 @@ const NoPageFound = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default NoPageFound
+export default NoPageFound;

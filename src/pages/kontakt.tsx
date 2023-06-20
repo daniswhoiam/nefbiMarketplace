@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react';
 
 const Kontakt = () => {
-  return <>Kontakt</>
-}
+  return <>Kontakt</>;
+};
 
-export default Kontakt
+export default Kontakt;

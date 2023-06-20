@@ -1,5 +1,5 @@
-import React from "react"
-import HexagonBottomCloud from "../assets/images/hexagon_bottom_cloud.svg"
+import React from 'react';
+import HexagonBottomCloud from '../assets/images/hexagon_bottom_cloud.svg';
 
 const Datenschutz = () => {
   return (
@@ -21,7 +21,7 @@ const Datenschutz = () => {
         Die verwendeten Begriffe sind nicht geschlechtsspezifisch.
       </p>
       <p className="text-justify">Stand: 17. Juni 2022</p>
-      <h2>Inhaltsübersicht</h2>{" "}
+      <h2>Inhaltsübersicht</h2>{' '}
       <ul className="index space-y-1">
         <li>
           <a className="index-link inline-link" href="#m14">
@@ -96,19 +96,19 @@ const Datenschutz = () => {
         Personen.
       </p>
       <h3>Arten der verarbeiteten Daten</h3>
-      <ul className="list-disc list-inside">
+      <ul className="list-inside list-disc">
         <li>Kontaktdaten.</li>
         <li>Inhaltsdaten.</li>
         <li>Nutzungsdaten.</li>
         <li>Meta-/Kommunikationsdaten.</li>
       </ul>
       <h3>Kategorien betroffener Personen</h3>
-      <ul className="list-disc list-inside">
+      <ul className="list-inside list-disc">
         <li>Kommunikationspartner.</li>
         <li>Nutzer.</li>
       </ul>
       <h3>Zwecke der Verarbeitung</h3>
-      <ul className="list-disc list-inside">
+      <ul className="list-inside list-disc">
         <li>Erbringung vertraglicher Leistungen und Kundenservice.</li>
         <li>Kontaktanfragen und Kommunikation.</li>
         <li>Verwaltung und Beantwortung von Anfragen.</li>
@@ -132,7 +132,7 @@ const Datenschutz = () => {
           <strong>
             Vertragserfüllung und vorvertragliche Anfragen (Art. 6 Abs. 1 S. 1
             lit. b. DSGVO)
-          </strong>{" "}
+          </strong>{' '}
           - Die Verarbeitung ist für die Erfüllung eines Vertrags, dessen
           Vertragspartei die betroffene Person ist, oder zur Durchführung
           vorvertraglicher Maßnahmen erforderlich, die auf Anfrage der
@@ -141,7 +141,7 @@ const Datenschutz = () => {
         <li>
           <strong>
             Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f. DSGVO)
-          </strong>{" "}
+          </strong>{' '}
           - Die Verarbeitung ist zur Wahrung der berechtigten Interessen des
           Verantwortlichen oder eines Dritten erforderlich, sofern nicht die
           Interessen oder Grundrechte und Grundfreiheiten der betroffenen
@@ -208,7 +208,7 @@ const Datenschutz = () => {
         aufbewahrt werden müssen oder deren Speicherung zur Geltendmachung,
         Ausübung oder Verteidigung von Rechtsansprüchen oder zum Schutz der
         Rechte einer anderen natürlichen oder juristischen Person erforderlich
-        ist.{" "}
+        ist.{' '}
       </p>
       <p className="text-justify">
         Unsere Datenschutzhinweise können ferner weitere Angaben zu der
@@ -276,7 +276,7 @@ const Datenschutz = () => {
           missbräuchlichen Angriffen, sogenannten DDoS-Attacken) und zum
           anderen, um die Auslastung der Server und ihre Stabilität
           sicherzustellen; <strong>Rechtsgrundlagen:</strong> Berechtigte
-          Interessen (Art. 6 Abs. 1 S. 1 lit. f. DSGVO);{" "}
+          Interessen (Art. 6 Abs. 1 S. 1 lit. f. DSGVO);{' '}
           <strong>Löschung von Daten:</strong> Logfile-Informationen werden für
           die Dauer von maximal 30 Tagen gespeichert und danach gelöscht oder
           anonymisiert. Daten, deren weitere Aufbewahrung zu Beweiszwecken
@@ -289,7 +289,7 @@ const Datenschutz = () => {
           dessen Hilfe Inhalte eines Onlineangebotes, insbesondere große
           Mediendateien, wie Grafiken oder Programm-Skripte, mit Hilfe regional
           verteilter und über das Internet verbundener Server schneller und
-          sicherer ausgeliefert werden können;{" "}
+          sicherer ausgeliefert werden können;{' '}
           <strong>Rechtsgrundlagen:</strong> Berechtigte Interessen (Art. 6 Abs.
           1 S. 1 lit. f. DSGVO).
         </li>
@@ -350,7 +350,7 @@ const Datenschutz = () => {
           zu deren Erfüllung erforderlich ist und im Übrigen auf Grundlage
           unserer berechtigten Interessen sowie der Interessen der
           Kommunikationspartner an der Beantwortung der Anliegen und unserer
-          gesetzlichen Aufbewahrungspflichten;{" "}
+          gesetzlichen Aufbewahrungspflichten;{' '}
           <strong>Rechtsgrundlagen:</strong> Vertragserfüllung und
           vorvertragliche Anfragen (Art. 6 Abs. 1 S. 1 lit. b. DSGVO),
           Berechtigte Interessen (Art. 6 Abs. 1 S. 1 lit. f. DSGVO).
@@ -411,7 +411,7 @@ const Datenschutz = () => {
         <li>
           <strong>
             Recht auf Löschung und Einschränkung der Verarbeitung:
-          </strong>{" "}
+          </strong>{' '}
           Sie haben nach Maßgabe der gesetzlichen Vorgaben das Recht, zu
           verlangen, dass Sie betreffende Daten unverzüglich gelöscht werden,
           bzw. alternativ nach Maßgabe der gesetzlichen Vorgaben eine
@@ -456,14 +456,14 @@ const Datenschutz = () => {
           besonderen Merkmalen identifiziert werden kann, die Ausdruck der
           physischen, physiologischen, genetischen, psychischen,
           wirtschaftlichen, kulturellen oder sozialen Identität dieser
-          natürlichen Person sind.{" "}
+          natürlichen Person sind.{' '}
         </li>
         <li>
           <strong>Verantwortlicher:</strong> Als "Verantwortlicher“ wird die
           natürliche oder juristische Person, Behörde, Einrichtung oder andere
           Stelle, die allein oder gemeinsam mit anderen über die Zwecke und
           Mittel der Verarbeitung von personenbezogenen Daten entscheidet,
-          bezeichnet.{" "}
+          bezeichnet.{' '}
         </li>
         <li>
           <strong>Verarbeitung:</strong> "Verarbeitung" ist jeder mit oder ohne
@@ -471,7 +471,7 @@ const Datenschutz = () => {
           Vorgangsreihe im Zusammenhang mit personenbezogenen Daten. Der Begriff
           reicht weit und umfasst praktisch jeden Umgang mit Daten, sei es das
           Erheben, das Auswerten, das Speichern, das Übermitteln oder das
-          Löschen.{" "}
+          Löschen.{' '}
         </li>
       </ul>
       <p className="seal">
@@ -485,9 +485,9 @@ const Datenschutz = () => {
           Schwenke
         </a>
       </p>
-      <HexagonBottomCloud className="fill-light-sea-green absolute inset-x-0 bottom-0 aspect-[15/8]" />
+      <HexagonBottomCloud className="absolute inset-x-0 bottom-0 aspect-[15/8] fill-light-sea-green" />
     </>
-  )
-}
+  );
+};
 
-export default Datenschutz
+export default Datenschutz;

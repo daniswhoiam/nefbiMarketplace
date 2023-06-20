@@ -1,8 +1,8 @@
-import React, { useMemo } from 'react'
+import React, {useMemo} from 'react';
 
 // https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
 
-export const DOTS = "..."
+export const DOTS = '...';
 
 const range = (start: number, end: number) => {
   let length = end - start + 1;
@@ -10,19 +10,19 @@ const range = (start: number, end: number) => {
   	Create an array of certain length and set the elements within it from
     start value to end value.
   */
-  return Array.from({ length }, (_, idx) => idx + start);
+  return Array.from({length}, (_, idx) => idx + start);
 };
 
 export const usePagination = ({
   totalCount,
   pageSize,
   siblingCount = 1,
-  currentPage
+  currentPage,
 }: {
-  totalCount: number,
-  pageSize: number,
-  siblingCount?: number,
-  currentPage: number
+  totalCount: number;
+  pageSize: number;
+  siblingCount?: number;
+  currentPage: number;
 }) => {
   const paginationRange = useMemo(() => {
     const totalPageCount = Math.ceil(totalCount / pageSize);
@@ -38,14 +38,14 @@ export const usePagination = ({
     if (totalPageNumbers >= totalPageCount) {
       return range(1, totalPageCount);
     }
-	
+
     /*
     	Calculate left and right sibling index and make sure they are within range 1 and totalPageCount
     */
     const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
     const rightSiblingIndex = Math.min(
       currentPage + siblingCount,
-      totalPageCount
+      totalPageCount,
     );
 
     /*
@@ -71,15 +71,14 @@ export const usePagination = ({
     	Case 3: No right dots to show, but left dots to be shown
     */
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      
       let rightItemCount = 3 + 2 * siblingCount;
       let rightRange = range(
         totalPageCount - rightItemCount + 1,
-        totalPageCount
+        totalPageCount,
       );
       return [firstPageIndex, DOTS, ...rightRange];
     }
-     
+
     /*
     	Case 4: Both left and right dots to be shown
     */
@@ -87,7 +86,7 @@ export const usePagination = ({
       let middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
-  }, [totalCount, pageSize, siblingCount, currentPage])
+  }, [totalCount, pageSize, siblingCount, currentPage]);
 
   return paginationRange;
-}
+};

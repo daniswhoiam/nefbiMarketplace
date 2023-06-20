@@ -1,11 +1,11 @@
-import React from "react"
-import Link from "next/link"
-import Logo from "../assets/images/logo_white_without_bg.svg"
-import Hexagon from "../assets/images/hexagon.svg"
+import React from 'react';
+import Link from 'next/link';
+import Logo from '../assets/images/logo_white_without_bg.svg';
+import Hexagon from '../assets/images/hexagon.svg';
 
 const Footer = () => {
   return (
-    <footer className="z-99 relative z-50 w-full overflow-hidden bg-grey-black px-4 pt-16 pb-2 text-sm font-medium text-white lg:px-24">
+    <footer className="z-99 relative z-50 w-full overflow-hidden bg-grey-black px-4 pb-2 pt-16 text-sm font-medium text-white lg:px-24">
       <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-y-14 lg:grid-cols-3">
         <div className="col-span-1 flex flex-col justify-items-start gap-y-2">
           <Link href="/" className="mr-2">
@@ -24,7 +24,9 @@ const Footer = () => {
         </div>
         <div className="col-span-1 my-[4rem] mr-[8rem] grid grid-cols-2 gap-y-6 text-base font-semibold sm:mr-[18rem] lg:col-span-2 lg:items-center lg:justify-items-center">
           <Link href="/">Startseite</Link>
+          <Link href="/marktplatz">Marktplatz</Link>
           <Link href="/ueber-uns">Über Uns</Link>
+          <Link href="/qualitaetskriterien">Qualität</Link>
           <Link href="/kontakt">Kontakt</Link>
           <Link href="/datenschutz">Datenschutz</Link>
         </div>
@@ -39,7 +41,7 @@ const Footer = () => {
           height="90.82"
           width="120.54"
           fill="#DADADA"
-          className="absolute top-40 right-24 rotate-[135deg] opacity-[0.15] lg:top-36 lg:right-[20rem]"
+          className="absolute right-24 top-40 rotate-[135deg] opacity-[0.15] lg:right-[20rem] lg:top-36"
         />
         <Hexagon
           height="400.25"
@@ -49,7 +51,7 @@ const Footer = () => {
         />
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

@@ -1,7 +1,7 @@
-import React from "react"
+import React from 'react';
 
 const Impressum = () => {
-  return <>Impressum</>
-}
+  return <>Impressum</>;
+};
 
-export default Impressum
+export default Impressum;

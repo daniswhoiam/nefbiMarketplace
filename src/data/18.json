@@ -1,1 +1,12 @@
-{"id":"18","titel":"Wahrnehmendes Beobachten","beschreibung":"Eine vierteilige online-Vortragsreihe in bester Qualität, sowie weitere Infos, tolle Praxisbeispiele und wertvolle Einblicke in verschiedene Projekte.","url":"https://www.wahrnehmendes-beobachten.de/online-seminar?cn-reloaded=1","format":["Sonstiges"],"thema":["Beobachtung und Dokumentation"],"author":"Prof. Dr. Marjan Alemzadeh","altersgruppe":"","erscheinungsjahr":"","herausgeber":""}
+{
+  "id": "18",
+  "titel": "Praxismaterial Übergang Kita-Grundschule",
+  "beschreibung": "Die kostenlosen Materialien fokussieren Kinder geflüchterer und neuzugewanderter Familien.",
+  "url": "https://kita-grundschule.de/lern-und-praxismaterialien/",
+  "format": ["Praxisimpuls"],
+  "thema": ["Übergänge gestalten", "Inklusion und Diversität"],
+  "author": "International Rescue Committee",
+  "altersgruppe": ["0-3 Jahre", "3-6 Jahre", "6-10 Jahre"],
+  "erscheinungsjahr": "",
+  "herausgeber": "International Rescue Committee"
+}

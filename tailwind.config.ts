@@ -1,6 +1,9 @@
-const { fontFamily, colors } = require("tailwindcss/defaultTheme")
+import type { Config } from "tailwindcss"
 
-module.exports = {
+const { fontFamily } = require("tailwindcss/defaultTheme")
+import colors from "tailwindcss/colors"
+
+export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {},
@@ -26,6 +29,18 @@ module.exports = {
         DEFAULT: "#F5CD6D",
         dark: "#F1C151",
       },
+      ccoolGray: {
+        50: "#F9FAFB",
+        100: "#F3F4F6",
+        200: "#E5E7EB",
+        300: "#D1D5DB",
+        400: "#9CA3AF",
+        500: "#6B7280",
+        600: "#4B5563",
+        700: "#374151",
+        800: "#1F2A37",
+        900: "#111928",
+      },
     },
     fontFamily: {
       ...fontFamily,
@@ -33,5 +48,4 @@ module.exports = {
       mitr: ["Mitr", "ui-sans-serif"],
     },
   },
-  plugins: [require("@tailwindcss/line-clamp")],
-}
+} satisfies Config

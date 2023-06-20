@@ -1,1 +1,12 @@
-{"id":"16","titel":"Onlinekurs \"Qualität pädagogischer Beziehungen\"","beschreibung":"Neben vielfältigen Materialien zum Download gibt es auf der Homepage zu den Reckahner Reflexionen einen kostenlosen Onlinekurs mit wissenschaftlich fundierten Inhalten zum Spannungsverhältnis von guten pädagogischen Beziehungen, Macht, Ethik und Kinderrechten.","url":"https://paedagogische-beziehungen.eu/modul-1-einfuhrung/","format":["Online-Kurs"],"thema":["Pädagogische Beziehungen"],"author":"Prof. Dr. Annedore Prengel, Dr. Stefanie Bosse, Dr. Jennifer Lambrecht, Dr. Vivien Wysujack, Prof. Dr. Anne Piezunka","altersgruppe":"","erscheinungsjahr":"2021","herausgeber":"Rochow-Museum und Akademie für bildungsgeschichtliche und zeitdiagnostische Forschung e.V.an der Universität Potsdam"}
+{
+  "id": "16",
+  "titel": "Sprache und Lesen",
+  "beschreibung": "Auf dem Youtube-Kanal der Stiftung Lesen unter #medienvielfalt gibt es zahlreiche Videos dazu, wie im Alltag verschiedene pädagogische Themen in der Kita durch Sprache, Bücher und andere (digitale) Medien erlebbar gemacht werden können.",
+  "url": "https://www.youtube.com/playlist?list=PL-2sY-ZN2s8QRgSVpghjO4eq-IBOu4ClJ",
+  "format": ["Video"],
+  "thema": ["Sprachbildung und Mehrsprachigkeit", "Bücher, Vorlesen, Literacy", "Digitale Medien "],
+  "author": "Stiftung Lesen",
+  "altersgruppe": ["0-3 Jahre", "3-6 Jahre"],
+  "erscheinungsjahr": "2020",
+  "herausgeber": "Stiftung Lesen"
+}

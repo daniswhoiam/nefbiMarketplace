@@ -1,16 +1,16 @@
-import React from "react"
+import React from 'react';
 
-import WavingMascot from "../assets/images/waving_mascot.svg"
-import HexagonCloud from "../assets/images/hexagon_bottom_cloud.svg"
-import StepOne from "../assets/images/step1.svg"
-import StepTwo from "../assets/images/step2.svg"
-import StepThree from "../assets/images/step3.svg"
-import HexagonBanner from "../assets/images/hexagon_banner.svg"
+import WavingMascot from '../assets/images/waving_mascot.svg';
+import HexagonCloud from '../assets/images/hexagon_bottom_cloud.svg';
+import StepOne from '../assets/images/step1.svg';
+import StepTwo from '../assets/images/step2.svg';
+import StepThree from '../assets/images/step3.svg';
+import HexagonBanner from '../assets/images/hexagon_banner.svg';
 
 const Index = (props: any) => {
   return (
     <div className="lg:pb-16">
-      <div className="relative flex flex-col items-center overflow-hidden bg-[#E1F4F3] py-24 lg:block lg:px-12 lg:py-0 lg:pt-28 lg:pb-4 xl:px-[8rem] xl:pt-32 2xl:px-[21rem]">
+      <div className="relative flex flex-col items-center overflow-hidden bg-[#E1F4F3] py-24 lg:block lg:px-12 lg:py-0 lg:pb-4 lg:pt-28 xl:px-[8rem] xl:pt-32 2xl:px-[21rem]">
         <HexagonCloud
           viewBox="-200 0 1900 800"
           className="absolute -top-4 left-0 -ml-24 w-[140%] rotate-180 md:hidden"
@@ -38,7 +38,7 @@ const Index = (props: any) => {
           className="absolute bottom-0 left-0 -ml-24 w-[140%] lg:-bottom-36  lg:left-[32rem] lg:ml-0 lg:w-[120%] 2xl:-bottom-40 2xl:left-[48rem] 2xl:w-[100%]"
         />
       </div>
-      <div className="my-12 mx-4 text-center lg:mx-0 lg:px-12 lg:text-left xl:px-[8rem] 2xl:px-[21rem]">
+      <div className="mx-4 my-12 text-center lg:mx-0 lg:px-12 lg:text-left xl:px-[8rem] 2xl:px-[21rem]">
         <h2 className="lg:px-0 lg:text-4xl xl:mb-8">Wie nefbi funktioniert</h2>
         <p className="md:px-24 lg:px-0 lg:pr-[40rem] xl:text-base xl:font-semibold 2xl:pr-[48rem]">
           nefbi ermöglicht das Suchen und Finden von Materialien. Im Suchfeld
@@ -86,7 +86,8 @@ const Index = (props: any) => {
       <div className="grid h-96 xl:mt-36">
         <HexagonBanner
           viewBox="0 0 1500 600"
-          className="col-start-1 row-start-1 w-fit self-center"
+          fill="#FFA065"
+          className="col-start-1 row-start-1 self-center"
         />
         <div className="col-start-1 row-start-1 flex flex-col items-center justify-center">
           <h2 className="text-center">
@@ -98,7 +99,7 @@ const Index = (props: any) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Index
+export default Index;
