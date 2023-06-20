@@ -22,19 +22,14 @@ const Footer = () => {
             <p>info@nefbi.de</p>
           </div>
         </div>
-        <div className="col-span-1 my-[4rem] mr-[8rem] grid grid-cols-2 gap-y-6 text-base font-semibold sm:mr-[18rem] lg:col-span-2 lg:items-center lg:justify-items-center">
-          <Link href="/">Startseite</Link>
-          <Link href="/marktplatz">Marktplatz</Link>
-          <Link href="/ueber-uns">Über Uns</Link>
-          <Link href="/qualitaetskriterien">Qualität</Link>
-          <Link href="/kontakt">Kontakt</Link>
-          <Link href="/datenschutz">Datenschutz</Link>
-        </div>
         <div className="col-span-1 flex flex-col gap-y-4 font-normal lg:col-span-3 lg:flex-row lg:justify-center lg:gap-x-16">
-          <p>&copy; nefbi 2022</p>
+          <p>&copy; nefbi 2023</p>
           <p>Alle Rechte vorbehalten</p>
           <Link href="/impressum" className="mb-2 text-lg tracking-[.015em]">
             <p>Impressum</p>
+          </Link>
+          <Link href="/datenschutz" className="mb-2 text-lg tracking-[.015em]">
+            <p>Datenschutz</p>
           </Link>
         </div>
         <Hexagon
