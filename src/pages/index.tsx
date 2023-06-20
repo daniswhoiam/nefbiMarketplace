@@ -86,7 +86,8 @@ const Index = (props: any) => {
       <div className="grid h-96 xl:mt-36">
         <HexagonBanner
           viewBox="0 0 1500 600"
-          className="col-start-1 row-start-1 w-fit self-center"
+          fill="#FFA065"
+          className="col-start-1 row-start-1 self-center"
         />
         <div className="col-start-1 row-start-1 flex flex-col items-center justify-center">
           <h2 className="text-center">
