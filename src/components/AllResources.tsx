@@ -5,7 +5,7 @@ import ResourcesList from './ResourcesList';
 import Pagination from './Pagination';
 import {MdSearch} from 'react-icons/md';
 import {FaWindowClose} from 'react-icons/fa';
-import {GoSettings} from 'react-icons/go';
+import {LuSettings} from 'react-icons/lu';
 import classNames from 'classnames';
 const {Document} = require('flexsearch');
 import {
@@ -177,7 +177,7 @@ const AllResources = (props: any) => {
             )}
             onClick={() => setMobileSettingsOpen(!mobileSettingsOpen)}
           >
-            <GoSettings className="h-[24px]" size="3rem" />
+            <LuSettings className="h-[24px]" size="3rem" />
           </button>
           <h4 className="h-11 font-sans text-lg font-medium leading-10">
             {Math.max(currentData?.length, results?.length)} Ergebnisse
