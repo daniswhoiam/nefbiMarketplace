@@ -1,12 +1,1 @@
-{
-  "id": "10",
-  "titel": "Gelingensbedingungen für die Verankerung von Kinderrechten in Grundschulen",
-  "beschreibung": "Im Rahmen des Projekts \"Kinderrechteschulen\" gab es eine Erhebung unter Kindern und Erwachsenen, die das Thema der Bedingungen für die Verankerung von Kinderrechten an Grundschulen thematisieren. Die Ergebnisse sind in dieser Evaluation festgehalten",
-  "url": "https://www.kinderrechte.de/fileadmin/Redaktion-Kinderrechte/2_Kinderrechtebildung/2.3_Kinderrechteschulen/2.3.1_Materialien/DESI_Evaluationsbericht_2021-09-17.pdf",
-  "format": ["Fachtext"],
-  "thema": ["Kinderrechte", "Partizipation und Demokratie"],
-  "author": "Bastian Walther und Prof. Dr. Iris Nentwig-Gesemann",
-  "altersgruppe": ["6-10 Jahre"],
-  "erscheinungsjahr": "2021",
-  "herausgeber": "Deutsches Kinderhilfswerk e. V."
-}
+{"id":"10","titel":"Kinderrechte & Co. - Der Podcast des Kinderrechteforums","beschreibung":"Die Podtcastfolgen des Kinderrechteforums verbinden das Thema Kinderrechte mit Polititk, Migration, Chancengleicheit und Demokratie.","url":"https://www.kinderrechteforum.org/informieren/aktuelles/podcast/","format":["Podcast"],"thema":["Kinderrechte"],"author":"Verschiedene","altersgruppe":["0-3 Jahre","3-6 Jahre","6-10 Jahre"],"erscheinungsjahr":"2020","herausgeber":"Kinderrechteforum gGmbH"}
