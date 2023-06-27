@@ -5,6 +5,7 @@ import {FaChild} from 'react-icons/fa';
 import {FaHashtag} from 'react-icons/fa';
 import {BiCategory} from 'react-icons/bi';
 import {calculateAge} from '../utils/helperFunctions';
+import ExternalLinkButton from './ExternalLinkButton';
 
 interface ModalProps {
   resource: Resource;
@@ -116,13 +117,7 @@ const Modal: React.FC<ModalProps> = ({resource, show, setModalShown}) => {
           >
             Schließen
           </button>
-          <a
-            className="mb-0 flex items-center justify-center gap-2 rounded-lg bg-atomic-tangerine-light px-4 py-2"
-            href={url}
-          >
-            <p className="m-0 font-bold">Zur Webseite</p>
-            <MdLaunch className="h-[21px]" size="1rem" />
-          </a>
+          <ExternalLinkButton url={url} />
         </div>
       </div>
     </div>

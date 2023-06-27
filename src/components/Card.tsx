@@ -2,12 +2,12 @@ import React, {useEffect, useState} from 'react';
 import PropTypes, {InferProps} from 'prop-types';
 import {MdLaunch} from 'react-icons/md';
 import {MdKeyboardArrowRight} from 'react-icons/md';
-import {MdKeyboardArrowDown} from 'react-icons/md';
 import {BiCategory} from 'react-icons/bi';
 import classNames from 'classnames';
 import {Resource} from '../utils/interfaces';
 import {calculateAge} from '../utils/helperFunctions';
 import Modal from './Modal';
+import ExternalLinkButton from './ExternalLinkButton';
 
 // TO DO PropTypes
 
@@ -48,13 +48,7 @@ const Card = ({resource}: {resource: Resource}) => {
           <BiCategory className="h-[21px]" size="1.4rem" />
           <p className="mb-0 py-2 pl-2 font-bold">{format[0]}</p>
         </div>
-        <a
-          className="mb-0 flex gap-2 rounded-lg bg-atomic-tangerine-light px-4 py-2"
-          href={url}
-        >
-          <p className="m-0 hidden font-bold md:block">Zur Webseite</p>
-          <MdLaunch className="h-[21px]" size="1rem" />
-        </a>
+        <ExternalLinkButton url={url} />
       </div>
       {/* Titel */}
       <h3 className="mb-8 mt-6 line-clamp-3 font-sans text-base font-bold normal-case md:text-lg">
