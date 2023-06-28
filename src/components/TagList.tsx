@@ -50,7 +50,7 @@ const TagList = ({
   return (
     <div
       className={classNames(
-        'flex w-full flex-col gap-6 bg-[#F7F7F7] px-6 py-4 lg:h-full overflow-scroll lg:overflow-auto',
+        'flex max-h-[943px] w-full grow flex-col gap-6 overflow-scroll bg-[#F7F7F7] px-6 py-4 lg:h-full lg:overflow-auto',
         {
           ['hidden']: activeFilterTab !== 'Themen',
         },
@@ -70,7 +70,7 @@ const TagList = ({
             />
             <p
               key={index}
-              className="mb-0 ml-2 font-medium leading-6 text-gray-500 flex"
+              className="mb-0 ml-2 flex font-medium leading-6 text-gray-500"
             >
               {text} ({value})
             </p>

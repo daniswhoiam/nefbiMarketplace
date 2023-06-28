@@ -1,11 +1,10 @@
 import React, {useMemo, useRef, useState} from 'react';
 import Select, {ActionMeta, SingleValue} from 'react-select';
-import {Query, Resource, filterFields, Filter, Sort} from '../utils/interfaces';
+import {Query, Resource, filterFields, Sort} from '../utils/interfaces';
 import {array} from 'prop-types';
 import classNames from 'classnames';
 import {removeFromFilter, addToFilter} from '../utils/handleFilter';
 import {FORMATS} from '../utils/constants';
-import {useEffect} from 'react';
 
 export interface AddToFilter {
   (partialFilter: Partial<filterFields>): void;
@@ -109,7 +108,7 @@ const FilterList = ({
   return (
     <div
       className={classNames(
-        'flex w-full flex-col gap-6 bg-[#F7F7F7] px-6 py-4 lg:h-full',
+        'flex max-h-[943px] w-full grow flex-col gap-6 overflow-scroll bg-[#F7F7F7] px-6 py-4 lg:h-full lg:overflow-auto',
         {['hidden']: activeFilterTab !== 'Filter'},
       )}
     >

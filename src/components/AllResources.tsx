@@ -115,7 +115,7 @@ const AllResources = (props: any) => {
         <div
           className={classNames(
             {
-              'fixed bottom-0 left-0 flex w-full flex-col items-end justify-end bg-grey-black bg-opacity-50 px-10 backdrop-blur-sm':
+              'fixed top-0 pt-20 left-0 flex h-full w-full flex-col items-end bg-grey-black bg-opacity-50 px-10 backdrop-blur-sm':
                 mobileSettingsOpen,
             },
             {hidden: !mobileSettingsOpen},
