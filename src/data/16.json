@@ -1,12 +1,1 @@
-{
-  "id": "16",
-  "titel": "Sprache und Lesen",
-  "beschreibung": "Auf dem Youtube-Kanal der Stiftung Lesen unter #medienvielfalt gibt es zahlreiche Videos dazu, wie im Alltag verschiedene pädagogische Themen in der Kita durch Sprache, Bücher und andere (digitale) Medien erlebbar gemacht werden können.",
-  "url": "https://www.youtube.com/playlist?list=PL-2sY-ZN2s8QRgSVpghjO4eq-IBOu4ClJ",
-  "format": ["Video"],
-  "thema": ["Sprachbildung und Mehrsprachigkeit", "Bücher, Vorlesen, Literacy", "Digitale Medien "],
-  "author": "Stiftung Lesen",
-  "altersgruppe": ["0-3 Jahre", "3-6 Jahre"],
-  "erscheinungsjahr": "2020",
-  "herausgeber": "Stiftung Lesen"
-}
+{"id":"16","titel":"Mitentscheiden und Mithandeln in der Kita","beschreibung":"Der kostenlose online-Kurs bietet vielfältige fachliche und praktische Anregungen, wie Partizipation von Kindern im pädagogischen Alltag gemeinsam gestaltet und gelebt werden kann. Neben theoretischen Grundlagen zu Demokratie und Partizipation bietet der Kurs konkrete Methoden zur Umsetzung im Alltag. Außerdem kann ein Weiterbildungszertifikat erlangt werden.","url":"https://www.oncampus.de/weiterbildung/moocs/kita","format":["Online-Kurs"],"thema":["Partizipation und Demokratie"],"author":"Bertelsmann Stiftung","altersgruppe":["0-3 Jahre","3-6 Jahre"],"erscheinungsjahr":"2021","herausgeber":"Bertelsmann Stiftung"}
