@@ -25,9 +25,21 @@ function removeFromFilter(
 
 export {removeFromFilter};
 
-function modifyFilter (filter: Filter<Resource>, filterkey: keyof filterFields, newValue: Partial<Filter<Resource>>) {
-  
+function getFilterField(
+  filter: Filter<Resource>,
+  filterKey: keyof filterFields,
+) {
+  return filter[filterKey];
 }
+
+export {getFilterField};
+
+// What to do with this?
+function modifyFilter(
+  filter: Filter<Resource>,
+  filterkey: keyof filterFields,
+  newValue: Partial<Filter<Resource>>,
+) {}
 
 function sortResources(resources: Array<Resource>, sortKey: string) {
   let resourcesSorted;

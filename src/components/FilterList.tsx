@@ -1,5 +1,5 @@
 import React, {useMemo, useRef, useState} from 'react';
-import Select, {ActionMeta, SingleValue} from 'react-select';
+import Select, {ActionMeta, MultiValue, SingleValue} from 'react-select';
 import {Query, Resource, filterFields, Sort} from '../utils/interfaces';
 import {array} from 'prop-types';
 import classNames from 'classnames';
@@ -34,12 +34,10 @@ const FilterList = ({
     'erscheinungsjahr',
     'format',
   ]);
-  const altersgruppen = distinctValues.altersgruppe;
+  const altersgruppen = ['0-3 Jahre', '3-6 Jahre', '6-10 Jahre'];
   const altersgruppenOptions = resultsToOptions(altersgruppen);
   const erscheinungsjahre = distinctValues.erscheinungsjahr;
   const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre);
-  const formate = distinctValues.format;
-  const formateOptions = resultsToOptions(formate);
   // Why does deconstruct not work?
   const filterResetDisabled = Object.keys(query.filter).length === 0;
 
@@ -99,6 +97,28 @@ const FilterList = ({
     }
   }
 
+  function handleMultiFilterChange(
+    newValues: MultiValue<{value: string}>,
+    actionMeta: ActionMeta<{value: string}>,
+    filterField: keyof filterFields,
+  ) {
+    let values = newValues.map(value => value.value);
+    switch (actionMeta.action) {
+      case 'clear':
+        setQuery({
+          ...query,
+          filter: removeFromFilter(query.filter, filterField),
+        });
+      default:
+        setQuery({
+          ...query,
+          filter: addToFilter(query.filter, {
+            [filterField as keyof filterFields]: values,
+          }),
+        });
+    }
+  }
+
   function toggleActiveFormat(format: string) {
     activeFormats.includes(format)
       ? setActiveFormats(activeFormats.filter(element => element !== format))
@@ -119,8 +139,13 @@ const FilterList = ({
         ref={altersgruppeRef}
         options={altersgruppenOptions}
         placeholder="Alle Altersgruppen"
-        onChange={(newValue: SingleValue<{value: string}>, triggerAction) => {
-          handleFilterChange(newValue, triggerAction, 'altersgruppe');
+        isMulti
+        closeMenuOnSelect={false}
+        onChange={(
+          newValue: MultiValue<{value: string}>,
+          actionMeta: ActionMeta<{value: string}>,
+        ) => {
+          handleMultiFilterChange(newValue, actionMeta, 'altersgruppe');
         }}
         isClearable={true}
       />

@@ -16,15 +16,11 @@ import ExternalLinkButton from './ExternalLinkButton';
 const Card = ({resource}: {resource: Resource}) => {
   const {
     id,
-    thema,
     titel,
     url,
     format,
     beschreibung,
-    author,
     altersgruppe,
-    erscheinungsjahr,
-    herausgeber,
   } = resource;
 
   const [modalShown, setModalShown] = useState(false);
