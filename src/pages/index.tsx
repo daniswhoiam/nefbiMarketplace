@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Link from 'next/link';
 import WavingMascot from '../assets/images/waving_mascot.svg';
 import HexagonCloud from '../assets/images/hexagon_bottom_cloud.svg';
 import StepOne from '../assets/images/step1.svg';
@@ -93,9 +93,11 @@ const Index = (props: any) => {
           <h2 className="text-center">
             Jetzt <br></br> loslegen!
           </h2>
-          <button className="btn btn-primary px-16 font-semibold text-white">
-            nefbi Suche
-          </button>
+          <Link href="/marktplatz">
+            <button className="btn btn-primary px-16 font-semibold text-white">
+              nefbi Suche
+            </button>
+          </Link>
         </div>
       </div>
     </div>

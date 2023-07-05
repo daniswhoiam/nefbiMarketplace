@@ -1,11 +1,10 @@
 import React, {useMemo, useRef, useState} from 'react';
-import Select, {ActionMeta, SingleValue} from 'react-select';
-import {Query, Resource, filterFields, Filter, Sort} from '../utils/interfaces';
+import Select, {ActionMeta, MultiValue, SingleValue} from 'react-select';
+import {Query, Resource, filterFields, Sort} from '../utils/interfaces';
 import {array} from 'prop-types';
 import classNames from 'classnames';
 import {removeFromFilter, addToFilter} from '../utils/handleFilter';
 import {FORMATS} from '../utils/constants';
-import {useEffect} from 'react';
 
 export interface AddToFilter {
   (partialFilter: Partial<filterFields>): void;
@@ -35,12 +34,10 @@ const FilterList = ({
     'erscheinungsjahr',
     'format',
   ]);
-  const altersgruppen = distinctValues.altersgruppe;
+  const altersgruppen = ['0-3 Jahre', '3-6 Jahre', '6-10 Jahre'];
   const altersgruppenOptions = resultsToOptions(altersgruppen);
   const erscheinungsjahre = distinctValues.erscheinungsjahr;
   const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre);
-  const formate = distinctValues.format;
-  const formateOptions = resultsToOptions(formate);
   // Why does deconstruct not work?
   const filterResetDisabled = Object.keys(query.filter).length === 0;
 
@@ -100,6 +97,28 @@ const FilterList = ({
     }
   }
 
+  function handleMultiFilterChange(
+    newValues: MultiValue<{value: string}>,
+    actionMeta: ActionMeta<{value: string}>,
+    filterField: keyof filterFields,
+  ) {
+    let values = newValues.map(value => value.value);
+    switch (actionMeta.action) {
+      case 'clear':
+        setQuery({
+          ...query,
+          filter: removeFromFilter(query.filter, filterField),
+        });
+      default:
+        setQuery({
+          ...query,
+          filter: addToFilter(query.filter, {
+            [filterField as keyof filterFields]: values,
+          }),
+        });
+    }
+  }
+
   function toggleActiveFormat(format: string) {
     activeFormats.includes(format)
       ? setActiveFormats(activeFormats.filter(element => element !== format))
@@ -109,7 +128,7 @@ const FilterList = ({
   return (
     <div
       className={classNames(
-        'flex w-full flex-col gap-6 bg-[#F7F7F7] px-6 py-4 lg:h-full',
+        'flex max-h-[943px] w-full grow flex-col gap-6 overflow-scroll bg-[#F7F7F7] px-6 py-4 lg:h-full lg:overflow-auto',
         {['hidden']: activeFilterTab !== 'Filter'},
       )}
     >
@@ -120,8 +139,13 @@ const FilterList = ({
         ref={altersgruppeRef}
         options={altersgruppenOptions}
         placeholder="Alle Altersgruppen"
-        onChange={(newValue: SingleValue<{value: string}>, triggerAction) => {
-          handleFilterChange(newValue, triggerAction, 'altersgruppe');
+        isMulti
+        closeMenuOnSelect={false}
+        onChange={(
+          newValue: MultiValue<{value: string}>,
+          actionMeta: ActionMeta<{value: string}>,
+        ) => {
+          handleMultiFilterChange(newValue, actionMeta, 'altersgruppe');
         }}
         isClearable={true}
       />
