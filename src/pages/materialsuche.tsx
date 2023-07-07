@@ -2,7 +2,7 @@ import React from 'react';
 import AllResources from '../components/AllResources';
 import SideHexagons from '../assets/images/side_hexagons.svg';
 
-const Marktplatz = (props: any) => {
+const Materialsuche = (props: any) => {
   return (
     <div className="main-container mt-8">
       <AllResources props={props} />
@@ -16,7 +16,7 @@ const Marktplatz = (props: any) => {
   );
 };
 
-export default Marktplatz;
+export default Materialsuche;
 
 import fsPromises, {readdir} from 'fs/promises';
 import path from 'path';

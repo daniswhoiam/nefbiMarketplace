@@ -24,7 +24,7 @@ const Footer = () => {
         </div>
         <div className="col-span-1 my-[4rem] mr-[8rem] grid grid-cols-2 gap-y-6 text-base font-semibold sm:mr-[18rem] lg:col-span-2 lg:items-center lg:justify-items-center">
           <Link href="/">Startseite</Link>
-          <Link href="/marktplatz">Marktplatz</Link>
+          <Link href="/materialsuche">Materialsuche</Link>
           <Link href="/ueber-uns">Über Uns</Link>
           <Link href="/qualitaetskriterien">Qualität</Link>
           <Link href="/kontakt">Kontakt</Link>

@@ -93,7 +93,7 @@ const Index = (props: any) => {
           <h2 className="text-center">
             Jetzt <br></br> loslegen!
           </h2>
-          <Link href="/marktplatz">
+          <Link href="/materialsuche">
             <button className="btn btn-primary px-16 font-semibold text-white">
               nefbi Suche
             </button>
