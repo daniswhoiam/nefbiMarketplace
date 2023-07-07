@@ -23,11 +23,15 @@ const FilterList = ({
   setQuery,
   results,
   activeFilterTab,
+  mobileSettingsOpen,
+  setMobileSettingsOpen,
 }: {
   query: Query<Resource>;
   setQuery: React.Dispatch<React.SetStateAction<Query<Resource>>>;
   results: Array<Resource>;
   activeFilterTab: string;
+  mobileSettingsOpen: boolean;
+  setMobileSettingsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   let distinctValues = calcDistinctValues(results, [
     'altersgruppe',
@@ -194,6 +198,16 @@ const FilterList = ({
       />
       <Divider />
       {/* https://stackoverflow.com/questions/31163693/how-do-i-conditionally-add-attributes-to-react-components */}
+      {mobileSettingsOpen ? (
+        <button
+          className="btn btn-primary text-white"
+          onClick={() => setMobileSettingsOpen(false)}
+        >
+          Suche
+        </button>
+      ) : (
+        ''
+      )}
       <button
         className="btn btn-secondary"
         disabled={filterResetDisabled}
