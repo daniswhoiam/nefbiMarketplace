@@ -28,7 +28,7 @@ const Navbar = () => {
           } flex-grow flex-col pb-4 md:flex md:flex-row md:justify-end md:pb-0`}
         >
           <NavLink slug="/" linkText="Startseite" setShow={setShow} />
-          <NavLink slug="/marktplatz" linkText="Marktplatz" setShow={setShow} />
+          <NavLink slug="/materialsuche" linkText="Materialsuche" setShow={setShow} />
           <NavLink slug="/ueber-uns" linkText="Über Uns" setShow={setShow} />
           <NavLink slug="/qualitaetskriterien" linkText="Qualität" setShow={setShow} />
         </div>
