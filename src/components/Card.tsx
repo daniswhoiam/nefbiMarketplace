@@ -14,24 +14,10 @@ import ExternalLinkButton from './ExternalLinkButton';
 // Props: https://stackoverflow.com/questions/59301171/is-not-assignable-to-type-intrinsicattributes-react-js-and-typescript-js
 // Design: https://tailwindcomponents.com/component/tailwind-item-card, https://tailwindcomponents.com/component/article-news-card-1
 const Card = ({resource}: {resource: Resource}) => {
-  const {
-    id,
-    titel,
-    url,
-    format,
-    beschreibung,
-    altersgruppe,
-  } = resource;
+  const {id, titel, url, format, beschreibung, altersgruppe} = resource;
 
   const [modalShown, setModalShown] = useState(false);
 
-  useEffect(() => {
-    if (modalShown) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [modalShown]);
 
   return (
     <article
@@ -68,11 +54,15 @@ const Card = ({resource}: {resource: Resource}) => {
           {calculateAge(altersgruppe)}
         </p>
       </div>
-      <Modal
-        resource={resource}
-        show={modalShown}
-        setModalShown={setModalShown}
-      />
+      {modalShown ? (
+        <Modal
+          resource={resource}
+          show={modalShown}
+          setModalShown={setModalShown}
+        />
+      ) : (
+        ''
+      )}
     </article>
   );
 };

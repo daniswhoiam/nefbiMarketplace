@@ -50,9 +50,17 @@ const Modal: React.FC<ModalProps> = ({resource, show, setModalShown}) => {
     setModalShown(false);
   }
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   return (
     <div
-      className={`modal left-0 top-0 z-[999] flex h-screen w-screen items-center justify-center ${
+      className={`modal left-0 top-0 z-[999] flex h-screen w-screen items-center justify-center overflow-y-auto overscroll-none ${
         isOpen ? 'fixed' : 'hidden'
       }`}
     >
