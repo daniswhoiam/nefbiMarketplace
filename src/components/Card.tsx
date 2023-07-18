@@ -5,7 +5,7 @@ import {MdKeyboardArrowRight} from 'react-icons/md';
 import {BiCategory} from 'react-icons/bi';
 import classNames from 'classnames';
 import {Resource} from '../utils/interfaces';
-import {calculateAge} from '../utils/helperFunctions';
+import {calculateAge, scrollToTop} from '../utils/helperFunctions';
 import Modal from './Modal';
 import ExternalLinkButton from './ExternalLinkButton';
 
@@ -14,24 +14,10 @@ import ExternalLinkButton from './ExternalLinkButton';
 // Props: https://stackoverflow.com/questions/59301171/is-not-assignable-to-type-intrinsicattributes-react-js-and-typescript-js
 // Design: https://tailwindcomponents.com/component/tailwind-item-card, https://tailwindcomponents.com/component/article-news-card-1
 const Card = ({resource}: {resource: Resource}) => {
-  const {
-    id,
-    titel,
-    url,
-    format,
-    beschreibung,
-    altersgruppe,
-  } = resource;
+  const {id, titel, url, format, beschreibung, altersgruppe} = resource;
 
   const [modalShown, setModalShown] = useState(false);
 
-  useEffect(() => {
-    if (modalShown) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [modalShown]);
 
   return (
     <article
@@ -56,7 +42,10 @@ const Card = ({resource}: {resource: Resource}) => {
       <div className="mt-2 flex min-h-[37px] items-center justify-between">
         <button
           className="flex items-center underline underline-offset-2"
-          onClick={() => setModalShown(true)}
+          onClick={() => {
+            scrollToTop();
+            setModalShown(true);
+          }}
         >
           <MdKeyboardArrowRight className="inline-block" /> Mehr anzeigen
         </button>
@@ -68,11 +57,15 @@ const Card = ({resource}: {resource: Resource}) => {
           {calculateAge(altersgruppe)}
         </p>
       </div>
-      <Modal
-        resource={resource}
-        show={modalShown}
-        setModalShown={setModalShown}
-      />
+      {modalShown ? (
+        <Modal
+          resource={resource}
+          show={modalShown}
+          setModalShown={setModalShown}
+        />
+      ) : (
+        ''
+      )}
     </article>
   );
 };

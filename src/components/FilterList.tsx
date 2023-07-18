@@ -278,7 +278,7 @@ const Format = ({
   return (
     <button
       className={classNames(
-        'rounded-md border-2 border-solid border-light-sea-green-light p-2 font-bold text-light-sea-green-light',
+        'grow rounded-md border-2 border-solid border-light-sea-green-light p-2 font-bold text-light-sea-green-light',
         {['bg-white']: !active},
         {['bg-light-sea-green-light']: active},
         {['bg-opacity-10']: active},

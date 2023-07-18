@@ -84,16 +84,9 @@ const AllResources = (props: any) => {
   }, [query]);
 
   // Disable background scrolling while mobile settings are open
-  useEffect(() => {
-    if (mobileSettingsOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [mobileSettingsOpen]);
 
   return (
-    <section className="relative z-10 flex flex-col lg:grid min-h-[120vh] lg:grid-cols-10 gap-4">
+    <section className="relative z-10 flex min-h-[120vh] flex-col gap-4 lg:grid lg:grid-cols-10">
       <div className="z-15 col-span-10 p-2 lg:col-span-3">
         <label className="relative block">
           <span className="sr-only">Suche</span>
@@ -115,7 +108,7 @@ const AllResources = (props: any) => {
         <div
           className={classNames(
             {
-              'fixed top-0 pt-20 left-0 flex h-full w-full flex-col items-end bg-grey-black bg-opacity-50 px-10 backdrop-blur-sm':
+              'fixed left-0 top-0 flex h-full w-full flex-col items-end bg-grey-black bg-opacity-50 px-10 pt-20 backdrop-blur-sm':
                 mobileSettingsOpen,
             },
             {hidden: !mobileSettingsOpen},
