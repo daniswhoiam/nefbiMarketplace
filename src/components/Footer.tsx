@@ -5,7 +5,7 @@ import Hexagon from '../assets/images/hexagon.svg';
 
 const Footer = () => {
   return (
-    <footer className="z-99 relative z-50 w-full overflow-hidden bg-grey-black px-4 pb-2 pt-16 text-sm font-medium text-white lg:px-24">
+    <footer className="relative z-50 w-full overflow-hidden bg-grey-black px-4 pb-2 pt-16 text-sm font-medium text-white lg:px-24">
       <div className="mx-auto grid max-w-screen-xl grid-cols-1 gap-y-14 lg:grid-cols-3">
         <div className="col-span-1 flex flex-col justify-items-start gap-y-2">
           <Link href="/" className="mr-2">

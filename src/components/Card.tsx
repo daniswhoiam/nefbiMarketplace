@@ -5,7 +5,7 @@ import {MdKeyboardArrowRight} from 'react-icons/md';
 import {BiCategory} from 'react-icons/bi';
 import classNames from 'classnames';
 import {Resource} from '../utils/interfaces';
-import {calculateAge} from '../utils/helperFunctions';
+import {calculateAge, scrollToTop} from '../utils/helperFunctions';
 import Modal from './Modal';
 import ExternalLinkButton from './ExternalLinkButton';
 
@@ -42,7 +42,10 @@ const Card = ({resource}: {resource: Resource}) => {
       <div className="mt-2 flex min-h-[37px] items-center justify-between">
         <button
           className="flex items-center underline underline-offset-2"
-          onClick={() => setModalShown(true)}
+          onClick={() => {
+            scrollToTop();
+            setModalShown(true);
+          }}
         >
           <MdKeyboardArrowRight className="inline-block" /> Mehr anzeigen
         </button>

@@ -60,7 +60,7 @@ const Modal: React.FC<ModalProps> = ({resource, show, setModalShown}) => {
 
   return (
     <div
-      className={`modal left-0 top-0 z-[999] flex h-screen w-screen items-center justify-center overflow-y-auto overscroll-none ${
+      className={`modal left-0 top-8 py-4 z-99 flex h-screen w-screen items-center justify-center overflow-y-auto overscroll-none ${
         isOpen ? 'fixed' : 'hidden'
       }`}
     >
