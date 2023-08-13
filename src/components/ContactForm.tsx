@@ -35,7 +35,7 @@ const ContactForm = () => {
       }}
       validationSchema={formSchema}
       onSubmit={(values, {setSubmitting}) => {
-        fetch('https://formsubmit.co/daniil.belazovschi@gmail.com', {
+        fetch('https://formsubmit.co/admin@nefbi.de', {
           method: 'POST',
           body: JSON.stringify({...values}),
           headers: {'content-type': 'application/json'},
