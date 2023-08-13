@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
@@ -24,6 +24,14 @@ const formSchema = Yup.object({
 interface Form extends Yup.InferType<typeof formSchema> {}
 
 const ContactForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  if (isLoading) return <div>It's loading.</div>;
+  if (!isLoading && !isSent && hasError) return <div>There was an error.</div>;
+  if (!isLoading && isSent && !hasError) return <div>Success.</div>;
+
   return (
     <Formik
       initialValues={{
@@ -35,11 +43,23 @@ const ContactForm = () => {
       }}
       validationSchema={formSchema}
       onSubmit={(values, {setSubmitting}) => {
+        setIsLoading(true);
         fetch('https://formsubmit.co/admin@nefbi.de', {
           method: 'POST',
           body: JSON.stringify({...values}),
           headers: {'content-type': 'application/json'},
-        });
+        })
+          .then(response => {
+            setIsLoading(false);
+            if (!response.ok) {
+              setHasError(true);
+            } else {
+              setIsSent(true);
+            }
+          })
+          .catch(error => {
+            setHasError(true);
+          });
         setSubmitting(false);
       }}
     >
