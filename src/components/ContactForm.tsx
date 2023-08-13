@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import {ColorRing} from 'react-loader-spinner';
 
 const formSchema = Yup.object({
   firstName: Yup.string()
@@ -28,7 +29,7 @@ const ContactForm = () => {
   const [isSent, setIsSent] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  if (isLoading) return <div>It's loading.</div>;
+  if (isLoading) return <Loader />;
   if (!isLoading && !isSent && hasError) return <div>There was an error.</div>;
   if (!isLoading && isSent && !hasError) return <div>Success.</div>;
 
@@ -171,3 +172,21 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
+
+const Loader = () => {
+  return (
+    <div className="py-24">
+      <ColorRing
+        visible={true}
+        height={120}
+        width={120}
+        ariaLabel="Lade-Animation"
+        colors={['#39B5AC', '#298F88', '#E28D59', '#F5CD6D', '#FDDA88']}
+        wrapperClass="mx-auto mb-8"
+      />
+      <p className="mx-auto text-center text-base font-bold">
+        Bitte warte kurz...
+      </p>
+    </div>
+  );
+};
