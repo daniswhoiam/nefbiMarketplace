@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import {ColorRing} from 'react-loader-spinner';
+import {LuCheckCircle} from 'react-icons/lu';
 
 const formSchema = Yup.object({
   firstName: Yup.string()
@@ -26,12 +27,12 @@ interface Form extends Yup.InferType<typeof formSchema> {}
 
 const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isSent, setIsSent] = useState(false);
+  const [isSent, setIsSent] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   if (isLoading) return <Loader />;
   if (!isLoading && !isSent && hasError) return <div>There was an error.</div>;
-  if (!isLoading && isSent && !hasError) return <div>Success.</div>;
+  if (!isLoading && isSent && !hasError) return <SentSuccess />;
 
   return (
     <Formik
@@ -186,6 +187,23 @@ const Loader = () => {
       />
       <p className="mx-auto text-center text-base font-bold">
         Bitte warte kurz...
+      </p>
+    </div>
+  );
+};
+
+const SentSuccess = () => {
+  return (
+    <div className="py-24">
+      <LuCheckCircle
+        color="green"
+        size="120px"
+        className="mx-auto mb-8"
+        title="Nachricht gesendet"
+      />
+      <p className="mx-auto text-center text-3xl font-bold">Danke!</p>
+      <p className="mx-auto text-center text-base font-bold">
+        Wir haben deine Nachricht erhalten.
       </p>
     </div>
   );
