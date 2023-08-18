@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Formik, Field, Form, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import {ColorRing} from 'react-loader-spinner';
-import {LuCheckCircle} from 'react-icons/lu';
+import {LuCheckCircle, LuXCircle} from 'react-icons/lu';
 
 const formSchema = Yup.object({
   firstName: Yup.string()
@@ -27,11 +27,11 @@ interface Form extends Yup.InferType<typeof formSchema> {}
 
 const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isSent, setIsSent] = useState(true);
-  const [hasError, setHasError] = useState(false);
+  const [isSent, setIsSent] = useState(false);
+  const [hasError, setHasError] = useState(true);
 
   if (isLoading) return <Loader />;
-  if (!isLoading && !isSent && hasError) return <div>There was an error.</div>;
+  if (!isLoading && !isSent && hasError) return <SentError />;
   if (!isLoading && isSent && !hasError) return <SentSuccess />;
 
   return (
@@ -60,6 +60,7 @@ const ContactForm = () => {
             }
           })
           .catch(error => {
+            setIsLoading(false);
             setHasError(true);
           });
         setSubmitting(false);
@@ -204,6 +205,23 @@ const SentSuccess = () => {
       <p className="mx-auto text-center text-3xl font-bold">Danke!</p>
       <p className="mx-auto text-center text-base font-bold">
         Wir haben deine Nachricht erhalten.
+      </p>
+    </div>
+  );
+};
+
+const SentError = () => {
+  return (
+    <div className="py-24">
+      <LuXCircle
+        color="red"
+        size="120px"
+        className="mx-auto mb-8"
+        title="Fehler beim Versenden der Nachricht"
+      />
+      <p className="mx-auto text-center text-3xl font-bold">Ups!</p>
+      <p className="mx-auto text-center text-base font-bold">
+        Beim Versenden der Nachricht ist etwas schiefgelaufen.
       </p>
     </div>
   );
