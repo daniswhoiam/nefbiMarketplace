@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes, {InferProps} from 'prop-types';
-import {MdLaunch} from 'react-icons/md';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {BiCategory} from 'react-icons/bi';
 import classNames from 'classnames';
 import {Resource} from '../utils/interfaces';
-import {calculateAge, scrollToTop} from '../utils/helperFunctions';
+import {calculateAge} from '../utils/helperFunctions';
 import Modal from './Modal';
 import ExternalLinkButton from './ExternalLinkButton';
 
@@ -43,7 +42,6 @@ const Card = ({resource}: {resource: Resource}) => {
         <button
           className="flex items-center underline underline-offset-2"
           onClick={() => {
-            scrollToTop();
             setModalShown(true);
           }}
         >
