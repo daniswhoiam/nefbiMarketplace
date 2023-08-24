@@ -265,7 +265,7 @@ function handleFilterArray(resourceValue: Array<any>, filterValue: string[]) {
         return prev;
       }
     }, []);
-    return filtered.length === filterValue.length;
+    return filtered.length > 0;
   }
 }
 
