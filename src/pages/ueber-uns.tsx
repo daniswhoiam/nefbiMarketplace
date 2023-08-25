@@ -9,6 +9,8 @@ import Zugang from '../assets/images/zugang.svg';
 import Bildung from '../assets/images/bildung.svg';
 import Innovation from '../assets/images/innovation.svg';
 
+import Person from '../components/Person';
+
 const UeberUns = () => {
   return (
     <div className="mx-4 pb-36 md:mx-12 lg:pb-72">
@@ -77,36 +79,41 @@ const UeberUns = () => {
         </div>
       </div>
       <div className="mt-24 lg:mt-36">
-        <h2 className="mb-16 lg:mb-48 lg:text-center">Team</h2>
-        <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
-          <div className="flex flex-col items-center">
-            <img
-              src="/daniil_ro.png"
-              alt="Bild von Daniil Belazovschi"
-              className="mb-4 w-48 xl:w-64"
-            />
-            <p>Daniil Belazovschi</p>
-            <p className="text-jet-dark-grey">Gründer</p>
-          </div>
-          <div className="flex flex-col items-center">
-            <img
-              src="/natascha_ro.png"
-              alt="Bild von Natascha Berger"
-              className="mb-4 w-48 xl:w-64"
-            />
-            <p>Natascha Berger</p>
-            <p className="text-jet-dark-grey">Gründerin</p>
-          </div>
-          <div className="flex flex-col items-center md:col-span-2 lg:col-span-1">
-            <img
-              src="/luecy_ro.png"
-              alt="Bild von Katarina Lücy Fuchs"
-              className="mb-4 w-48 xl:w-64"
-            />
-            <p>Katarina Lücy Fuchs</p>
-            <p className="text-jet-dark-grey">Gründerin</p>
-          </div>
+        <h2 className="mb-8 lg:mb-24 lg:text-center">Team</h2>
+        <div className="flex flex-col gap-16 px-[10%] md:px-[20%]">
+          <Person
+            personData={{
+              imageSource: '/natascha_ro.png',
+              name: 'Natascha Berger',
+              role: 'Gründerin',
+              description:
+                'Natascha ist Erziehungswissenschaftlerin, Dozentin für Organisationspädagogik (Universität Koblenz), zertifizierte Trainerin (Train-the-Trainer), Multiplikatorin für die Reckahner Reflexionen und Geschäftsführerin von Wandelwärts. Sie blickt auf viele Jahre Praxiserfahrung mit und in Kindertageseinrichtungen und Grundschulen zurück, u.a. als Kita-Fachkraft und Mitarbeiterin in diversen Bildungsprojekten. Im Team von nefbi ist sie mit Lücy zusammen für die inhaltliche Konzeptionierung, das  Projektmanagement und die Öffentlichkeitsarbeit zuständig.',
+            }}
+          />
+          <Person
+            personData={{
+              imageSource: '/luecy_ro.png',
+              name: 'Katarina Lücy Fuchs',
+              role: 'Gründerin',
+              description:
+                'Lücy ist Sozialpädagogin, Multiplikatorin für die Reckahner Reflexionen und studiert neben ihrer Tätigkeit als Geschäftsführerin bei Wandelwärts den Master “Pädagogik und Management in der Sozialen Arbeit” an der TH Köln. Sie bringt über 12 Jahre Berufspraxis in multiprofessionellen Teams als Hortleitung, Kitaleitung, OGS-& Stiftungs-Mitarbeiterin und Dozentin/Referentin mit. Im Team von nefbi ist sie mit Natascha zusammen für die inhaltliche Konzeptionierung, das Projektmanagement und die  Öffentlichkeitsarbeit zuständig.',
+            }}
+          />
+          <Person
+            personData={{
+              imageSource: '/daniil_ro.png',
+              name: 'Daniil Belazovschi',
+              role: 'Gründer',
+              description:
+                'Daniil ist Entwickler und studiert im Master Wirtschaftsingenieurwesen mit einem Fokus auf Informatik an der TU Berlin. Durch die Gründung seines ehemaligen Unternehmens kitanauten gelangte er in den frühpädagogischen Bereich. Er blickt nun auf mehrere Jahre Programmierung in verschiedenen Bereichen zurück. Mit seinem Fokus auf die Webentwicklung ist er im Team von nefbi für die gesamte technische Konzeption und Umsetzung zuständig.',
+            }}
+          />
         </div>
+        <img
+          src="/nefbi_gruppenbild_sm.png"
+          alt="Nefbi Gruppenbild"
+          className="mx-auto mt-16 max-w-sm rounded-lg shadow-xl sm:max-w-md lg:max-w-3xl"
+        />
       </div>
       <h2 className="my-12 lg:my-36 lg:text-center">Schreibe uns</h2>
       <ContactForm />
