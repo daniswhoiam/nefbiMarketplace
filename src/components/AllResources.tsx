@@ -158,7 +158,7 @@ const AllResources = (props: any) => {
             activeFilterTab={activeFilterTab}
             query={query}
             setQuery={setQuery}
-            resources={results}
+            resources={data}
           />
         </div>
       </div>
@@ -265,7 +265,7 @@ function handleFilterArray(resourceValue: Array<any>, filterValue: string[]) {
         return prev;
       }
     }, []);
-    return filtered.length === filterValue.length;
+    return filtered.length > 0;
   }
 }
 

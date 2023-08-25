@@ -3,7 +3,7 @@ import HexagonBottomCloud from '../assets/images/hexagon_bottom_cloud.svg';
 
 const Datenschutz = () => {
   return (
-    <>
+    <div className='px-[20%] flex flex-col gap-4 mb-20'>
       <h1>Datenschutz</h1>
       <h2 id="m14">Einleitung</h2>
       <p className="text-justify">
@@ -80,9 +80,11 @@ const Datenschutz = () => {
         </li>
       </ul>
       <h2 id="m3">Verantwortlicher</h2>
-      <p>Daniil Belazovschi</p>
-      <p>Matternstr. 7</p>
-      <p>10249 Berlin</p>
+      <p>
+        Daniil Belazovschi<br/>
+        Matternstr. 7<br/>
+        10249 Berlin
+      </p>
       <p className="overline-text">E-Mail-Adresse:</p>
       <p className="text-justify">
         <a className="inline-link" href="mailto:daniil.belazovschi@gmail.com">
@@ -486,7 +488,7 @@ const Datenschutz = () => {
         </a>
       </p>
       <HexagonBottomCloud className="absolute inset-x-0 bottom-0 aspect-[15/8] fill-light-sea-green" />
-    </>
+    </div>
   );
 };
 

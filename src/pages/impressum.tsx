@@ -1,8 +1,9 @@
 import React from 'react';
+import HexagonBottomCloud from '../assets/images/hexagon_bottom_cloud.svg';
 
 const Impressum = () => {
   return (
-    <>
+    <div className='px-[20%] flex flex-col gap-4 mb-20'>
       <h1>Impressum</h1>
 
       <h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
@@ -27,8 +28,6 @@ const Impressum = () => {
 
       <h2>Kontakt</h2>
       <p>
-        Telefon: &#91;Telefonnummer&#93;
-        <br />
         E-Mail: admin@nefbi.de
       </p>
 
@@ -43,7 +42,8 @@ const Impressum = () => {
       <p>
         Quelle: <a href="https://www.e-recht24.de">eRecht24</a>
       </p>
-    </>
+      <HexagonBottomCloud className="absolute inset-x-0 bottom-0 xl:-bottom-80 aspect-[15/8] fill-light-sea-green" />
+    </div>
   );
 };
 

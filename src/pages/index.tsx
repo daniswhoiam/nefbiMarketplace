@@ -20,11 +20,11 @@ const Index = (props: any) => {
         </h1>
         <WavingMascot
           viewBox="0 0 700 700"
-          className="z-10 w-48 md:w-64 lg:absolute lg:-bottom-48 lg:-right-24 lg:w-[36rem] xl:right-4 2xl:right-36 2xl:w-[42rem]"
+          className="z-10 w-48 md:w-64 lg:absolute lg:-bottom-48 lg:-right-24 lg:w-[36rem] xl:right-[4%] xl:w-[36em] 2xl:right-[6%] 2xl:w-[42em]"
         />
         <div className="mx-4 text-center lg:mx-0 lg:text-left">
           <h2 className="lg:px-0 lg:text-4xl xl:mb-8">Was ist Nefbi?</h2>
-          <p className="md:px-24 lg:px-0 lg:pr-[40rem] xl:pr-[44rem] xl:text-base xl:font-semibold 2xl:pr-[48rem]">
+          <p className="md:px-24 lg:px-0 lg:pr-[40%] xl:pr-[45%] xl:text-base xl:font-semibold 2xl:pr-[45%]">
             nefbi steht für Netzwerk Frühe Bildung. Hier findest du vielfältige
             Materialien zu relevanten pädagogischen Themen. Egal ob du dich auf
             eine Facharbeit vorbereitest, den nächsten Praxisimpuls planst oder
@@ -40,7 +40,7 @@ const Index = (props: any) => {
       </div>
       <div className="mx-4 my-12 text-center lg:mx-0 lg:px-12 lg:text-left xl:px-[8rem] 2xl:px-[21rem]">
         <h2 className="lg:px-0 lg:text-4xl xl:mb-8">Wie nefbi funktioniert</h2>
-        <p className="md:px-24 lg:px-0 lg:pr-[40rem] xl:text-base xl:font-semibold 2xl:pr-[48rem]">
+        <p className="md:px-24 lg:px-0 lg:pr-[40%] xl:text-base xl:font-semibold 2xl:pr-[40%]">
           nefbi ermöglicht das Suchen und Finden von Materialien. Im Suchfeld
           kannst du Schlagworte eingeben. Zusätzlich ermöglicht die
           Filterfunktion, Ergebnisse besser einzugrenzen. <br></br> Wie die
@@ -53,10 +53,10 @@ const Index = (props: any) => {
           className="mx-auto w-96 p-8 lg:order-1 lg:mx-0 lg:justify-self-end"
         />
         <div className="p-8 lg:order-2 lg:my-auto lg:justify-self-start lg:p-0 lg:pr-80 2xl:pr-[36rem]">
-          <h3>Auswahl des Arbeitsbereiches</h3>
+          <h3>Auswahl der Altersgruppen</h3>
           <p className="md:px-24 lg:px-0 xl:text-base">
-            Wähle deinen Arbeitsbereich aus: Kindertagesstätte,
-            Kindertagespflege oder Hort/Ganztagsgrundschule.
+            Hier kannst du auswählen, auf welche Altersgruppen die gesuchten
+            Materialien fokussiert sein sollen.
           </p>
         </div>
         <StepTwo
@@ -64,9 +64,9 @@ const Index = (props: any) => {
           className="mx-auto w-96 p-8 lg:order-4 lg:mx-0 lg:justify-self-start"
         />
         <div className="p-8 lg:order-3 lg:my-auto lg:justify-self-end lg:p-0 lg:pl-80 2xl:pl-[36rem]">
-          <h3>Auswahl des gewünschten Formates</h3>
+          <h3>Auswahl der gewünschten Formate</h3>
           <p className="md:px-24 lg:px-0 xl:text-base">
-            Treffe eine Auswahl für das gewünschte Format: Online-Kurs,
+            Gebe an, welche Formate du sehen möchtest: Online-Kurs,
             Fachtext, Podcast, Video, Praxisimpuls und Aus der Praxis
           </p>
         </div>
@@ -77,9 +77,7 @@ const Index = (props: any) => {
         <div className="p-8 lg:order-6 lg:my-auto lg:justify-self-start lg:p-0 lg:pr-80 2xl:pr-[36rem]">
           <h3>Themenauswahl</h3>
           <p className="md:px-24 lg:px-0 xl:text-base">
-            Wähle eine Vielzahl von Themen aus unseren drei Kategorien aus:
-            Fokusthemen, Pädagogische Grundlagen und Mensch, Organisation und
-            Management.
+            Wähle aus einer Vielzahl von Themen diejenigen aus, die dich interessieren.
           </p>
         </div>
       </div>
