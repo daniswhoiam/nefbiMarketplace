@@ -47,6 +47,7 @@ const Pagination = ({
     >
       {/* Left navigation arrow */}
       <li
+        key="la"
         className={classnames(
           styles['pagination-item'],
           currentPage === 1 ? styles['disabled'] : '',
@@ -58,7 +59,11 @@ const Pagination = ({
       {paginationRange.map(pageNumber => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <li className={styles['pagination-item'].dots}>&#8230;</li>;
+          return (
+            <li key={pageNumber} className={styles['pagination-item'].dots}>
+              &#8230;
+            </li>
+          );
         }
 
         const isCurrent = pageNumber === currentPage;
@@ -66,6 +71,7 @@ const Pagination = ({
         // Render our Page Pills
         return (
           <li
+            key={pageNumber}
             className={classnames(styles['pagination-item'], {
               '!bg-light-sea-green-light': isCurrent,
               '!text-white': isCurrent,
@@ -78,6 +84,7 @@ const Pagination = ({
       })}
       {/*  Right Navigation arrow */}
       <li
+        key="ra"
         className={classnames(
           styles['pagination-item'],
           currentPage === lastPage ? styles['disabled'] : '',

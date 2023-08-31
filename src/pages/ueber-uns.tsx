@@ -19,7 +19,7 @@ const UeberUns = () => {
         className="absolute -right-24 -top-4 w-72 md:-top-36 md:w-96 lg:-top-64 lg:w-[36rem]"
         fill="#DADADA"
       />
-      <h1 className="mt-24 lg:text-center">Über uns</h1>
+      <h1 className="relative z-20 mt-24 lg:text-center">Über uns</h1>
       <div className="mt-36">
         <h2 className="text-xl lg:text-center lg:text-3xl xl:mb-20">
           nefbi - Netzwerk Frühe Bildung
@@ -112,7 +112,7 @@ const UeberUns = () => {
         <img
           src="/nefbi_gruppenbild_sm.png"
           alt="Nefbi Gruppenbild"
-          className="mx-auto mt-16 max-w-sm rounded-lg shadow-xl sm:max-w-md lg:max-w-3xl"
+          className="mx-auto mt-16 w-[90%] max-w-sm rounded-lg shadow-xl sm:max-w-md lg:max-w-3xl"
         />
       </div>
       <h2 className="my-12 lg:my-36 lg:text-center">Schreibe uns</h2>

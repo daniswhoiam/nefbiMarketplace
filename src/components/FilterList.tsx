@@ -138,6 +138,7 @@ const FilterList = ({
     >
       <label htmlFor="altersgruppe">Altersgruppen</label>
       <Select
+        instanceId={'altersgruppe'}
         id="altersgruppe"
         name="altersgruppe"
         ref={altersgruppeRef}
@@ -156,6 +157,7 @@ const FilterList = ({
       <Divider />
       <label htmlFor="erscheinungjahr">Erscheinungsjahr</label>
       <Select
+        instanceId={'erscheinungsjahr'}
         id="erscheinungsjahr"
         name="erscheinungsjahr"
         ref={erscheinungsjahrRef}
@@ -183,6 +185,7 @@ const FilterList = ({
       <Divider />
       <label htmlFor="sortierung">Sortieren nach</label>
       <Select
+        instanceId={'sortierung'}
         id="sortierung"
         name="sortierung"
         ref={sortRef}

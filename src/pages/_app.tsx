@@ -21,7 +21,7 @@ export default function MyApp({Component, pageProps}: AppProps) {
         />
         <meta property="og:url" content="www.nefbi.de" />
         <meta property="og:type" content="website" />
-        <link rel="icon" href="../../public/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
         <Component {...pageProps} />

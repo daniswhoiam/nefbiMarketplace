@@ -31,7 +31,7 @@ const Footer = () => {
           <Link href="/datenschutz">Datenschutz</Link>
         </div>
         <div className="col-span-1 flex flex-col gap-y-4 font-normal lg:col-span-3 lg:flex-row lg:justify-center lg:gap-x-16">
-          <p>&copy; nefbi 2022</p>
+          <p>&copy; nefbi 2023</p>
           <p>Alle Rechte vorbehalten</p>
           <Link href="/impressum" className="mb-2 text-lg tracking-[.015em]">
             <p>Impressum</p>

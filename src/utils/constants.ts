@@ -19,10 +19,12 @@ export const FORMATS = [
     value: 'Praxisimpuls',
     label: 'Praxisimpuls',
   },
+  /*
   {
     value: 'Aus der Praxis',
     label: 'Aus der Praxis',
   },
+  */
   {
     value: 'Online-Kurs',
     label: 'Online-Kurs',

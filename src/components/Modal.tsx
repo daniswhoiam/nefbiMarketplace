@@ -49,10 +49,11 @@ const Modal: React.FC<ModalProps> = ({resource, show, setModalShown}) => {
       isOpen={isOpen}
       portalClassName="fixed z-50"
       className={
-        'absolute bottom-4 left-4 right-4 top-4 mx-auto flex max-w-xl flex-col overflow-y-auto overflow-x-hidden rounded-md border border-gray-300 bg-white p-6 outline-none'
+        'absolute bottom-4 left-4 right-4 top-4 mx-auto flex max-w-4xl flex-col overflow-y-auto overflow-x-hidden rounded-md border border-gray-300 bg-white p-6 outline-none'
       }
       shouldCloseOnOverlayClick={true}
       onRequestClose={() => closeModal()}
+      appElement={document.getElementsByTagName('body')[0] as HTMLElement}
     >
       <button
         className="absolute right-6 top-6 text-4xl leading-none hover:text-gray-500"
@@ -66,7 +67,7 @@ const Modal: React.FC<ModalProps> = ({resource, show, setModalShown}) => {
         ) : (
           ''
         )}
-        <p className="mb-0 text-3xl font-bold text-light-sea-green-light">
+        <p className="mb-0 text-2xl font-bold text-light-sea-green-light">
           {titel}
         </p>
         <p className=" text-jet-dark-grey opacity-80 ">
