@@ -39,6 +39,7 @@ const Qualitaetskriterien = () => {
         <h2 className="lg:mb-12 2xl:w-full 2xl:max-w-[1568px]">Nach Format</h2>
         <div className="flex flex-col gap-8 sm:pl-12 md:grid md:grid-cols-2 md:pl-0 lg:gap-16 xl:grid-cols-3 2xl:w-full 2xl:max-w-[1568px]">
           <FormatQualitaet
+            key="Fachtexte"
             title="Fachtexte"
             bullets={[
               'Literatur- und Quellenangaben',
@@ -49,6 +50,7 @@ const Qualitaetskriterien = () => {
             ]}
           />
           <FormatQualitaet
+            key="Podcasts & Videos"
             title="Podcasts & Videos"
             bullets={[
               'Freier Zugang (ohne Kontoeinrichtung auf Spotify o.Ä.)',
@@ -58,6 +60,7 @@ const Qualitaetskriterien = () => {
             ]}
           />
           <FormatQualitaet
+            key="Praxisimpulse"
             title="Praxisimpulse"
             bullets={[
               'Freier Zugang',
@@ -66,6 +69,7 @@ const Qualitaetskriterien = () => {
             ]}
           />
           <FormatQualitaet
+            key="Online-Kurse"
             title="Online-Kurse"
             bullets={[
               'Kostenlos (Anmeldung möglich)',
@@ -75,6 +79,7 @@ const Qualitaetskriterien = () => {
             ]}
           />
           <FormatQualitaet
+            key="Aus der Praxis"
             title="Aus der Praxis"
             bullets={[
               'Datenschutzkonform (keine Personen identifizierbar außer Autor:in)',
@@ -84,7 +89,7 @@ const Qualitaetskriterien = () => {
           />
         </div>
       </div>
-      <HexagonBottomCloud className="absolute inset-x-0 bottom-0 xl:-bottom-80 aspect-[15/8] fill-light-sea-green" />
+      <HexagonBottomCloud className="absolute inset-x-0 bottom-0 aspect-[15/8] fill-light-sea-green xl:-bottom-80" />
     </>
   );
 };
@@ -102,7 +107,7 @@ const FormatQualitaet = ({
       <h3 className="relative z-10 py-4">{title}</h3>
       <ul className="list-disc px-8 leading-8">
         {bullets.map(val => {
-          return <li>{val}</li>;
+          return <li key={`${val}`}>{val}</li>;
         })}
       </ul>
     </div>

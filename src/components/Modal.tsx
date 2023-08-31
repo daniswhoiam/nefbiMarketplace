@@ -53,6 +53,7 @@ const Modal: React.FC<ModalProps> = ({resource, show, setModalShown}) => {
       }
       shouldCloseOnOverlayClick={true}
       onRequestClose={() => closeModal()}
+      appElement={document.getElementsByTagName('body')[0] as HTMLElement}
     >
       <button
         className="absolute right-6 top-6 text-4xl leading-none hover:text-gray-500"
