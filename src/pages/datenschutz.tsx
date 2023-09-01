@@ -87,8 +87,8 @@ const Datenschutz = () => {
       </p>
       <p className="overline-text">E-Mail-Adresse:</p>
       <p className="text-justify">
-        <a className="inline-link" href="mailto:daniil.belazovschi@gmail.com">
-          daniil.belazovschi@gmail.com
+        <a className="inline-link" href="mailto:admin@nefbi.de">
+          admin@nefbi.de
         </a>
       </p>
       <h2 id="mOverview">Übersicht der Verarbeitungen</h2>
