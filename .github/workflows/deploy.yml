@@ -1,0 +1,82 @@
+name: deploy
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: npm install
+        run: |
+          npm
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [18.16]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with: 
+          node-version: ${{ matrix.node-version }}
+      - name: npm install & test
+        run: |
+          npm
+          npm test
+        env:
+          CI: true
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: docker build . --file Dockerfile --tag nefbi-marketplace --label "runnumber=${GITHUB_RUN_ID}"
+      - name: Log into Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Push image
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/nefbi-marketplace
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "main" ] && VERSION=latest
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+          docker tag nefbi-marketplace $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+      - name: Deploy Container to Digitalocean
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          
+          script: |
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            IMAGE_ID=ghcr.io/${{ github.repository_owner }}/nextjs-blog
+            # Change all uppercase to lowercase
+            IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+            # Strip git ref prefix from version
+            VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+            # Strip "v" prefix from tag name
+            [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+            # Use Docker `latest` tag convention
+            [ "$VERSION" == "main" ] && VERSION=latest
+            echo IMAGE_ID=$IMAGE_ID
+            echo VERSION=$VERSION
+            docker pull $IMAGE_ID:$VERSION
+            docker update --restart=no nefbi-marketplace || true
+            docker stop nefbi-marketplace || true
+            docker rm nefbi-marketplace || true
+            docker run -d --restart unless-stopped -p 3000:3000 --name nefbi-marketplace $IMAGE_ID:$VERSION
