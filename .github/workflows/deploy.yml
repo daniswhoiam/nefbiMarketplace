@@ -83,4 +83,4 @@ jobs:
             docker update --restart=no nefbi-marketplace || true
             docker stop nefbi-marketplace || true
             docker rm nefbi-marketplace || true
-            docker run -d --restart unless-stopped -p 3000:3000 --name nefbi-marketplace -e NEXT_PUBLIC_MATOMO_URL=$NEXT_PUBLIC_MATOMO_URL -e NEXT_PUBLIC_MATOMO_SITE_ID=$NEXT_PUBLIC_MATOMO_SITE_ID $IMAGE_ID:$VERSION
+            docker run -d --restart unless-stopped -p 3000:3000 --name nefbi-marketplace -e NEXT_PUBLIC_MATOMO_URL=${{ vars.NEXT_PUBLIC_MATOMO_URL }} -e NEXT_PUBLIC_MATOMO_SITE_ID=${{ vars.NEXT_PUBLIC_MATOMO_SITE_ID }}$IMAGE_ID:$VERSION
