@@ -78,11 +78,11 @@ jobs:
             [ "$VERSION" == "main" ] && VERSION=latest
             echo IMAGE_ID=$IMAGE_ID
             echo VERSION=$VERSION
+            echo NEXT_PUBLIC_MATOMO_URL=$NEXT_PUBLIC_MATOMO_URL
+            echo NEXT_PUBLIC_MATOMO_SITE_ID=$NEXT_PUBLIC_MATOMO_SITE_ID
             docker pull $IMAGE_ID:$VERSION
             docker update --restart=no nefbi-marketplace || true
             docker stop nefbi-marketplace || true
             docker rm nefbi-marketplace || true
-            NEXT_PUBLIC_MATOMO_URL=$NEXT_PUBLIC_MATOMO_URL \
-            NEXT_PUBLIC_MATOMO_SITE_ID=$NEXT_PUBLIC_MATOMO_SITE_ID \
-            docker run -d --restart unless-stopped -p 3000:3000 --name nefbi-marketplace -e NEXT_PUBLIC_MATOMO_URL \ 
-            -e NEXT_PUBLIC_MATOMO_SITE_ID $IMAGE_ID:$VERSION
+            docker run -d --restart unless-stopped -p 3000:3000 --name nefbi-marketplace -e $NEXT_PUBLIC_MATOMO_URL \ 
+            -e $NEXT_PUBLIC_MATOMO_SITE_ID $IMAGE_ID:$VERSION
