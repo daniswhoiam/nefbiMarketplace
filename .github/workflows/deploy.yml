@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install & test
@@ -55,10 +55,10 @@ jobs:
           docker tag nefbi-marketplace $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
       - name: Deploy Container to Digitalocean
-        uses: appleboy/ssh-action@master
         env:
           NEXT_PUBLIC_MATOMO_URL: ${{ vars.NEXT_PUBLIC_MATOMO_URL }}
           NEXT_PUBLIC_MATOMO_SITE_ID: ${{ vars.NEXT_PUBLIC_MATOMO_SITE_ID }}
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
