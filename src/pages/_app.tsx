@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {AppProps} from 'next/app';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import '../assets/css/global.css';
+import {init} from '@socialgouv/matomo-next';
+
+const MATOMO_URL = process.env.NEXT_PUBLIC_MATOMO_URL;
+const MATOMO_SITE_ID = process.env.NEXT_PUBLIC_MATOMO_SITE_ID;
 
 export default function MyApp({Component, pageProps}: AppProps) {
+  if (MATOMO_URL && MATOMO_SITE_ID) {
+    useEffect(() => {
+      init({url: MATOMO_URL, siteId: MATOMO_SITE_ID, disableCookies: true});
+    }, []);
+  }
+
   return (
     <Layout>
       {/* Different Head Component for each page? */}
