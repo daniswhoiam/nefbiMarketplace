@@ -8,7 +8,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: npm install
         run: |
           npm install
@@ -20,7 +20,7 @@ jobs:
         os: [ubuntu-latest]
         node-version: [18.16]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Build image
         run: docker build . --file Dockerfile --tag nefbi-marketplace --label "runnumber=${GITHUB_RUN_ID}"
       - name: Log into Registry
@@ -64,6 +64,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          envs: NEXT_PUBLIC_MATOMO_URL, NEXT_PUBLIC_MATOMO_SITE_ID
 
           script: |
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -76,8 +77,6 @@ jobs:
             [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
             # Use Docker `latest` tag convention
             [ "$VERSION" == "main" ] && VERSION=latest
-            echo IMAGE_ID=$IMAGE_ID
-            echo VERSION=$VERSION
             echo NEXT_PUBLIC_MATOMO_URL=$NEXT_PUBLIC_MATOMO_URL
             echo NEXT_PUBLIC_MATOMO_SITE_ID=$NEXT_PUBLIC_MATOMO_SITE_ID
             docker pull $IMAGE_ID:$VERSION
