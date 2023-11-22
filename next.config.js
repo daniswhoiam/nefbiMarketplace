@@ -28,5 +28,9 @@ module.exports = {
     return config
   },
   assetPrefix: assetPrefix,
-  basePath: basePath
+  basePath: basePath,
+  publicRuntimeConfig: {
+    matomo_url: process.env.MATOMO_URL,
+    matomo_site_id: process.env.MATOMO_SITE_ID
+  }
 }
