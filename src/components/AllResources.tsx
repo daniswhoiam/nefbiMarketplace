@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useEffect} from 'react';
+import React, {useMemo, useState, useEffect, use} from 'react';
 import TagList from './TagList';
 import FilterList from './FilterList';
 import ResourcesList from './ResourcesList';
@@ -7,81 +7,54 @@ import {MdSearch} from 'react-icons/md';
 import {FaWindowClose} from 'react-icons/fa';
 import {LuSettings} from 'react-icons/lu';
 import classNames from 'classnames';
-const {Document} = require('flexsearch');
-import {
-  Resource,
-  filterFields,
-  searchResult,
-  Query,
-  Filter,
-} from '../utils/interfaces';
+import useFetchData from '../hooks/useFetchData';
+import {Filter} from '../utils/handleFilter';
 
-const PageSize = 6;
+import type {Resource, FilterFields, searchResult} from '../utils/interfaces';
+import {GetParameters} from '../utils/api';
+
+const PAGE_SIZE = 6;
 
 // https://tailwindcomponents.com/component/sidebar-2
-const AllResources = (props: any) => {
+const AllResources = () => {
   const [activeFilterTab, setActiveFilterTab] = useState('Filter');
   const [currentPage, setCurrentPage] = useState(1);
   // https://stackoverflow.com/questions/39713349/make-all-properties-within-a-typescript-interface-optional ; Partial
   // https://stackoverflow.com/questions/37427508/react-changing-an-uncontrolled-input ; thema Initialisierung
-  const [filterObject, setFilterObject] = useState<Partial<filterFields>>({
-    thema: [],
-  });
-  const [results, setResults] = useState<Array<Resource>>([]);
   const [mobileSettingsOpen, setMobileSettingsOpen] = useState(false);
-  const [query, setQuery] = useState<Query<Resource>>({
+  const {resources, responseParams, fetchData} = useFetchData();
+  const [getParameters, setGetParameters] = useState<GetParameters>({
+    user_field_names: true,
+    page: currentPage,
+    size: PAGE_SIZE,
+    exclude: 'Zuletzt geändert,Geändert von,Erstellt am,Erstellt von',
     search: '',
-    filter: {thema: []},
-    sort: {
-      field: 'id',
-      order: 'asc',
-    },
   });
-  // Get query data
-  const data: Array<Resource> = props.props.resources;
-
-  const index = new Document({
-    tokenize: 'forward',
-    document: {
-      index: [
-        'beschreibung',
-        'thema',
-        'titel',
-        'url',
-        'format',
-        'author',
-        'altersgruppe',
-        'erscheinungsjahr',
-        'herausgeber',
-      ],
-    },
-  });
-
-  data.forEach(el => index.add(el));
-
-  useEffect(() => {
-    const updateResults = async () => {
-      const updatedResults = await searchFilterSort(data, query, index);
-      setResults(updatedResults);
-    };
-
-    updateResults().catch(console.error);
-  }, [query]);
 
   const filterTabs = ['Filter', 'Themen'];
-  const noResults = results.length === 0;
-
-  // Data to be displayed on the current page
-  const currentData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * PageSize;
-    const lastPageIndex = firstPageIndex + PageSize;
-    return results.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, results]);
+  const noResults = resources.length === 0;
 
   // If search or filter changes, always go back to page one
   useEffect(() => {
+    if (
+      getParameters.filters?.getAllFilters().length == 0 &&
+      getParameters.filters
+        ?.getGroups()
+        .every(group => group.getAllFilters().length == 0)
+    ) {
+      const newGetParameters = {...getParameters};
+      delete newGetParameters.filters;
+      setGetParameters(newGetParameters);
+    }
+    console.log(JSON.stringify(getParameters.filters));
+    fetchData(getParameters);
     setCurrentPage(1);
-  }, [query]);
+  }, [getParameters]);
+
+  // Pagination
+  useEffect(() => {
+    setGetParameters({...getParameters, page: currentPage});
+  }, [currentPage]);
 
   // Disable background scrolling while mobile settings are open
 
@@ -98,8 +71,8 @@ const AllResources = (props: any) => {
             type="search"
             placeholder="Suche"
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setQuery({
-                ...query,
+              setGetParameters({
+                ...getParameters,
                 search: event.target.value,
               });
             }}
@@ -148,17 +121,17 @@ const AllResources = (props: any) => {
           </div>
           <FilterList
             activeFilterTab={activeFilterTab}
-            query={query}
-            setQuery={setQuery}
-            results={results}
+            getParameters={getParameters}
+            setGetParameters={setGetParameters}
+            resources={resources}
             mobileSettingsOpen={mobileSettingsOpen}
             setMobileSettingsOpen={setMobileSettingsOpen}
           />
           <TagList
             activeFilterTab={activeFilterTab}
-            query={query}
-            setQuery={setQuery}
-            resources={data}
+            getParameters={getParameters}
+            setGetParameters={setGetParameters}
+            resources={resources}
           />
         </div>
       </div>
@@ -175,19 +148,19 @@ const AllResources = (props: any) => {
             <LuSettings className="h-[24px]" size="3rem" />
           </button>
           <h4 className="h-11 font-sans text-lg font-medium leading-10">
-            {Math.max(currentData?.length, results?.length)} Ergebnisse
+            {responseParams.count} Ergebnisse
           </h4>
         </div>
         {noResults ? (
           <div className="grow">Es gibt keine Ergebnisse für diese Suche.</div>
         ) : (
           <div className="flex grow flex-col">
-            <ResourcesList currentItems={currentData} />
+            <ResourcesList currentItems={resources} />
             <Pagination
               className="pagination-bar mt-8"
               currentPage={currentPage}
-              totalCount={results.length}
-              pageSize={PageSize}
+              totalCount={responseParams.count || 0}
+              pageSize={PAGE_SIZE}
               siblingCount={2}
               onPageChange={(page: number) => {
                 setCurrentPage(page);
@@ -202,129 +175,3 @@ const AllResources = (props: any) => {
 };
 
 export default AllResources;
-
-function filterResults(
-  baseResults: Array<Resource>,
-  filterObject: Partial<filterFields> | Filter<Resource>,
-) {
-  const filterResults = baseResults.filter((resource: Resource) => {
-    const filterResult: boolean[] = [];
-    Object.keys(filterObject).forEach(key => {
-      const filterValue = filterObject[key as keyof filterFields];
-      // When filter is being removed, return all entries
-      if (filterValue === 'Alle') {
-        filterResult.push(true);
-        return;
-      }
-
-      const resourceValue = resource[key as keyof Resource];
-      // Comparison and handling if user filters for "no value" => show those without value
-      if (Array.isArray(resourceValue)) {
-        filterResult.push(handleResourceArray(resourceValue, filterValue));
-      } else {
-        if (filterValue === 'Kein Eintrag') {
-          filterResult.push(resourceValue === '');
-        } else {
-          filterResult.push(resourceValue === filterValue);
-        }
-      }
-    });
-
-    const allFiltersTrue = filterResult.every(val => val);
-
-    return allFiltersTrue;
-  });
-
-  return filterResults;
-}
-
-function handleResourceArray(
-  resourceValue: Array<any>,
-  filterValue?: string | string[],
-) {
-  // https://linguinecode.com/post/how-to-solve-typescript-possibly-undefined-value
-  if (filterValue === 'Kein Eintrag') {
-    return resourceValue.length == 0;
-  } else {
-    if (Array.isArray(filterValue)) {
-      return handleFilterArray(resourceValue, filterValue);
-    } else {
-      return resourceValue.includes(filterValue!);
-    }
-  }
-}
-
-function handleFilterArray(resourceValue: Array<any>, filterValue: string[]) {
-  if (filterValue.length === 0) {
-    return true;
-  } else {
-    const filtered = filterValue.reduce<string[]>((prev, cur) => {
-      if (resourceValue.includes(cur!)) {
-        return [...prev, cur];
-      } else {
-        return prev;
-      }
-    }, []);
-    return filtered.length > 0;
-  }
-}
-
-async function getSearchResults(
-  data: Resource[],
-  index: any,
-  searchQuery: string,
-): Promise<Resource[]> {
-  const searchResults: searchResult[] = await index.search(searchQuery);
-  const resultIDs = searchResults.reduce<string[]>((acc, cur) => {
-    cur.result.forEach(result => {
-      if (!acc.includes(result)) {
-        acc.push(result);
-        getSearchResults;
-      }
-    });
-    return acc;
-  }, []);
-  const results: Resource[] = data.filter(resource =>
-    resultIDs.includes(resource.id),
-  );
-  return results;
-}
-
-async function searchFilterSort(
-  data: Resource[],
-  query: Query<Resource>,
-  index: any,
-): Promise<Resource[]> {
-  let results: Resource[] = data;
-
-  // Search
-  if (query.search) {
-    results = await getSearchResults(data, index, query.search);
-  }
-
-  // Filter
-  if (
-    query.filter &&
-    (Object.keys(query.filter).length > 1 || query.filter['thema']!.length > 0)
-  ) {
-    results = filterResults(results, query.filter);
-  }
-
-  // Sort
-  if (query.sort && query.sort.field && query.sort.order) {
-    const compareFn = (a: Resource, b: Resource) => {
-      const valueA = a[query.sort.field as keyof Resource];
-      const valueB = b[query.sort.field as keyof Resource];
-      if (valueA < valueB) {
-        return query.sort.order === 'asc' ? -1 : 1;
-      }
-      if (valueA > valueB) {
-        return query.sort.order === 'asc' ? 1 : -1;
-      }
-      return 0;
-    };
-    results = [...results.sort(compareFn)];
-  }
-
-  return results;
-}

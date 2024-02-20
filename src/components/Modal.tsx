@@ -83,7 +83,7 @@ const Modal: React.FC<ModalProps> = ({resource, show, setModalShown}) => {
           {format ? (
             <div className="flex flex-row items-center justify-center">
               <BiCategory className="h-[21px]" size="1.4rem" />
-              <p className="mb-0 py-2 pl-2 font-bold">{format[0]}</p>
+              <p className="mb-0 py-2 pl-2 font-bold">{format}</p>
             </div>
           ) : (
             ''

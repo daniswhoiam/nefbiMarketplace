@@ -1,49 +1,63 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Resource, Query} from '../utils/interfaces';
+import {Resource} from '../utils/interfaces';
 import setupTags from '../utils/setupTags';
+import {GetParameters} from '../utils/api';
 import classNames from 'classnames';
-import {removeFromFilter, addToFilter} from '../utils/handleFilter';
-import {removeItem} from '../utils/helperFunctions';
-
-const TagListPropTypes = {
-  resources: PropTypes.array,
-};
+import {Filter} from '../utils/handleFilter';
 
 const TagList = ({
-  query,
-  setQuery,
+  getParameters,
+  setGetParameters,
   resources = [],
   activeFilterTab,
 }: {
-  query: Query<Resource>;
-  setQuery: React.Dispatch<React.SetStateAction<Query<Resource>>>;
+  getParameters: GetParameters;
+  setGetParameters: React.Dispatch<React.SetStateAction<GetParameters>>;
   resources: Array<Resource>;
   activeFilterTab: string;
 }) => {
+  // TO DO change with new API
   const newTags = setupTags(resources);
 
   // https://stackoverflow.com/questions/40676343/typescript-input-onchange-event-target-value ; Event Type
   // https://bobbyhadz.com/blog/react-check-if-checkbox-is-checked ; If checkbox is checked
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let themen = [event.target.value];
+    let thema = event.target.value;
+    const mainFilter = getParameters.filters || new Filter();
+    const themenFilter = mainFilter.getOrAddToGroups('thema');
+    // If the click checks the checkbox, add the value to the filter
     if (event.target.checked) {
-      if ('thema' in query.filter) {
-        // https://bobbyhadz.com/blog/typescript-type-undefined-must-have-symbol-iterator ; Solve iterable problem
-        themen = [...themen, ...(query.filter['thema'] || [])];
-      }
-      setQuery({...query, filter: addToFilter(query.filter, {thema: themen})});
+      themenFilter.addToFilters({field: 'thema', type: 'equal', value: thema});
     } else {
-      themen = [...(query.filter['thema'] || [])];
-      if (themen.includes(event.target.value)) {
-        themen = removeItem(themen, event.target.value);
-        setQuery({
-          ...query,
-          filter: addToFilter(removeFromFilter(query.filter, 'thema'), {
-            thema: themen,
-          }),
+      // If the click unchecks the checkbox, remove the value from the filter
+      themenFilter.removeSpecificFilters({
+        field: 'thema',
+        type: 'equal',
+        value: thema,
+      });
+    }
+    setGetParameters({...getParameters, filters: mainFilter});
+  };
+
+  const isChecked = (tag: string) => {
+    const mainFilter = getParameters.filters;
+    if (mainFilter?.hasGroups()) {
+      const groups = mainFilter.getGroups();
+      const themenFilter = groups.find(group =>
+        group.hasIncludedField('thema'),
+      );
+      if (themenFilter) {
+        const tagFilters = themenFilter.getSpecificFilters({
+          field: 'thema',
+          type: 'equal',
+          value: tag,
         });
+        return tagFilters ? true : false;
+      } else {
+        return false;
       }
+    } else {
+      return false;
     }
   };
 
@@ -66,7 +80,7 @@ const TagList = ({
               value={text}
               type="checkbox"
               onChange={handleChange}
-              checked={query.filter['thema']?.includes(text as string)}
+              checked={isChecked(text as string)}
             />
             <p
               key={index}
@@ -80,7 +94,5 @@ const TagList = ({
     </div>
   );
 };
-
-TagList.propTypes = TagListPropTypes;
 
 export default TagList;

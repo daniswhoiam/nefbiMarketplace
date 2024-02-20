@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes, {InferProps} from 'prop-types';
 import {MdKeyboardArrowRight} from 'react-icons/md';
 import {BiCategory} from 'react-icons/bi';
 import classNames from 'classnames';
@@ -7,8 +6,6 @@ import {Resource} from '../utils/interfaces';
 import {calculateAge} from '../utils/helperFunctions';
 import Modal from './Modal';
 import ExternalLinkButton from './ExternalLinkButton';
-
-// TO DO PropTypes
 
 // Props: https://stackoverflow.com/questions/59301171/is-not-assignable-to-type-intrinsicattributes-react-js-and-typescript-js
 // Design: https://tailwindcomponents.com/component/tailwind-item-card, https://tailwindcomponents.com/component/article-news-card-1
@@ -27,7 +24,7 @@ const Card = ({resource}: {resource: Resource}) => {
       <div className="flex items-center justify-between">
         <div className="flex flex-row items-center justify-center">
           <BiCategory className="h-[21px]" size="1.4rem" />
-          <p className="mb-0 py-2 pl-2 font-bold">{format[0]}</p>
+          <p className="mb-0 py-2 pl-2 font-bold">{format}</p>
         </div>
         <ExternalLinkButton url={url} />
       </div>
