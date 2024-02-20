@@ -1,12 +1,10 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import Select, {ActionMeta, MultiValue, SingleValue} from 'react-select';
-import {Resource, FilterFields, Filters, Sort} from '../utils/interfaces';
+import {Resource, FilterFields, Sort} from '../utils/interfaces';
 import {GetParameters} from '../utils/api';
 import classNames from 'classnames';
 import {Filter} from '../utils/handleFilter';
 import {FORMATS} from '../utils/constants';
-import {format} from 'path';
-import {set} from 'lodash';
 
 export interface AddToFilter {
   (partialFilter: Partial<FilterFields>): void;
@@ -23,14 +21,12 @@ interface Option {
 const FilterList = ({
   getParameters,
   setGetParameters,
-  resources,
   activeFilterTab,
   mobileSettingsOpen,
   setMobileSettingsOpen,
 }: {
   getParameters: GetParameters;
   setGetParameters: React.Dispatch<React.SetStateAction<GetParameters>>;
-  resources: Array<Resource>;
   activeFilterTab: string;
   mobileSettingsOpen: boolean;
   setMobileSettingsOpen: React.Dispatch<React.SetStateAction<boolean>>;
