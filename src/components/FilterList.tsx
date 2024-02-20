@@ -47,8 +47,7 @@ const FilterList = ({
     '2022',
   ];
   const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre);
-  // Why does deconstruct not work?
-  const filterResetDisabled = Object.keys(getParameters as Object).includes(
+  const filterResetDisabled = !Object.keys(getParameters as Object).includes(
     'filters',
   );
 
@@ -92,10 +91,10 @@ const FilterList = ({
     const value = newValue?.value || undefined;
     let mainFilter = getParameters.filters || new Filter();
 
+    console.log(triggerAction.action);
+
     // https://github.com/JedWatson/react-select/issues/1309
-    if (triggerAction.action === 'clear') {
-      mainFilter = new Filter();
-    } else if (value) {
+    if (value && triggerAction.action !== 'clear') {
       mainFilter.addToFilters({
         field: filterField,
         type: 'equal',
@@ -125,22 +124,18 @@ const FilterList = ({
     const value = newValue?.map(val => val.value) || undefined;
     let mainFilter = getParameters.filters || new Filter();
 
-    if (triggerAction.action === 'clear') {
-      mainFilter = new Filter();
-    } else {
-      const fieldFilter = mainFilter.getOrAddToGroups(filterField);
+    const fieldFilter = mainFilter.getOrAddToGroups(filterField);
 
-      if (value) {
-        fieldFilter.setFilters(
-          value.map(val => ({
-            field: filterField,
-            type: 'contains',
-            value: val,
-          })),
-        );
-      } else {
-        mainFilter.removeSpecificGroup(fieldFilter);
-      }
+    if (value && triggerAction.action !== 'clear') {
+      fieldFilter.setFilters(
+        value.map(val => ({
+          field: filterField,
+          type: 'contains',
+          value: val,
+        })),
+      );
+    } else {
+      mainFilter.removeSpecificGroup(fieldFilter);
     }
 
     setGetParameters({
