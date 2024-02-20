@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useEffect, use} from 'react';
+import React, {useMemo, useState, useEffect} from 'react';
 import TagList from './TagList';
 import FilterList from './FilterList';
 import ResourcesList from './ResourcesList';
@@ -8,9 +8,8 @@ import {FaWindowClose} from 'react-icons/fa';
 import {LuSettings} from 'react-icons/lu';
 import classNames from 'classnames';
 import useFetchData from '../hooks/useFetchData';
-import {Filter} from '../utils/handleFilter';
+import useFetchFields from '../hooks/useFetchFields';
 
-import type {Resource, FilterFields, searchResult} from '../utils/interfaces';
 import {GetParameters} from '../utils/api';
 
 const PAGE_SIZE = 6;
@@ -30,8 +29,7 @@ const AllResources = () => {
     exclude: 'Zuletzt geändert,Geändert von,Erstellt am,Erstellt von',
     search: '',
   });
-
-  console.log(resources);
+  const fields = useFetchFields();
 
   const filterTabs = ['Filter', 'Themen'];
   const noResults = resources.length === 0;
@@ -43,12 +41,11 @@ const AllResources = () => {
         ?.getGroups()
         .every(group => group.getAllFilters().length == 0)
     ) {
-      console.log("?")
+      console.log('?');
       const newGetParameters = {...getParameters};
       delete newGetParameters.filters;
       setGetParameters(newGetParameters);
     }
-    console.log(JSON.stringify(getParameters.filters));
     fetchData(getParameters);
   }, [getParameters]);
 
@@ -128,12 +125,14 @@ const AllResources = () => {
             mobileSettingsOpen={mobileSettingsOpen}
             setMobileSettingsOpen={setMobileSettingsOpen}
           />
-          <TagList
-            activeFilterTab={activeFilterTab}
-            getParameters={getParameters}
-            setGetParameters={setGetParameters}
-            resources={resources}
-          />
+          {fields && (
+            <TagList
+              activeFilterTab={activeFilterTab}
+              getParameters={getParameters}
+              setGetParameters={setGetParameters}
+              fields={fields}
+            />
+          )}
         </div>
       </div>
       <div className="z-10 col-span-10 flex flex-col justify-between p-2 lg:col-span-7">

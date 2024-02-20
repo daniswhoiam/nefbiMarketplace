@@ -125,7 +125,7 @@ export class Filter {
    * @param filters - The Filters element to remove.
    */
   removeSpecificFilters(filters: Filters) {
-    this.filters = this.filters.filter(el => el !== filters);
+    this.filters = this.filters.filter(el => JSON.stringify(el) !== JSON.stringify(filters));
   }
 
   /**

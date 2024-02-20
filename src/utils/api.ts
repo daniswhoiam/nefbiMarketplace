@@ -123,6 +123,18 @@ export class Api {
       return zeroResult;
     }
   }
+
+  async getFields(): Promise<any> {
+    const response: ApiResponse<any> = await this.apisauce.get(
+      'database/fields/table/248102/',
+    );
+
+    if (!response.ok) {
+      return [];
+    }
+
+    return response.data;
+  }
 }
 
 function isResourceComplete(resource: Resource): boolean {
