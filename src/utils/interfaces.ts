@@ -40,7 +40,9 @@ type FiltersType =
   | 'empty'
   | 'not_empty'
   | 'contains'
-  | 'contains_not';
+  | 'contains_not'
+  | 'single_select_equal'
+  | 'single_select_not_equal';
 
 export type Filters = {
   field: keyof FilterFields;

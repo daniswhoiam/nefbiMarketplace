@@ -300,7 +300,7 @@ const Format = ({
         {['bg-opacity-10']: active},
       )}
       onClick={() => {
-        const mainFilter = getParameters.filters;
+        const mainFilter = getParameters.filters || new Filter();
         {
           /* If Format is active, remove it from filter */
         }
@@ -317,21 +317,22 @@ const Format = ({
           if (formatFilters) {
             formatFilter?.removeSpecificFilters(formatFilters);
           }
-          setGetParameters({
-            ...getParameters,
-            filters: mainFilter,
-          });
         } else {
           {
             /* Otherwise, add it to filter */
           }
+          console.log(mainFilter)
           const formatFilter = mainFilter?.getOrAddToGroups('format');
           formatFilter?.addToFilters({
             field: 'format',
-            type: 'equal',
+            type: 'single_select_equal',
             value: format.value,
           });
         }
+        setGetParameters({
+          ...getParameters,
+          filters: mainFilter,
+        });
         toggleActiveFormat(format.value);
       }}
     >

@@ -42,6 +42,7 @@ const AllResources = () => {
         ?.getGroups()
         .every(group => group.getAllFilters().length == 0)
     ) {
+      console.log("?")
       const newGetParameters = {...getParameters};
       delete newGetParameters.filters;
       setGetParameters(newGetParameters);
