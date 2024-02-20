@@ -31,6 +31,8 @@ const AllResources = () => {
     search: '',
   });
 
+  console.log(resources);
+
   const filterTabs = ['Filter', 'Themen'];
   const noResults = resources.length === 0;
 

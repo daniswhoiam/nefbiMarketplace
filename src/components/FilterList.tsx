@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import {Filter} from '../utils/handleFilter';
 import {FORMATS} from '../utils/constants';
 import {format} from 'path';
+import {set} from 'lodash';
 
 export interface AddToFilter {
   (partialFilter: Partial<FilterFields>): void;
@@ -36,7 +37,15 @@ const FilterList = ({
 }) => {
   const altersgruppen = ['0-3 Jahre', '3-6 Jahre', '6-10 Jahre'];
   const altersgruppenOptions = resultsToOptions(altersgruppen);
-  const erscheinungsjahre = ['2013', '2016', '2017', '2018', '2020', '2021', '2022'];
+  const erscheinungsjahre = [
+    '2013',
+    '2016',
+    '2017',
+    '2018',
+    '2020',
+    '2021',
+    '2022',
+  ];
   const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre);
   // Why does deconstruct not work?
   const filterResetDisabled = Object.keys(getParameters as Object).includes(
@@ -212,15 +221,18 @@ const FilterList = ({
         onChange={option => {
           if (option == sortOptions[0]) {
             delete getParameters.order_by;
+            setGetParameters({
+              ...getParameters,
+            });
           } else {
             const field = option?.value.field;
             const order = option?.value.order;
             const orderSign = order === 'asc' ? '+' : '-';
-            const formattedSortField = field
+            /*const formattedSortField = field
               ? field.charAt(0).toUpperCase() + field.slice(1)
-              : '';
-            const orderBy = orderSign + formattedSortField;
-            if (formattedSortField !== '') {
+              : '';*/
+            const orderBy = orderSign + field;
+            if (field) {
               setGetParameters({
                 ...getParameters,
                 order_by: orderBy,
@@ -321,7 +333,7 @@ const Format = ({
           {
             /* Otherwise, add it to filter */
           }
-          console.log(mainFilter)
+          console.log(mainFilter);
           const formatFilter = mainFilter?.getOrAddToGroups('format');
           formatFilter?.addToFilters({
             field: 'format',

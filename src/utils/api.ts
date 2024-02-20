@@ -92,7 +92,7 @@ export class Api {
 
     // transform the data into the format we are expecting
     try {
-      const results = response.data.results.map((resource: any) => {
+      let results = response.data.results.map((resource: any) => {
         resource = {
           beschreibung: resource.beschreibung,
           id: resource.id,
@@ -111,7 +111,7 @@ export class Api {
       });
 
       // Filter all null values from results
-      results.filter((result: Resource) => result !== null);
+      results = results.filter((result: Resource) => result !== null);
 
       return {
         count: response.data.count,
