@@ -36,7 +36,6 @@ const AllResources = () => {
   const filterTabs = ['Filter', 'Themen'];
   const noResults = resources.length === 0;
 
-  // If search or filter changes, always go back to page one
   useEffect(() => {
     if (
       getParameters.filters?.getAllFilters().length == 0 &&
@@ -51,7 +50,6 @@ const AllResources = () => {
     }
     console.log(JSON.stringify(getParameters.filters));
     fetchData(getParameters);
-    setCurrentPage(1);
   }, [getParameters]);
 
   // Pagination
