@@ -1,13 +1,13 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import Select, {ActionMeta, MultiValue, SingleValue} from 'react-select';
-import {Query, Resource, filterFields, Sort} from '../utils/interfaces';
-import {array} from 'prop-types';
+import {Resource, FilterFields, Sort} from '../utils/interfaces';
+import {GetParameters} from '../utils/api';
 import classNames from 'classnames';
-import {removeFromFilter, addToFilter} from '../utils/handleFilter';
+import {Filter} from '../utils/handleFilter';
 import {FORMATS} from '../utils/constants';
 
 export interface AddToFilter {
-  (partialFilter: Partial<filterFields>): void;
+  (partialFilter: Partial<FilterFields>): void;
 }
 interface SortOption {
   value: Sort;
@@ -19,37 +19,40 @@ interface Option {
 }
 
 const FilterList = ({
-  query,
-  setQuery,
-  results,
+  getParameters,
+  setGetParameters,
   activeFilterTab,
   mobileSettingsOpen,
   setMobileSettingsOpen,
 }: {
-  query: Query<Resource>;
-  setQuery: React.Dispatch<React.SetStateAction<Query<Resource>>>;
-  results: Array<Resource>;
+  getParameters: GetParameters;
+  setGetParameters: React.Dispatch<React.SetStateAction<GetParameters>>;
   activeFilterTab: string;
   mobileSettingsOpen: boolean;
   setMobileSettingsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  let distinctValues = calcDistinctValues(results, [
-    'altersgruppe',
-    'erscheinungsjahr',
-    'format',
-  ]);
   const altersgruppen = ['0-3 Jahre', '3-6 Jahre', '6-10 Jahre'];
   const altersgruppenOptions = resultsToOptions(altersgruppen);
-  const erscheinungsjahre = distinctValues.erscheinungsjahr;
+  const erscheinungsjahre = [
+    '2013',
+    '2016',
+    '2017',
+    '2018',
+    '2020',
+    '2021',
+    '2022',
+  ];
   const erscheinungsjahreOptions = resultsToOptions(erscheinungsjahre);
-  // Why does deconstruct not work?
-  const filterResetDisabled = Object.keys(query.filter).length === 0;
+  const filterResetDisabled = !Object.keys(getParameters as Object).includes(
+    'filters',
+  );
 
   const altersgruppeRef = useRef<any>();
   const erscheinungsjahrRef = useRef<any>();
   const sortRef = useRef<any>();
   const [activeFormats, setActiveFormats] = useState<Array<string>>([]);
 
+  // TO-DO: Get from API
   const sortOptions: Array<SortOption> = [
     {value: {field: 'id', order: 'asc'}, label: 'Relevanz'},
     {
@@ -70,57 +73,71 @@ const FilterList = ({
     },
   ];
 
-  distinctValues = useMemo(() => {
-    return calcDistinctValues(results, ['altersgruppe', 'erscheinungsjahr']);
-  }, [query]);
-
-  function handleFilterChange(
+  /**
+   * Handle Change of SingleValue Selects. These create a Filters element in the filter.
+   * @param newValue
+   * @param triggerAction
+   * @param filterField
+   */
+  function handleSingleValueChange(
     newValue: SingleValue<{value: string}>,
     triggerAction: ActionMeta<{value: string}>,
-    filterField: keyof filterFields,
+    filterField: keyof FilterFields,
   ) {
-    let value: string | undefined;
-    if (newValue === null || newValue === undefined) {
-      value = undefined;
-    } else {
-      value = newValue.value;
-    }
+    const value = newValue?.value || undefined;
+    let mainFilter = getParameters.filters || new Filter();
+
+    console.log(triggerAction.action);
+
     // https://github.com/JedWatson/react-select/issues/1309
-    if (triggerAction.action === 'clear') {
-      setQuery({
-        ...query,
-        filter: removeFromFilter(query.filter, filterField),
+    if (value && triggerAction.action !== 'clear') {
+      mainFilter.addToFilters({
+        field: filterField,
+        type: 'equal',
+        value: value,
       });
     } else {
-      setQuery({
-        ...query,
-        filter: addToFilter(query.filter, {
-          [filterField as keyof filterFields]: value,
-        }),
-      });
+      mainFilter.removeFiltersByField(filterField);
     }
+
+    setGetParameters({
+      ...getParameters,
+      filters: mainFilter,
+    });
   }
 
-  function handleMultiFilterChange(
-    newValues: MultiValue<{value: string}>,
-    actionMeta: ActionMeta<{value: string}>,
-    filterField: keyof filterFields,
+  /**
+   * Handle change of MultiValue Selects. These ALWAYS create a group in the filter and not only a Filters element.
+   * @param newValue
+   * @param triggerAction
+   * @param filterField
+   */
+  function handleMultiValueChange(
+    newValue: MultiValue<{value: string}>,
+    triggerAction: ActionMeta<{value: string}>,
+    filterField: keyof FilterFields,
   ) {
-    let values = newValues.map(value => value.value);
-    switch (actionMeta.action) {
-      case 'clear':
-        setQuery({
-          ...query,
-          filter: removeFromFilter(query.filter, filterField),
-        });
-      default:
-        setQuery({
-          ...query,
-          filter: addToFilter(query.filter, {
-            [filterField as keyof filterFields]: values,
-          }),
-        });
+    const value = newValue?.map(val => val.value) || undefined;
+    let mainFilter = getParameters.filters || new Filter();
+
+    const fieldFilter = mainFilter.getOrAddToGroups(filterField);
+
+    if (value && triggerAction.action !== 'clear') {
+      fieldFilter.setFilters(
+        value.map(val => ({
+          field: filterField,
+          type: 'contains',
+          value: val,
+        })),
+      );
+    } else {
+      mainFilter.removeSpecificGroup(fieldFilter);
     }
+
+    setGetParameters({
+      ...getParameters,
+      filters: mainFilter,
+    });
   }
 
   function toggleActiveFormat(format: string) {
@@ -150,7 +167,7 @@ const FilterList = ({
           newValue: MultiValue<{value: string}>,
           actionMeta: ActionMeta<{value: string}>,
         ) => {
-          handleMultiFilterChange(newValue, actionMeta, 'altersgruppe');
+          handleMultiValueChange(newValue, actionMeta, 'altersgruppe');
         }}
         isClearable={true}
       />
@@ -164,7 +181,7 @@ const FilterList = ({
         options={erscheinungsjahreOptions}
         placeholder="Alle Erscheinungsjahre"
         onChange={(newValue: SingleValue<{value: string}>, triggerAction) => {
-          handleFilterChange(newValue, triggerAction, 'erscheinungsjahr');
+          handleSingleValueChange(newValue, triggerAction, 'erscheinungsjahr');
         }}
         isClearable={true}
       />
@@ -175,8 +192,8 @@ const FilterList = ({
           <Format
             key={i}
             format={option}
-            query={query}
-            setQuery={setQuery}
+            getParameters={getParameters}
+            setGetParameters={setGetParameters}
             active={activeFormats.includes(option.value)}
             toggleActiveFormat={toggleActiveFormat}
           />
@@ -193,10 +210,26 @@ const FilterList = ({
         options={sortOptions}
         getOptionLabel={option => option.label}
         onChange={option => {
-          setQuery({
-            ...query,
-            sort: option!.value,
-          });
+          if (option == sortOptions[0]) {
+            delete getParameters.order_by;
+            setGetParameters({
+              ...getParameters,
+            });
+          } else {
+            const field = option?.value.field;
+            const order = option?.value.order;
+            const orderSign = order === 'asc' ? '+' : '-';
+            /*const formattedSortField = field
+              ? field.charAt(0).toUpperCase() + field.slice(1)
+              : '';*/
+            const orderBy = orderSign + field;
+            if (field) {
+              setGetParameters({
+                ...getParameters,
+                order_by: orderBy,
+              });
+            }
+          }
         }}
       />
       <Divider />
@@ -219,13 +252,12 @@ const FilterList = ({
           erscheinungsjahrRef.current.clearValue();
           sortRef.current.setValue(sortOptions[0]);
           activeFormats.length = 0;
-          setQuery({
+          delete getParameters.order_by;
+          delete getParameters.filters;
+          delete getParameters.search;
+          setGetParameters({
+            ...getParameters,
             search: '',
-            filter: {thema: []},
-            sort: {
-              field: 'id',
-              order: 'asc',
-            },
           });
         }}
       >
@@ -234,22 +266,6 @@ const FilterList = ({
     </div>
   );
 };
-
-function calcDistinctValues(resourceArray: Array<Resource>, keys: string[]) {
-  const distinctResults: {[k: string]: any} = {};
-  keys.forEach(key => {
-    const allKeyValues = resourceArray.reduce<string[]>((prev, cur) => {
-      const currentKeyValue: string | string[] = cur[key as keyof Resource];
-      if (typeof currentKeyValue == 'string') {
-        return [...prev, currentKeyValue];
-      } else {
-        return [...prev, ...currentKeyValue];
-      }
-    }, []);
-    distinctResults[key as keyof object] = [...new Set(allKeyValues)].sort();
-  });
-  return distinctResults;
-}
 
 function resultsToOptions(arr: Array<any>) {
   return arr.map((val: any) => {
@@ -267,14 +283,14 @@ const Divider = () => {
 
 const Format = ({
   format,
-  query,
-  setQuery,
+  getParameters,
+  setGetParameters,
   active,
   toggleActiveFormat,
 }: {
   format: Option;
-  query: Query<Resource>;
-  setQuery: React.Dispatch<React.SetStateAction<Query<Resource>>>;
+  getParameters: GetParameters;
+  setGetParameters: React.Dispatch<React.SetStateAction<GetParameters>>;
   active: boolean;
   toggleActiveFormat: (format: string) => void;
 }) => {
@@ -287,32 +303,39 @@ const Format = ({
         {['bg-opacity-10']: active},
       )}
       onClick={() => {
+        const mainFilter = getParameters.filters || new Filter();
+        {
+          /* If Format is active, remove it from filter */
+        }
         if (active) {
           {
             /* To fix multiple Format filters problem */
           }
-          let formatFilters = query.filter.format || [];
-          formatFilters = formatFilters.filter(
-            element => element !== format.value,
-          );
-
-          setQuery({
-            ...query,
-            filter: addToFilter(query.filter, {
-              ['format' as keyof filterFields]: formatFilters,
-            }),
-          });
+          const formatFilter = mainFilter
+            ?.getGroups()
+            .filter(group => group.hasIncludedField('format'))[0];
+          const formatFilters = formatFilter
+            ?.getAllFilters()
+            .find(el => el.value === format.value);
+          if (formatFilters) {
+            formatFilter?.removeSpecificFilters(formatFilters);
+          }
         } else {
-          let formatFilters = query.filter.format || [];
-          formatFilters = [...formatFilters, format.value];
-
-          setQuery({
-            ...query,
-            filter: addToFilter(query.filter, {
-              ['format' as keyof filterFields]: formatFilters,
-            }),
+          {
+            /* Otherwise, add it to filter */
+          }
+          console.log(mainFilter);
+          const formatFilter = mainFilter?.getOrAddToGroups('format');
+          formatFilter?.addToFilters({
+            field: 'format',
+            type: 'single_select_equal',
+            value: format.value,
           });
         }
+        setGetParameters({
+          ...getParameters,
+          filters: mainFilter,
+        });
         toggleActiveFormat(format.value);
       }}
     >

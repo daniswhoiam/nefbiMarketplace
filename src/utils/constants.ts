@@ -1,22 +1,22 @@
 export const FORMATS = [
   {
-    value: 'Podcast',
+    value: '1286010',
     label: 'Podcast',
   },
   {
-    value: 'Video',
+    value: '1286011',
     label: 'Video',
   },
   {
-    value: 'Fachtext',
+    value: '1286012',
     label: 'Fachtext',
   },
   {
-    value: 'Sonstiges',
+    value: '1286013',
     label: 'Sonstiges',
   },
   {
-    value: 'Praxisimpuls',
+    value: '1286014',
     label: 'Praxisimpuls',
   },
   /*
@@ -26,7 +26,7 @@ export const FORMATS = [
   },
   */
   {
-    value: 'Online-Kurs',
+    value: '1286016',
     label: 'Online-Kurs',
   },
 ];

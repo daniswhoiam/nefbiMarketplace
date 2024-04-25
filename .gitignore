@@ -52,8 +52,9 @@ typings/
 *.tgz
 
 # dotenv environment variable files
-.env
-.env.local
+/.env
+/.env.production
+/.env.local
 
 # Mac files
 .DS_Store
@@ -66,7 +67,7 @@ yarn-error.log
 .yarn-integrity
 
 # Local Content
-# src/data/
+src/data/
 
 # Next files
 .next

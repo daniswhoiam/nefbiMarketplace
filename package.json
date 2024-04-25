@@ -15,6 +15,7 @@
   "dependencies": {
     "@socialgouv/matomo-next": "^1.8.0",
     "@types/react-modal": "^3.16.0",
+    "apisauce": "^3.0.1",
     "classnames": "^2.3.1",
     "flexsearch": "^0.7.31",
     "formik": "^2.2.9",

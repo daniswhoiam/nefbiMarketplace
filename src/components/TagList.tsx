@@ -1,50 +1,48 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Resource, Query} from '../utils/interfaces';
-import setupTags from '../utils/setupTags';
+import React, {useState} from 'react';
+import {GetParameters} from '../utils/api';
 import classNames from 'classnames';
-import {removeFromFilter, addToFilter} from '../utils/handleFilter';
-import {removeItem} from '../utils/helperFunctions';
-
-const TagListPropTypes = {
-  resources: PropTypes.array,
-};
+import {Filter} from '../utils/handleFilter';
 
 const TagList = ({
-  query,
-  setQuery,
-  resources = [],
+  getParameters,
+  setGetParameters,
+  fields,
   activeFilterTab,
 }: {
-  query: Query<Resource>;
-  setQuery: React.Dispatch<React.SetStateAction<Query<Resource>>>;
-  resources: Array<Resource>;
+  getParameters: GetParameters;
+  setGetParameters: React.Dispatch<React.SetStateAction<GetParameters>>;
+  fields: Array<any> | null;
   activeFilterTab: string;
 }) => {
-  const newTags = setupTags(resources);
+  // TO DO change with new API
+  const newTags = fields
+    ?.find(field => field.name === 'thema')
+    ?.select_options?.map((option: any) => {
+      return [option.value, option.id];
+    });
 
   // https://stackoverflow.com/questions/40676343/typescript-input-onchange-event-target-value ; Event Type
   // https://bobbyhadz.com/blog/react-check-if-checkbox-is-checked ; If checkbox is checked
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    let themen = [event.target.value];
+    let thema = event.target.value;
+    const mainFilter = getParameters.filters || new Filter();
+    const themenFilter = mainFilter.getOrAddToGroups('thema');
+    // If the click checks the checkbox, add the value to the filter
     if (event.target.checked) {
-      if ('thema' in query.filter) {
-        // https://bobbyhadz.com/blog/typescript-type-undefined-must-have-symbol-iterator ; Solve iterable problem
-        themen = [...themen, ...(query.filter['thema'] || [])];
-      }
-      setQuery({...query, filter: addToFilter(query.filter, {thema: themen})});
+      themenFilter.addToFilters({
+        field: 'thema',
+        type: 'contains',
+        value: thema,
+      });
     } else {
-      themen = [...(query.filter['thema'] || [])];
-      if (themen.includes(event.target.value)) {
-        themen = removeItem(themen, event.target.value);
-        setQuery({
-          ...query,
-          filter: addToFilter(removeFromFilter(query.filter, 'thema'), {
-            thema: themen,
-          }),
-        });
-      }
+      // If the click unchecks the checkbox, remove the value from the filter
+      themenFilter.removeSpecificFilters({
+        field: 'thema',
+        type: 'contains',
+        value: thema,
+      });
     }
+    setGetParameters({...getParameters, filters: mainFilter});
   };
 
   return (
@@ -56,31 +54,38 @@ const TagList = ({
         },
       )}
     >
-      {newTags.map((tag, index) => {
-        const [text, value] = tag;
-
-        return (
-          <div key={index} className="flex items-center">
-            {/*https://bobbyhadz.com/blog/react-check-if-checkbox-is-checked*/}
-            <input
-              value={text}
-              type="checkbox"
-              onChange={handleChange}
-              checked={query.filter['thema']?.includes(text as string)}
-            />
-            <p
-              key={index}
-              className="mb-0 ml-2 flex font-medium leading-6 text-gray-500"
-            >
-              {text} ({value})
-            </p>
-          </div>
-        );
+      {newTags?.map((tag: string[], index: number) => {
+        return <Tag key={index} tag={tag} handleChange={handleChange} />;
       })}
     </div>
   );
 };
 
-TagList.propTypes = TagListPropTypes;
-
 export default TagList;
+
+const Tag = ({
+  tag,
+  handleChange,
+}: {
+  tag: string[];
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}) => {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <div className="flex items-center">
+      <input
+        value={tag[0]}
+        type="checkbox"
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          handleChange(event);
+          setChecked(!checked);
+        }}
+        checked={checked}
+      />
+      <p className="mb-0 ml-2 flex font-medium leading-6 text-gray-500">
+        {tag[0]}
+      </p>
+    </div>
+  );
+};

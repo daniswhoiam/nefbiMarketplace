@@ -20,7 +20,7 @@ export interface PaginationProps {
   className: string;
 }
 
-export interface filterFields {
+export interface FilterFields {
   altersgruppe: Array<string>;
   erscheinungsjahr: string;
   thema: Array<string>;
@@ -32,8 +32,22 @@ export interface searchResult {
   result: Array<string>;
 }
 
-export type Filter<T> = {
-  [K in keyof T]?: T[K]; //| ((value: T[K]) => boolean);
+export type FilterType = 'AND' | 'OR';
+
+type FiltersType =
+  | 'equal'
+  | 'not_equal'
+  | 'empty'
+  | 'not_empty'
+  | 'contains'
+  | 'contains_not'
+  | 'single_select_equal'
+  | 'single_select_not_equal';
+
+export type Filters = {
+  field: keyof FilterFields;
+  type: FiltersType;
+  value: string;
 };
 
 export type SortOrder = 'asc' | 'desc';
@@ -41,10 +55,4 @@ export type SortOrder = 'asc' | 'desc';
 export interface Sort {
   field: keyof Resource;
   order: SortOrder;
-}
-
-export interface Query<T> {
-  search: string;
-  filter: Filter<T>;
-  sort: Sort;
 }
