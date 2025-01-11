@@ -30,8 +30,6 @@ module.exports = {
   assetPrefix: assetPrefix,
   basePath: basePath,
   publicRuntimeConfig: {
-    matomo_url: process.env.MATOMO_URL,
-    matomo_site_id: process.env.MATOMO_SITE_ID,
     database_token: process.env.DATABASE_TOKEN
   }
 }

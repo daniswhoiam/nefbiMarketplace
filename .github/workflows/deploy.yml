@@ -55,16 +55,12 @@ jobs:
           docker tag nefbi-marketplace $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
       - name: Deploy Container to Digitalocean
-        env:
-          NEXT_PUBLIC_MATOMO_URL: ${{ vars.NEXT_PUBLIC_MATOMO_URL }}
-          NEXT_PUBLIC_MATOMO_SITE_ID: ${{ vars.NEXT_PUBLIC_MATOMO_SITE_ID }}
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          envs: NEXT_PUBLIC_MATOMO_URL, NEXT_PUBLIC_MATOMO_SITE_ID
 
           script: |
             echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -79,10 +75,8 @@ jobs:
             [ "$VERSION" == "main" ] && VERSION=latest
             echo IMAGE_ID=$IMAGE_ID
             echo VERSION=$VERSION
-            echo NEXT_PUBLIC_MATOMO_URL=$NEXT_PUBLIC_MATOMO_URL
-            echo NEXT_PUBLIC_MATOMO_SITE_ID=$NEXT_PUBLIC_MATOMO_SITE_ID
             docker pull $IMAGE_ID:$VERSION
             docker update --restart=no nefbi-marketplace || true
             docker stop nefbi-marketplace || true
             docker rm nefbi-marketplace || true
-            docker run -d --restart unless-stopped -p 3000:3000 --name nefbi-marketplace -e MATOMO_URL="${{ vars.NEXT_PUBLIC_MATOMO_URL }}" -e MATOMO_SITE_ID="${{ vars.NEXT_PUBLIC_MATOMO_SITE_ID }}" $IMAGE_ID:$VERSION
+            docker run -d --restart unless-stopped -p 3000:3000 --name nefbi-marketplace $IMAGE_ID:$VERSION

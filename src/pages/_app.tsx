@@ -3,20 +3,12 @@ import {AppProps} from 'next/app';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import '../assets/css/global.css';
-import {init} from '@socialgouv/matomo-next';
 import getConfig from 'next/config';
 
 const {publicRuntimeConfig: config} = getConfig();
 
-const MATOMO_URL = process.env.MATOMO_URL || config.matomo_url;
-const MATOMO_SITE_ID = process.env.MATOMO_SITE_ID || config.matomo_site_id;
 
 export default function MyApp({Component, pageProps}: AppProps) {
-  if (MATOMO_URL && MATOMO_SITE_ID) {
-    useEffect(() => {
-      init({url: MATOMO_URL, siteId: MATOMO_SITE_ID, disableCookies: true});
-    }, []);
-  }
 
   return (
     <Layout>
